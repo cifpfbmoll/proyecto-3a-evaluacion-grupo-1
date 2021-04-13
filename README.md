@@ -7,3 +7,10 @@ Empezamos el proyecto. Recogemos los requisitos del programa que nos ha dado el 
 # 29/03/2021
 
 Tenemos que pasar el diagrama E-R a modelo relacional. Si nos da tiempo también empezaremos a pensar que clases tendría que tener el programa, su herencia,… y empezar a anotar. Necesitaremos hablar con el product owner para estar seguro de lo que quiere almacenar en la nomina. 
+
+# 30/03/2021
+Nos hemos comunicado con el producto owner para estar seguros de que necesita en la tabla nominas. Hemos decidido crear una tabla plantilla para las nominas para que así sean mas fáciles de crear. Intentaremos terminar el modelo relacional hoy y dejar lo mas perfilado posible el documento de las classes y los métodos. Hoy se termina el 1 Sprint.
+
+
+# 13/04/2021
+Empezamos Sprint dos, el objetivo de este Sprint es crear las clases i las tablas e inserts principales de la base de datos. Dividiremos el trabajo i terminaremos de perfilar los canvios que sean necesarios.
