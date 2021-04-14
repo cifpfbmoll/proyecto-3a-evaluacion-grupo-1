@@ -1,3 +1,5 @@
+package main.java.Main.Classes;
+
 public abstract class Persona {
     private String nombre;
     private String apellido1;
