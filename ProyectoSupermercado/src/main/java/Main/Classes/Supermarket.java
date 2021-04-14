@@ -98,7 +98,6 @@ public class Supermarket {
     }
 
     private Supermarket() {
-        this.code = amount.getAndIncrement();
 
     }
 }
