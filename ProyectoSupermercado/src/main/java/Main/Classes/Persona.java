@@ -1,4 +1,4 @@
-package main.java.Main.Classes;
+package Main.Classes;
 
 public abstract class Persona {
     private String nombre;
