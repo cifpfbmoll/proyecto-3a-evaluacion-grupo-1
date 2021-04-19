@@ -32,9 +32,7 @@ public class Herramientas {
     
     public static void enviarComando(String query) throws SQLException{
         //Tomeu21!
-        //GRANT ALL ON *.* to admin@'Vuestra IP' IDENTIFIED BY 'Tomeu21!'; 
-        //FLUSH PRIVILEGES;
-        conexion=DriverManager.getConnection("jdbc:mysql://51.178.152.220:3306/pruebajaume", "admin", "Tomeu21!");
+        conexion=DriverManager.getConnection("jdbc:mysql://51.178.152.220:3306/pruebajaume", "admin1", "Tomeu21!");
         comando=conexion.prepareStatement(query);        
         resultado=comando.executeQuery();
     }
