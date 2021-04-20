@@ -125,22 +125,11 @@ public abstract class Persona {
     public abstract void cambiarContraseña(String novaContraseña);
 
     //En futuro añadir transacciones a BBDD
-    public void añadirPersona(String nombre, String apellido1, String apellido2, String nif, String cAutonoma, String localidad, String cPostal, String direccion,
-    String email, String contraseña, int telefono) {
-        setNombre(nombre);
-        setApellido1(apellido1);
-        setApellido2(apellido2);
-        setNif(nif);
-        setCAutonoma(cAutonoma);
-        setLocalidad(localidad);
-        setCPostal(cPostal);
-        setDireccion(direccion);
-        setEmail(email);
-        setContraseña(contraseña);
-        setTelefono(telefono);
+    public void añadirPersona() {
+        //TO DO cuando transacciones
     }
 
-    public void eliminarPersona(String nif) {
+    public void eliminarPersona() {
         //TO DO cuando transacciones
     }
 }
