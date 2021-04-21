@@ -1,3 +1,5 @@
+package Main.Classes;
+
 public class Empleado extends Persona {
     private String id;
     private String codigoSupermercado;
@@ -73,6 +75,11 @@ public class Empleado extends Persona {
 
     public void consultarNominas(String id) {
         // TODO Cuando BBDD
+    }
+
+    @Override
+    public void cambiarContraseña() {
+        //TODO Cuando BBDD
     }
 
 }
