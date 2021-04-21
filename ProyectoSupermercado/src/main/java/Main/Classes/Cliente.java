@@ -1,3 +1,5 @@
+package Main.Classes;
+
 public class Cliente extends Persona {
     public Cliente() {
         super();
@@ -22,5 +24,10 @@ public class Cliente extends Persona {
 
     public void editarCLiente() {
         //TO DO cuando transacciones
+    }
+
+    @Override
+    public void cambiarContraseña(String novaContraseña) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
