@@ -47,4 +47,8 @@ public class ProductoLimpieza extends Producto {
                 break;
         }
     }
+    
+    public static void CrearProductoLimpieza(Superficie superficie, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
+        ProductoLimpieza pl1 = new ProductoLimpieza(superficie, codigoProd, nombreProd, precioProd, descripcionProd);
+    }
 }

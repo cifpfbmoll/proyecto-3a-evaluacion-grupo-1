@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Main.Classes;
-
+import java.text.SimpleDateFormat;  
 import java.util.Date;
 
 /**
@@ -26,7 +26,13 @@ public class ProductoBebida extends Producto {
     }
 
     public void setCaducidad(Date caducidad) {
-        this.caducidad = caducidad;
+        Date todayDate = new Date();
+        if ((caducidad.after(todayDate))){ //encara no funciona el equals, hauria d'anar amb aquest or || (caducidad.equals(todayDate))){
+            this.caducidad = caducidad;
+            System.out.println("Se ha puesto");
+        } else {
+            System.out.println("Error, la fecha es anterior al dia de hoy");
+        }
     }
 
     public Boolean getAlcoholica() {
@@ -36,4 +42,13 @@ public class ProductoBebida extends Producto {
     public void setAlcoholica(Boolean alcoholica) {
         this.alcoholica = alcoholica;
     } 
+    
+    public static void CrearProductoBebida(Date caducidad, Boolean alcoholica, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
+        ProductoBebida pb1 = new ProductoBebida(caducidad, alcoholica, codigoProd, nombreProd, precioProd, descripcionProd);
+    }
 }
+
+//Prueba añadir bebida
+//Date fecha = new SimpleDateFormat("dd/MM/yyyy").parse("02/01/2020");
+//ProductoBebida bebida = new ProductoBebida(fecha, true, 1, "Test", 3, "si");
+//System.out.println(bebida.getCaducidad());

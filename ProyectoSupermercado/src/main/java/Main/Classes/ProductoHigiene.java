@@ -5,6 +5,8 @@
  */
 package Main.Classes;
 
+import java.util.Date;
+
 /**
  *
  * @author josep
@@ -70,5 +72,9 @@ public class ProductoHigiene extends Producto {
                 this.tipoHigiene = tipoHigiene;
                 break;
         }
+    }
+    
+    public static void CrearProductoHigiene(TipoHigiene tipoHigiene, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
+        ProductoHigiene ph1 = new ProductoHigiene(tipoHigiene, codigoProd, nombreProd, precioProd, descripcionProd);
     }
 }
