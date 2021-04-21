@@ -25,4 +25,4 @@ He tenido problemas con el servidor, no me dejava conectarme con mi ip. He tenid
 En principio hoy crearemos las tablas. James ayer me entrego el sql con todos los create table, los he revisado para ver que todo estuviera correcto y he añadido la tabla líneas carrito. Hay gente que ha terminado sus clases y gente que no, los que ya han terminado están hechando una mano a los otros con sus clases. Las tablas han sido creadas correctamente en la base de datos.
 
 # 21/04/2021
-Hoy termina el Sprint 2. Tenemos creadas las tablas de la base de datos. Hoy se tienen que terminar las clases para poder empezar con el siguiente sprint.
+Hoy termina el Sprint 2. Tenemos creadas las tablas de la base de datos. Hoy se tienen que terminar las clases para poder empezar con el siguiente sprint. Hemos cumplido todos los objetivos de este Sprint.
