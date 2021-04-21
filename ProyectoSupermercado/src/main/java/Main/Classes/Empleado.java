@@ -1,8 +1,11 @@
+package Main.Classes;
+
 public class Empleado extends Persona {
     private String id;
     private String codigoSupermercado;
     private String puestoTrabajo;
     private Privilegios privilegios;
+
 
     public enum Privilegios {
         jefe,
@@ -55,6 +58,11 @@ public class Empleado extends Persona {
 		this.privilegios = privilegios;
 	}
 
+    @Override
+    public void cambiarContraseña(String novaContraseña) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+        
     @Override
     public void añadirPersona() {
         // TODO Cuando BBDD
