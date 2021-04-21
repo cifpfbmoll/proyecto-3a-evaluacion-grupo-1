@@ -15,7 +15,6 @@ import java.util.Date;
  */
 public class Main {
     public static void main(String[] args) throws ParseException {
-        System.out.println("gilipollas "
-                + "");
+        System.out.println("Josep, xerra be, no posis tacos!");
     }
 }

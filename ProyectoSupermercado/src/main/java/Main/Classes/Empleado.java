@@ -1,8 +1,8 @@
 package Main.Classes;
 
 public class Empleado extends Persona {
-    private String id;
-    private String codigoSupermercado;
+    private int id;
+    private int codigoSupermercado;
     private String puestoTrabajo;
     private Privilegios privilegios;
 
@@ -18,7 +18,7 @@ public class Empleado extends Persona {
     }
 
     public Empleado(String nombre, String apellido1, String apellido2, String nif, String cAutonoma, String localidad, String cPostal, String direccion,
-    String email, String contraseña, int telefono, String id, String codigoSupermercado, String puestoTrabajo, Privilegios privilegios) {
+    String email, String contraseña, int telefono, int id, int codigoSupermercado, String puestoTrabajo, Privilegios privilegios) {
         super(nombre, apellido1, apellido2, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
         setId(id);
         setCodigoSupermercado(codigoSupermercado);
@@ -26,19 +26,19 @@ public class Empleado extends Persona {
         setPrivilegios(privilegios);
     }
 
-    public String getId() {
+    public int getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getCodigoSupermercado() {
+	public int getCodigoSupermercado() {
 		return this.codigoSupermercado;
 	}
 
-	public void setCodigoSupermercado(String codigoSupermercado) {
+	public void setCodigoSupermercado(int codigoSupermercado) {
 		this.codigoSupermercado = codigoSupermercado;
 	}
 
@@ -57,11 +57,6 @@ public class Empleado extends Persona {
 	public void setPrivilegios(Privilegios privilegios) {
 		this.privilegios = privilegios;
 	}
-
-    @Override
-    public void cambiarContraseña(String novaContraseña) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
         
     @Override
     public void añadirPersona() {
@@ -75,12 +70,17 @@ public class Empleado extends Persona {
         super.eliminarPersona();
     }
 
-    public void certificadoIRPFAnual(String id) {
+    public void certificadoIRPFAnual(int id) {
         // TODO CUando BBDD
     }
 
-    public void consultarNominas(String id) {
+    public void consultarNominas(int id) {
         // TODO Cuando BBDD
+    }
+
+    @Override
+    public void cambiarContraseña(String novaContraseña) {
+        //TODO Cuando BBDD
     }
 
 }

@@ -28,6 +28,6 @@ public class Cliente extends Persona {
 
     @Override
     public void cambiarContraseña(String novaContraseña) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //TODO Cuando BBDD
     }
 }

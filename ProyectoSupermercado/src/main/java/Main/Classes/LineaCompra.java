@@ -49,6 +49,5 @@ public class LineaCompra {
         return "LineaTicket{" + "producto=" + producto + ", cantidad=" + cantidad + '}';
     }
     
-    
   
 }

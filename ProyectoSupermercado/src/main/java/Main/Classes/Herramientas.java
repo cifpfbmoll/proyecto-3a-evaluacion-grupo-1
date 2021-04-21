@@ -19,10 +19,10 @@ public class Herramientas {
     
     /* EJEMPLO DE COMO USAR METODOS PARA LA BASE DE DATOS*/
     public static void main(String[] args) throws SQLException {
-        enviarComando("SELECT * FROM prueba");
+        enviarComando("SELECT * FROM producto");
         ResultSet result=Herramientas.getResultado();
         result.next();
-        System.out.println("El jugador "+result.getString(1)+" juega en el ");
+        System.out.println("Esto es un "+result.getString(2));
         cerrarConexion();
     }
 
@@ -32,7 +32,7 @@ public class Herramientas {
     
     public static void enviarComando(String query) throws SQLException{
         //Tomeu21!
-        conexion=DriverManager.getConnection("jdbc:mysql://51.178.152.220:3306/pruebajaume", "admin1", "Tomeu21!");
+        conexion=DriverManager.getConnection("jdbc:mysql://51.178.152.220:3306/metradona", "admin1", "Tomeu21!");
         comando=conexion.prepareStatement(query);        
         resultado=comando.executeQuery();
     }

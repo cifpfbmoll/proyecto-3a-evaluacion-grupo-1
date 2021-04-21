@@ -29,7 +29,8 @@ public class Ticket {
     /**
      * Constructor para crear un nuevo ticket.
      * @param codigoSupermercado int
-     * @param PrecioTotal double
+     * @param precioTotal double
+     * @param lineasTicket ArrayList
      * @throws SQLException 
      */
     public Ticket(int codigoSupermercado, double precioTotal, ArrayList <LineaCompra> lineasTicket) throws SQLException {
@@ -47,6 +48,7 @@ public class Ticket {
      * @param fechaCompra LocalDate
      * @param horaCompra LocalTime
      * @param PrecioTotal double
+     * @param lineasTicket ArrayList
      */
     public Ticket(int codigo, int codigoSupermercado, LocalDate fechaCompra, LocalTime horaCompra, double PrecioTotal, ArrayList <LineaCompra> lineasTicket) {
         this.setCodigo(codigo);
@@ -79,7 +81,7 @@ public class Ticket {
      * @throws SQLException 
      */
     public void setCodigo() throws SQLException {
-        Herramientas.enviarComando("SELECT MAX(codigo) FROM sys.ticket");
+        Herramientas.enviarComando("SELECT MAX(codigo_ticket) FROM ticket");
         ResultSet resultado=Herramientas.getResultado();
         resultado.next();
         this.codigo = (resultado.getInt(1))+1;
@@ -151,12 +153,15 @@ public class Ticket {
         return "Ticket{" + "codigo=" + codigo + ", codigoSupermercado=" + codigoSupermercado + ", fechaCompra=" + fechaCompra + ", horaCompra=" + horaCompra + ", PrecioTotal=" + precioTotal + '}';
     }
     
-    public static void crearTicket(int codigoSupermercado, double precioTotal, ArrayList <LineaCompra> lineasTicket) throws SQLException{
+    public static void crearTicket(int codigoSupermercado, double precioTotal, ArrayList <LineaCompra> lineasTicket, String nif ) throws SQLException{
         //precio total se calculara de la lineasticket, for i sumar todos los precios productos.
-        //codigo supermercado se coge del que se ha eligido al entrar.
+        //codigo supermercado y nif se coge del que se ha eligido al entrar.
         Ticket t1=new Ticket(codigoSupermercado, precioTotal, lineasTicket);
-        Herramientas.enviarComando("INSERT INTO ticket Values("+")");
+        LocalDate fecha=t1.getFechaCompra();
+        LocalTime hora=t1.getHoraCompra();
+        DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
+        Herramientas.enviarComando("INSERT INTO ticket Values("+t1.getCodigo()+","+nif+","+t1.getCodigoSupermercado()+","+fecha.format(formatoFecha)+","+hora.format(formatoHora)+","+t1.getPrecioTotal()+")");
         Herramientas.cerrarConexion();
-        
     }
 }

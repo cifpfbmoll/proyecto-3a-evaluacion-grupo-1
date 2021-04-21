@@ -11,10 +11,10 @@ package Main.Classes;
 abstract class Producto {
     private int codigoProd;
     private String nombreProd;
-    private float precioProd;   
+    private double precioProd;   
     private String descripcionProd;
 
-    public Producto(int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
+    public Producto(int codigoProd, String nombreProd, double precioProd, String descripcionProd) {
         this.codigoProd = codigoProd;
         this.nombreProd = nombreProd;
         this.precioProd = precioProd;
@@ -37,11 +37,11 @@ abstract class Producto {
         this.nombreProd = nombreProd;
     }
 
-    public float getPrecioProd() {
+    public double getPrecioProd() {
         return precioProd;
     }
 
-    public void setPrecioProd(float precioProd) {
+    public void setPrecioProd(double precioProd) {
         this.precioProd = precioProd;
     }
 

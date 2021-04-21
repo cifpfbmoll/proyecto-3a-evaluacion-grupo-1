@@ -2,7 +2,7 @@ package Main.Classes;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Supermarket {
+public class Supermercado {
     private AtomicInteger amount = new AtomicInteger(0);
     private int code;
     private String NIF;
@@ -79,8 +79,8 @@ public class Supermarket {
 
         }
 
-        public Supermarket build() {
-            Supermarket supermarket = new Supermarket();
+        public Supermercado build() {
+            Supermercado supermarket = new Supermercado();
             supermarket.code = supermarket.amount.getAndIncrement();
             supermarket.NIF = this.NIF;
             supermarket.CCAA = this.CCAA;
@@ -97,7 +97,7 @@ public class Supermarket {
 
     }
 
-    private Supermarket() {
+    private Supermercado() {
 
     }
 }
