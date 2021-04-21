@@ -34,7 +34,12 @@ public class ProductoAlimento extends Producto {
     }
 
     public void setCaducidad(Date caducidad) {
-        this.caducidad = caducidad;
+        Date todayDate = new Date();
+        if (caducidad.after(todayDate)){
+            this.caducidad = caducidad;
+        } else {
+            System.out.println("Error, la fecha es anterior al dia de hoy");
+        }
     }
 
     public Categoria getCategoria() {
@@ -53,6 +58,10 @@ public class ProductoAlimento extends Producto {
                 this.categoria = categoria;
                 break;
         }
+    }
+    
+    public static void CrearProductoAlimento(Date caducidad, Categoria categoria, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
+        ProductoAlimento pa1 = new ProductoAlimento(caducidad, categoria, codigoProd, nombreProd, precioProd, descripcionProd);
     }
 }
 
