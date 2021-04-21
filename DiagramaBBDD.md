@@ -1,0 +1,1 @@
+![Diagrama Base de datos](Supermercados.png)
