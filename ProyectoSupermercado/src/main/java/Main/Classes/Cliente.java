@@ -27,7 +27,7 @@ public class Cliente extends Persona {
     }
 
     @Override
-    public void cambiarContraseña() {
+    public void cambiarContraseña(String novaContraseña) {
         //TODO Cuando BBDD
     }
 }
