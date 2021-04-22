@@ -7,7 +7,8 @@ import java.util.Calendar;
  * @author Tamara
  */
 public class Nomina {
-
+    
+    private int codigo_nomina;
     private int Id_empleado;
     private String Puesto_de_trabajo;
     private double Salario_base;
@@ -18,7 +19,8 @@ public class Nomina {
     private int Horas_noct;
     private double Salario_total;
 
-    public Nomina(int Id_empleado, String Puesto_de_trabajo, double Salario_base, double IRPF, Calendar Fecha_inicio, Calendar Fecha_fin, int Horas_extras, int Horas_noct, double Salario_total) {
+    public Nomina(int codigo_nomina,int Id_empleado, String Puesto_de_trabajo, double Salario_base, double IRPF, Calendar Fecha_inicio, Calendar Fecha_fin, int Horas_extras, int Horas_noct, double Salario_total) {
+        this.setCodigo_nomina(codigo_nomina);
         this.setId_empleado(Id_empleado);
         this.setPuesto_de_trabajo(Puesto_de_trabajo);
         this.setSalario_base(Salario_base);
@@ -30,6 +32,14 @@ public class Nomina {
         this.setSalario_total(Salario_total);
     }
 
+    public int getCodigo_nomina() {
+        return codigo_nomina;
+    }
+
+    public void setCodigo_nomina(int codigo_nomina) {
+        this.codigo_nomina = codigo_nomina;
+    }
+    
     public int getId_empleado() {
         return Id_empleado;
     }

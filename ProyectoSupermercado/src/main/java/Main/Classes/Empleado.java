@@ -6,7 +6,7 @@ public class Empleado extends Persona {
     private String puestoTrabajo;
     private Privilegios privilegios;
 
-
+    //privilegios han de ser integers.
     public enum Privilegios {
         jefe,
         RRHH,
@@ -17,8 +17,8 @@ public class Empleado extends Persona {
         super();
     }
 
-    public Empleado(String nombre, String apellido1, String apellido2, String nif, String cAutonoma, String localidad, String cPostal, String direccion,
-    String email, String contraseña, int telefono, int id, int codigoSupermercado, String puestoTrabajo, Privilegios privilegios) {
+    public Empleado(String nombre, String apellido1, String apellido2, String nif, String cAutonoma, String localidad, int cPostal, String direccion,
+    String email, String contraseña, String telefono, int id, int codigoSupermercado, String puestoTrabajo, Privilegios privilegios) {
         super(nombre, apellido1, apellido2, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
         setId(id);
         setCodigoSupermercado(codigoSupermercado);

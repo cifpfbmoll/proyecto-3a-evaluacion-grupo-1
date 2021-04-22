@@ -10,8 +10,8 @@ public class Cliente extends Persona {
         super();
     }
 
-    public Cliente(String nombre, String apellido1, String apellido2, String nif, String cAutonoma, String localidad, String cPostal, String direccion,
-    String email, String contraseña, int telefono) {
+    public Cliente(String nombre, String apellido1, String apellido2, String nif, String cAutonoma, String localidad, int cPostal, String direccion,
+    String email, String contraseña, String telefono) {
         super(nombre, apellido1, apellido2, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
         this.cestaCompra=new ArrayList();
     }

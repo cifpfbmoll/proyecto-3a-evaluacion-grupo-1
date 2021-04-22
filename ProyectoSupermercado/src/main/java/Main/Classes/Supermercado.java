@@ -10,9 +10,9 @@ public class Supermercado {
     private String localitat;
     private int zipCode;
     private String address;
-    private int phoneNumber;
+    private String phoneNumber;
     private String email;
-    private float area;
+    private int area;
 
 
 
@@ -22,9 +22,9 @@ public class Supermercado {
         private String localitat;
         private int zipCode;
         private String address;
-        private int phoneNumber;
+        private String phoneNumber;
         private String email;
-        private float area;
+        private int area;
 
         public static Builder newInstance() {
             return new Builder();
@@ -61,7 +61,7 @@ public class Supermercado {
 
         }
 
-        public Builder phoneNumber(int phoneNumber) {
+        public Builder phoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
             return this;
 
