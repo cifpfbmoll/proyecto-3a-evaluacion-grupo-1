@@ -81,7 +81,7 @@ public class Ticket {
      * @throws SQLException 
      */
     public void setCodigo() throws SQLException {
-        Herramientas.enviarComando("SELECT MAX(codigo_ticket) FROM ticket");
+        Herramientas.hacerSelect("SELECT MAX(codigo_ticket) FROM ticket");
         ResultSet resultado=Herramientas.getResultado();
         resultado.next();
         this.codigo = (resultado.getInt(1))+1;
@@ -153,15 +153,21 @@ public class Ticket {
         return "Ticket{" + "codigo=" + codigo + ", codigoSupermercado=" + codigoSupermercado + ", fechaCompra=" + fechaCompra + ", horaCompra=" + horaCompra + ", PrecioTotal=" + precioTotal + '}';
     }
     
-    public static void crearTicket(int codigoSupermercado, double precioTotal, ArrayList <LineaCompra> lineasTicket, String nif ) throws SQLException{
-        //precio total se calculara de la lineasticket, for i sumar todos los precios productos.
+    public static void crearTicket(int codigoSupermercado, ArrayList <LineaCompra> lineasTicket, String nif ) throws SQLException{
         //codigo supermercado y nif se coge del que se ha eligido al entrar.
+        double precioTotal=0;
+        for(int i=0;i<lineasTicket.size();i++){
+            precioTotal+=lineasTicket.get(i).getPrecio_linea();
+        }
         Ticket t1=new Ticket(codigoSupermercado, precioTotal, lineasTicket);
         LocalDate fecha=t1.getFechaCompra();
         LocalTime hora=t1.getHoraCompra();
         DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
-        Herramientas.enviarComando("INSERT INTO ticket Values("+t1.getCodigo()+","+nif+","+t1.getCodigoSupermercado()+","+fecha.format(formatoFecha)+","+hora.format(formatoHora)+","+t1.getPrecioTotal()+")");
+        Herramientas.modificarDatosTabla("INSERT INTO ticket VALUES("+t1.getCodigo()+","+nif+","+t1.getCodigoSupermercado()+","+fecha.format(formatoFecha)+","+hora.format(formatoHora)+","+t1.getPrecioTotal()+")");
+        for(int i=0;i<lineasTicket.size();i++){
+            Herramientas.modificarDatosTabla("INSERT INTO linea_ticket VALUES("+t1.getCodigo()+","+lineasTicket.get(i).getProducto().getCodigoProd()+","+lineasTicket.get(i).getCantidad()+","+lineasTicket.get(i).getPrecio_linea()+")");
+        }
         Herramientas.cerrarConexion();
     }
 }
