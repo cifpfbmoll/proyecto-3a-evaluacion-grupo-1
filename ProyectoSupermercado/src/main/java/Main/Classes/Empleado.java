@@ -17,9 +17,9 @@ public class Empleado extends Persona {
         super();
     }
 
-    public Empleado(String nombre, String apellido1, String apellido2, String nif, String cAutonoma, String localidad, int cPostal, String direccion,
+    public Empleado(String nombre, String apellido1, String apellido2,int edad,String nif, String cAutonoma, String localidad, int cPostal, String direccion,
     String email, String contraseña, String telefono, int id, int codigoSupermercado, String puestoTrabajo, Privilegios privilegios) {
-        super(nombre, apellido1, apellido2, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
+        super(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
         setId(id);
         setCodigoSupermercado(codigoSupermercado);
         setPuestoTrabajo(puestoTrabajo);

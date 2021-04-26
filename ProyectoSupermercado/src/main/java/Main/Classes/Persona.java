@@ -4,6 +4,7 @@ public abstract class Persona {
     private String nombre;
     private String apellido1;
     private String apellido2;
+    private int edad;
     private String nif;
     private String cAutonoma;
     private String localidad;
@@ -17,11 +18,12 @@ public abstract class Persona {
 
     }
     
-    public Persona(String nombre, String apellido1, String apellido2, String nif, String cAutonoma, String localidad, int cPostal, String direccion,
+    public Persona(String nombre, String apellido1, String apellido2, int edad,String nif, String cAutonoma, String localidad, int cPostal, String direccion,
     String email, String contraseña, String telefono) {
         setNombre(nombre);
         setApellido1(apellido1);
         setApellido2(apellido2);
+        setEdad(edad);
         setNif(nif);
         setCAutonoma(cAutonoma);
         setLocalidad(localidad);
@@ -32,7 +34,7 @@ public abstract class Persona {
         setTelefono(telefono);
     }
 
-
+    
 
     public String getNombre() {
         return this.nombre;
@@ -58,6 +60,14 @@ public abstract class Persona {
         this.apellido2 = apellido2;
     }
 
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+    
     public String getNif() {
         return this.nif;
     }

@@ -155,8 +155,8 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistroActionPerformed
-        /*Registrador registro=new Registrador(this.getBiblioteca());
-        this.dispose();*/
+        Registrador registro=new Registrador();
+        this.dispose();
     }//GEN-LAST:event_botonRegistroActionPerformed
 
     public JButton getBotonLogin() {
