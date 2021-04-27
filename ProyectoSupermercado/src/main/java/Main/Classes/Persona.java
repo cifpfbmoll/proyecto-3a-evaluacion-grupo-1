@@ -137,7 +137,11 @@ public abstract class Persona {
         this.telefono = telefono;
     }
 
-    public void cambiarContraseña(String novaContraseña){
+    public void cambiarContraseña(String novaContraseña, String rContraseña) throws Excepciones{
+        if (!contraseña.equals(rContraseña)) {
+            Excepciones e = new Excepciones(6);
+            throw e;
+        }
         setContraseña(novaContraseña);
     }
 
