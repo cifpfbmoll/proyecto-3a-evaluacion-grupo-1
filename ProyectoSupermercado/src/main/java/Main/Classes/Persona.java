@@ -1,4 +1,7 @@
 package Main.Classes;
+import ProyectoSupermercado.src.main.java.Main.Classes.Herramientas;
+import java.sql.*;
+import Main.Classes.Excepciones;
 
 public abstract class Persona {
     private String nombre;
@@ -12,14 +15,16 @@ public abstract class Persona {
     private String direccion;
     private String email;
     private String contraseña;
-    private String telefono;
+    private int telefono;
+
+    public Exception contraseñasDiferentes;
 
     public Persona() {
 
     }
     
     public Persona(String nombre, String apellido1, String apellido2, int edad,String nif, String cAutonoma, String localidad, int cPostal, String direccion,
-    String email, String contraseña, String telefono) {
+    String email, String contraseña, int telefono) {
         setNombre(nombre);
         setApellido1(apellido1);
         setApellido2(apellido2);
@@ -124,22 +129,28 @@ public abstract class Persona {
         this.contraseña = contraseña;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return this.telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
-    public abstract void cambiarContraseña(String novaContraseña);
-
-    //En futuro añadir transacciones a BBDD
-    public void añadirPersona() {
-        //TO DO cuando transacciones
+    public void cambiarContraseña(String novaContraseña){
+        setContraseña(novaContraseña);
     }
 
-    public void eliminarPersona() {
-        //TO DO cuando transacciones
+    public static Persona añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
+    String localidad, int cPostal, String direccion, String email, String contraseña, String rContraseña, int telefono) throws Excepciones{
+
+        if (!contraseña.equals(rContraseña)) {
+            Excepciones e = new Excepciones(6);
+            throw e;
+        }
+        Persona per = new Persona(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
+        return per;
     }
+
+    public abstract void eliminarPersona(Connection conexion, String nif);
 }
