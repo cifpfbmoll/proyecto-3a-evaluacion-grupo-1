@@ -1,6 +1,7 @@
 package Main.Classes;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import Main.Classes.Excepciones;
 
@@ -27,8 +28,9 @@ public class Cliente extends Persona {
     }
 
     public void eliminarPersona(Connection conexion, String nif) {
-        String borrar = "DELETE FROM employee_details WHERE salary = " + nif;
-        conexion.prepareStatement(borrar);
+        PreparedStatement borrar = conexion.prepareStatement("DELETE FROM employee_details WHERE salary = ?");
+        borrar.setString(1, nif);
+        borrar.executeQuery();
     }
 
     public Cliente buscarCliente(String nif) {
@@ -38,7 +40,7 @@ public class Cliente extends Persona {
     
     @Override
     public static Cliente añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
-    String localidad, int cPostal, String direccion, String email, String contraseña, String rContraseña, int telefono) throws Excepciones{
+    String localidad, int cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono) throws Excepciones{
 
         if (!contraseña.equals(rContraseña)) {
             Excepciones e = new Excepciones(6);

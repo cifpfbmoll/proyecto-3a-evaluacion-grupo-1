@@ -1,5 +1,7 @@
 package Main.Classes;
 
+import java.sql.PreparedStatement;
+
 public class Empleado extends Persona {
     private int id;
     private int codigoSupermercado;
@@ -59,15 +61,24 @@ public class Empleado extends Persona {
 	}
         
     @Override
-    public void añadirPersona() {
-        // TODO Cuando BBDD
-        super.añadirPersona();
+    public static Empleado añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
+    String localidad, int cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, int id, 
+    int codigoSupermercado, String puestoTrabajo, Privilegios privilegios) throws Excepciones{
+
+        if (!contraseña.equals(rContraseña)) {
+            Excepciones e = new Excepciones(6);
+            throw e;
+        }
+        Empleado per = new Empleado(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono, 
+        id, codigoSupermercado, puestoTrabajo, privilegios);
+        return per;
     }
 
     @Override
-    public void eliminarPersona() {
-        // TODO Cuando BBDD
-        super.eliminarPersona();
+    public void eliminarPersona(Connection conexion, int id) {
+        PreparedStatement borrar = conexion.prepareStatement("DELETE FROM employee_details WHERE salary = ?");
+        borrar.setInt(1, id);
+        borrar.executeQuery();
     }
 
     public void certificadoIRPFAnual(int id) {
@@ -77,10 +88,4 @@ public class Empleado extends Persona {
     public void consultarNominas(int id) {
         // TODO Cuando BBDD
     }
-
-    @Override
-    public void cambiarContraseña(String novaContraseña) {
-        //TODO Cuando BBDD
-    }
-
 }
