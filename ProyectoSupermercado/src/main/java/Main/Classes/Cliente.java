@@ -1,6 +1,8 @@
 package Main.Classes;
 
+import java.sql.Connection;
 import java.util.ArrayList;
+import Main.Classes.Excepciones;
 
 public class Cliente extends Persona {
     
@@ -24,25 +26,30 @@ public class Cliente extends Persona {
         this.cestaCompra = cestaCompra;
     }
 
-    public void añadirPersona() {
-        super.añadirPersona();
+    public void eliminarPersona(Connection conexion, String nif) {
+        String borrar = "DELETE FROM employee_details WHERE salary = " + nif;
+        conexion.prepareStatement(borrar);
     }
 
-    public void eliminarPersona() {
-        super.eliminarPersona();
+    public Cliente buscarCliente(String nif) {
+        //TO DO and define
+        return null;
     }
+    
+    @Override
+    public static Cliente añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
+    String localidad, int cPostal, String direccion, String email, String contraseña, String rContraseña, int telefono) throws Excepciones{
 
-    public void buscarCliente() {
-        //TO DO cuando transacciones
+        if (!contraseña.equals(rContraseña)) {
+            Excepciones e = new Excepciones(6);
+            throw e;
+        }
+        Cliente per = new Cliente(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
+        return per;
     }
 
     public void editarCLiente() {
-        //TO DO cuando transacciones
-    }
-
-    @Override
-    public void cambiarContraseña(String novaContraseña) {
-        //TODO Cuando BBDD
+        //TO DO and define
     }
     
     public void añadirProductoCarrito(Producto producto, int cantidad){

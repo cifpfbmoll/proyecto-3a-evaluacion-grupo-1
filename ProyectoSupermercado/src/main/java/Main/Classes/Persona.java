@@ -15,7 +15,7 @@ public abstract class Persona {
     private String direccion;
     private String email;
     private String contraseña;
-    private int telefono;
+    private String telefono;
 
     public Exception contraseñasDiferentes;
 
@@ -24,7 +24,7 @@ public abstract class Persona {
     }
     
     public Persona(String nombre, String apellido1, String apellido2, int edad,String nif, String cAutonoma, String localidad, int cPostal, String direccion,
-    String email, String contraseña, int telefono) {
+    String email, String contraseña, String telefono) {
         setNombre(nombre);
         setApellido1(apellido1);
         setApellido2(apellido2);
@@ -129,11 +129,11 @@ public abstract class Persona {
         this.contraseña = contraseña;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return this.telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -145,16 +145,7 @@ public abstract class Persona {
         setContraseña(novaContraseña);
     }
 
-    public static Persona añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
-    String localidad, int cPostal, String direccion, String email, String contraseña, String rContraseña, int telefono) throws Excepciones{
-
-        if (!contraseña.equals(rContraseña)) {
-            Excepciones e = new Excepciones(6);
-            throw e;
-        }
-        Persona per = new Persona(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
-        return per;
-    }
+    public abstract Persona añadirPersona();
 
     public abstract void eliminarPersona(Connection conexion, String nif);
 }
