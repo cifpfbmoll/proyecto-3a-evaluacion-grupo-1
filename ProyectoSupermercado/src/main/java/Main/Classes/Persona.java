@@ -1,5 +1,4 @@
 package Main.Classes;
-import ProyectoSupermercado.src.main.java.Main.Classes.Herramientas;
 import java.sql.*;
 import Main.Classes.Excepciones;
 
@@ -144,8 +143,4 @@ public abstract class Persona {
         }
         setContraseña(novaContraseña);
     }
-
-    public abstract Persona añadirPersona();
-
-    public abstract void eliminarPersona(Connection conexion, String nif);
 }
