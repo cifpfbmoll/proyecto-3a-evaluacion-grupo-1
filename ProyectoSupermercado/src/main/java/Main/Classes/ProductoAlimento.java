@@ -7,6 +7,7 @@ package Main.Classes;
 
 import java.util.Date;
 import java.util.Scanner;
+import java.sql.*;
 
 /**
  *
@@ -16,6 +17,7 @@ public class ProductoAlimento extends Producto {
     public static Scanner lectorLibro = new Scanner(System.in);
     private Date caducidad = new Date();
     private Categoria categoria;
+    boolean UltimoNumero;
     
     public enum Categoria{
         vegano,
@@ -62,6 +64,16 @@ public class ProductoAlimento extends Producto {
     
     public static void CrearProductoAlimento(Date caducidad, Categoria categoria, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
         ProductoAlimento pa1 = new ProductoAlimento(caducidad, categoria, codigoProd, nombreProd, precioProd, descripcionProd);
+        //Herramientas.modificarDatosTabla("INSERT INTO ProductoAlimento ("+pa1.getNombreProd()+","+pa1")");
+    }
+    
+    public static int UltimoNumero() throws SQLException{
+        Herramientas.hacerSelect("SELECT MAX(Codigo_producto) FROM producto");
+        ResultSet result=Herramientas.getResultado();
+        result.next();
+        int ultimo = result.getInt(1);
+        Herramientas.cerrarConexion();
+        return ultimo;
     }
 }
 

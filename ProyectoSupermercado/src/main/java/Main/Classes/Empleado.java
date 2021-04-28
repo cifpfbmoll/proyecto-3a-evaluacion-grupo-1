@@ -1,6 +1,6 @@
 package Main.Classes;
 
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 public class Empleado extends Persona {
     private int id;
@@ -60,7 +60,6 @@ public class Empleado extends Persona {
 		this.privilegios = privilegios;
 	}
         
-    @Override
     public static Empleado añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
     String localidad, int cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, int id, 
     int codigoSupermercado, String puestoTrabajo, Privilegios privilegios) throws Excepciones{
@@ -74,8 +73,7 @@ public class Empleado extends Persona {
         return per;
     }
 
-    @Override
-    public void eliminarPersona(Connection conexion, int id) {
+    public void eliminarPersona(Connection conexion, int id) throws SQLException {
         PreparedStatement borrar = conexion.prepareStatement("DELETE FROM employee_details WHERE salary = ?");
         borrar.setInt(1, id);
         borrar.executeQuery();

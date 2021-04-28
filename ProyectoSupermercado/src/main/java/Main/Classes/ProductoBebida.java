@@ -46,6 +46,7 @@ public class ProductoBebida extends Producto {
     public static void CrearProductoBebida(Date caducidad, Boolean alcoholica, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
         ProductoBebida pb1 = new ProductoBebida(caducidad, alcoholica, codigoProd, nombreProd, precioProd, descripcionProd);
     }
+    
 }
 
 //Prueba añadir bebida
