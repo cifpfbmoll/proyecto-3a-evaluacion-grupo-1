@@ -6,21 +6,19 @@ public class Empleado extends Persona {
     private int id;
     private int codigoSupermercado;
     private String puestoTrabajo;
-    private Privilegios privilegios;
-
-    //privilegios han de ser integers.
-    public enum Privilegios {
-        jefe,
-        RRHH,
-        BBDD
-    }
+    private int privilegios;
+    //Privilegios
+    //1: Dependiente
+    //2: Supervisor
+    //3: RRHH
+    //4: Director
 
     public Empleado() {
         super();
     }
 
     public Empleado(String nombre, String apellido1, String apellido2,int edad,String nif, String cAutonoma, String localidad, int cPostal, String direccion,
-    String email, String contraseña, String telefono, int id, int codigoSupermercado, String puestoTrabajo, Privilegios privilegios) {
+    String email, String contraseña, String telefono, int id, int codigoSupermercado, String puestoTrabajo, int privilegios) {
         super(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
         setId(id);
         setCodigoSupermercado(codigoSupermercado);
@@ -52,17 +50,17 @@ public class Empleado extends Persona {
 		this.puestoTrabajo = puestoTrabajo;
 	}
 
-	public Privilegios getPrivilegios() {
+	public int getPrivilegios() {
 		return this.privilegios;
 	}
 
-	public void setPrivilegios(Privilegios privilegios) {
+	public void setPrivilegios(int privilegios) {
 		this.privilegios = privilegios;
 	}
         
     public static Empleado añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
     String localidad, int cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, int id, 
-    int codigoSupermercado, String puestoTrabajo, Privilegios privilegios) throws Excepciones{
+    int codigoSupermercado, String puestoTrabajo, int privilegios) throws Excepciones{
 
         if (!contraseña.equals(rContraseña)) {
             Excepciones e = new Excepciones(6);
