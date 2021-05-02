@@ -16,13 +16,6 @@ import java.util.Date;
  */
 public class Main {
     public static void main(String[] args) throws ParseException {
-        String entrada = "07-03-2018";
-        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-        Date fecha;
-        fecha = formato.parse(entrada);
-        float myNum = 5.1f;
-        ProductoAlimento pipas = new ProductoAlimento(fecha, Categoria.vegano, 2, "pipas" , myNum ,  "pipas saladas");
-        System.out.println(pipas.getCaducidad());
-        System.out.println(pipas.UltimoNumero);
+        
     }
 }
