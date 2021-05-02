@@ -5,7 +5,6 @@
  */
 package Main.Classes;
 
-import java.util.Date;
 import java.util.Scanner;
 import java.sql.*;
 
@@ -13,9 +12,10 @@ import java.sql.*;
  *
  * @author josep
  */
-public class ProductoAlimento extends Producto {
+
+public final class ProductoAlimento extends Producto {
     public static Scanner lectorLibro = new Scanner(System.in);
-    private Date caducidad = new Date();
+    private int caducidad;
     private Categoria categoria;
     boolean UltimoNumero;
     
@@ -25,23 +25,18 @@ public class ProductoAlimento extends Producto {
         carnivoro
     }
 
-    public ProductoAlimento(Date caducidad, Categoria categoria, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
+    public ProductoAlimento(int caducidad, Categoria categoria, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
         super(codigoProd, nombreProd, precioProd,descripcionProd);
         this.setCaducidad(caducidad);
         this.setCategoria(categoria);
     }
     
-    public Date getCaducidad() {
+    public int getCaducidad() {
         return caducidad;
     }
 
-    public void setCaducidad(Date caducidad) {
-        Date todayDate = new Date();
-        if (caducidad.after(todayDate)){
-            this.caducidad = caducidad;
-        } else {
-            System.out.println("Error, la fecha es anterior al dia de hoy");
-        }
+    public void setCaducidad(int caducidad) {
+        this.caducidad = caducidad;
     }
 
     public Categoria getCategoria() {
@@ -50,39 +45,35 @@ public class ProductoAlimento extends Producto {
         
     public void setCategoria(Categoria categoria) {
         switch(categoria){
-            case vegano:
-                this.categoria = categoria;
-                break;
-            case vegetariano:
-                this.categoria = categoria;
-                break;
-            case carnivoro:
-                this.categoria = categoria;
-                break;
+            case vegano -> this.categoria = categoria;
+            case vegetariano -> this.categoria = categoria;
+            case carnivoro -> this.categoria = categoria;
         }
     }
     
-    public static void CrearProductoAlimento(Date caducidad, Categoria categoria, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
-        ProductoAlimento pa1 = new ProductoAlimento(caducidad, categoria, codigoProd, nombreProd, precioProd, descripcionProd);
-        //Herramientas.modificarDatosTabla("INSERT INTO ProductoAlimento ("+pa1.getNombreProd()+","+pa1")");
+    public static void CrearProductoAlimento(int caducidad, Categoria categoria, String nombreProd, float precioProd, String descripcionProd) throws SQLException {
+        int ultimoCodigoProd = ProductoAlimento.UltimoNumero();
+        ProductoAlimento pa1 = new ProductoAlimento(caducidad, categoria, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
     }
     
-    public static int UltimoNumero() throws SQLException{
-        Herramientas.hacerSelect("SELECT MAX(Codigo_producto) FROM producto");
-        ResultSet result=Herramientas.getResultado();
-        result.next();
-        int ultimo = result.getInt(1);
-        Herramientas.cerrarConexion();
-        return ultimo;
+    public static void AñadirAlimento(ProductoAlimento pa1) throws SQLException{
+        Herramientas.modificarDatosTabla("INSERT INTO ProductoAlimento VALUES("+pa1.getCaducidad()+","+pa1.getCategoria()+","+pa1.getCodigoProd()+","+pa1.getNombreProd()+","+pa1.getPrecioProd()+","+pa1.getDescripcionProd()+")");
     }
+    
+    public static void EliminarAlimento(ProductoAlimento pa1) throws SQLException{
+        Herramientas.modificarDatosTabla("DELETE FROM ProductoAlimento WHERE codigo_producto = "+pa1.getCodigoProd());
+    }
+    
+    public static void BuscarAlimento(String buscar) throws SQLException{
+        Herramientas.modificarDatosTabla("SELECT * FROM ProductoAlimento WHERE nombre_productoAlimento LIKE '%"+buscar+"%'");
+    }    
 }
 
 
 //test constructor comida que iria dentro del metodo main
-//        String entrada = "07-03-2018";
-//        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-//        Date fecha;
-//        fecha = formato.parse(entrada);
-//        ProductoAlimento pan = new ProductoAlimento(fecha, "pipas");
-//
-//        System.out.println(pan.getCaducidad());
+//      float myNum = 5.1f;
+//      int cadu = 30;
+//      int codigo = ProductoAlimento.UltimoNumero();
+//      ProductoAlimento pipas = new ProductoAlimento(cadu, Categoria.vegano, codigo, "pipas" , myNum ,  "pipas saladas");
+//      System.out.println(pipas.getCodigoProd());
+//      System.out.println(pipas.UltimoNumero);  

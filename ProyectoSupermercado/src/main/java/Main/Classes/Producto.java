@@ -4,10 +4,15 @@
  * and open the template in the editor.
  */
 package Main.Classes;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
 * @author josep
 */
+
 abstract class Producto {
     private int codigoProd;
     private String nombreProd;
@@ -53,5 +58,13 @@ abstract class Producto {
         this.descripcionProd = descripcionProd;
     }
     
+    public static int UltimoNumero() throws SQLException{
+        Herramientas.hacerSelect("SELECT MAX(Codigo_producto) FROM producto");
+        ResultSet result=Herramientas.getResultado();
+        result.next();
+        int ultimo = result.getInt(1);
+        Herramientas.cerrarConexion();
+        return ultimo;
+    }
 }
 
