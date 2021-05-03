@@ -24,6 +24,7 @@ public class Ticket {
     private double precioTotal;
     private ArrayList <LineaCompra> lineasTicket;
     
+    
     public Ticket() {
     }
     /**
@@ -150,9 +151,11 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" + "codigo=" + codigo + ", codigoSupermercado=" + codigoSupermercado + ", fechaCompra=" + fechaCompra + ", horaCompra=" + horaCompra + ", PrecioTotal=" + precioTotal + '}';
+        return "Ticket{" + "codigo=" + codigo + ", codigoSupermercado=" + codigoSupermercado + ", fechaCompra=" + fechaCompra + ", horaCompra=" + horaCompra + ", precioTotal=" + precioTotal + ", lineasTicket=" + lineasTicket + '}';
     }
+
     
+    //no probado
     public static void crearTicket(int codigoSupermercado, ArrayList <LineaCompra> lineasTicket, String nif ) throws SQLException{
         //codigo supermercado y nif se coge del que se ha eligido al entrar.
         double precioTotal=0;
@@ -166,8 +169,40 @@ public class Ticket {
         DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
         Herramientas.modificarDatosTabla("INSERT INTO ticket VALUES("+t1.getCodigo()+","+nif+","+t1.getCodigoSupermercado()+","+fecha.format(formatoFecha)+","+hora.format(formatoHora)+","+t1.getPrecioTotal()+")");
         for(int i=0;i<lineasTicket.size();i++){
-            Herramientas.modificarDatosTabla("INSERT INTO linea_ticket VALUES("+t1.getCodigo()+","+lineasTicket.get(i).getProducto().getCodigoProd()+","+lineasTicket.get(i).getCantidad()+","+lineasTicket.get(i).getPrecio_linea()+")");
+            Herramientas.modificarDatosTabla("INSERT INTO linea_ticket VALUES("+t1.getCodigo()+","+lineasTicket.get(i).getCodigo_producto()+","+lineasTicket.get(i).getCantidad()+","+lineasTicket.get(i).getPrecio_linea()+")", false);
         }
-        Herramientas.cerrarConexion();
+        Herramientas.getConexion().commit();
+        Herramientas.getConexion().setAutoCommit(true);
+        Herramientas.cerrarStatementResult();
+    }
+    //Actualmente este metodo solo ve el ultimo ticket del cliente.
+    //probado
+    public static void verTicket (String cliente) throws SQLException{
+        Herramientas.hacerSelect("SELECT * FROM ticket WHERE DNI_cliente="+cliente+";", true);
+        ResultSet resultado=Herramientas.getResultado();
+        resultado.next();
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDate fecha=LocalDate.parse(resultado.getString(4),formatoFecha);
+        LocalTime hora=LocalTime.parse(resultado.getString(5),formatoHora);
+        ArrayList <LineaCompra> lineasT1=new ArrayList();
+        Ticket t1=new Ticket(resultado.getInt(1),resultado.getInt(3),fecha,hora,resultado.getDouble(6),lineasT1);
+        t1.verLineaTicket();
+        Herramientas.cerrarStatementResult();
+        System.out.println(t1.toString());
+    }
+    //probado
+    public void verLineaTicket() throws SQLException{
+        Herramientas.hacerSelect("SELECT * FROM linea_ticket WHERE codigo_ticket="+this.getCodigo()+";", true);
+        ResultSet resultado=Herramientas.getResultado();
+        while(resultado.next()){
+            LineaCompra lineaT1=new LineaCompra(resultado.getInt(2),resultado.getInt(3),resultado.getDouble(4));
+            this.getLineasTicket().add(lineaT1);
+        }
+    }
+    
+    public static void main(String[] args) throws SQLException {
+        Herramientas.crearConexion();
+        verTicket("'55577788A'");
     }
 }

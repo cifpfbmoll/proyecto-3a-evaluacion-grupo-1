@@ -53,9 +53,14 @@ public class Cliente extends Persona {
     public void editarCLiente() {
         //TO DO and define
     }
-    
-    public void añadirProductoCarrito(Producto producto, int cantidad){
-        LineaCompra lc1=new LineaCompra(producto, cantidad);
+    /**
+     * Metodo que añade una linea de compra al carrito. Es de instancia, por tanto
+     * necesita un objeto de esta clase.
+     * @param producto
+     * @param cantidad 
+     */
+    public void añadirProductoCarrito(int codigo_producto, double precio_producto, int cantidad){
+        LineaCompra lc1=new LineaCompra(codigo_producto, precio_producto, cantidad);
         this.getCestaCompra().add(lc1);
     }
 }

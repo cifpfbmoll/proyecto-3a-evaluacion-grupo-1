@@ -7,7 +7,10 @@ package Grafics;
 
 
 //import codigo.Excepciones;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.InputMismatchException;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -15,31 +18,32 @@ import javax.swing.JTextField;
  *
  * @author PC
  */
-public class Registrador extends javax.swing.JFrame {
+public class RegistradoEmpleados extends javax.swing.JFrame {
     
     
     //private Biblioteca biblioteca;
     /**
      * Creates new form Registrador
      */
-    public Registrador(/*Biblioteca b*/) {
+    public RegistradoEmpleados(/*Biblioteca b*/) {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         //this.setBiblioteca(b);
     }
     
-    /*public Registrador() {
-        initComponents();
+
+    public JTextField getCodigoPostal() {
+        return CodigoPostal;
     }
 
-    public Biblioteca getBiblioteca() {
-        return biblioteca;
+    public JTextField getDireccion() {
+        return Direccion;
     }
 
-    public void setBiblioteca(Biblioteca biblioteca) {
-        this.biblioteca = biblioteca;
-    }*/
+    public JTextField getLocalidad() {
+        return Localidad;
+    }
 
     public JTextField getNIF() {
         return NIF;
@@ -53,12 +57,20 @@ public class Registrador extends javax.swing.JFrame {
         return apellido2;
     }
 
+    public JComboBox<String> getComunidadAutonoma() {
+        return comunidadAutonoma;
+    }
+
     public JTextField getContrasena() {
         return contrasena;
     }
 
     public JTextField getEdad() {
         return edad;
+    }
+
+    public JTextField getEmail() {
+        return email;
     }
 
     public JTextField getNombre() {
@@ -69,8 +81,21 @@ public class Registrador extends javax.swing.JFrame {
         return repetirContrasena;
     }
 
-    public JTextField getTrabajo() {
-        return comunidadAutonoma;
+    public JTextField getTelefono() {
+        return telefono;
+    }
+
+    public JTextField getCodigoSupermercado() {
+        return codigoSupermercado;
+    }
+
+    public JComboBox<String> getPuestoTrabajo() {
+        return puestoTrabajo;
+    }    
+    
+    public Image getIconImage(){
+        Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/2153422.png"));
+        return miIcono;
     }
     
     /**
@@ -98,7 +123,7 @@ public class Registrador extends javax.swing.JFrame {
         nombre = new javax.swing.JTextField();
         apellido1 = new javax.swing.JTextField();
         apellido2 = new javax.swing.JTextField();
-        comunidadAutonoma = new javax.swing.JTextField();
+        comunidadAutonoma = new javax.swing.JComboBox<>();
         NIF = new javax.swing.JTextField();
         contrasena = new javax.swing.JTextField();
         repetirContrasena = new javax.swing.JTextField();
@@ -107,151 +132,174 @@ public class Registrador extends javax.swing.JFrame {
         Localidad = new javax.swing.JTextField();
         CodigoPostal = new javax.swing.JTextField();
         Direccion = new javax.swing.JTextField();
+        codigoSupermercado = new javax.swing.JTextField();
+        puestoTrabajo = new javax.swing.JComboBox<>();
         botonRegistro = new javax.swing.JButton();
         botonAtras = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Email:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 310, -1, 30));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, -1, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Primer Apellido:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 110, 130, 20));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 100, 130, 20));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nombre:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, 20));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Segundo Apellido:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 140, 30));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 140, 30));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Edad:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 50, 30));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 50, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Direccion:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, -1, 30));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(378, 180, -1, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Repite contraseña:");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, -1, 30));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(316, 300, -1, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Contraseña:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, -1, 30));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 260, -1, 30));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("REGISTRATE");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, -1, -1));
+        jLabel9.setText("REGISTRO EMPLEADOS");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 450, 50));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("NIF:");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, 30));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 220, -1, 30));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Telefono:");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 270, -1, 30));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, 30));
 
         edad.setBackground(new java.awt.Color(0, 51, 0));
         edad.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         edad.setForeground(new java.awt.Color(255, 255, 255));
         edad.setToolTipText("");
-        getContentPane().add(edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 130, 30));
+        getContentPane().add(edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 130, 30));
 
         nombre.setBackground(new java.awt.Color(0, 51, 0));
         nombre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         nombre.setForeground(new java.awt.Color(255, 255, 255));
         nombre.setToolTipText("");
-        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 130, 30));
+        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 130, 30));
 
         apellido1.setBackground(new java.awt.Color(0, 51, 0));
         apellido1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         apellido1.setForeground(new java.awt.Color(255, 255, 255));
         apellido1.setToolTipText("");
-        getContentPane().add(apellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 130, 30));
+        getContentPane().add(apellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 130, 30));
 
         apellido2.setBackground(new java.awt.Color(0, 51, 0));
         apellido2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         apellido2.setForeground(new java.awt.Color(255, 255, 255));
         apellido2.setToolTipText("");
-        getContentPane().add(apellido2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 130, 30));
+        getContentPane().add(apellido2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 130, 30));
 
         comunidadAutonoma.setBackground(new java.awt.Color(0, 51, 0));
         comunidadAutonoma.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         comunidadAutonoma.setForeground(new java.awt.Color(255, 255, 255));
+        comunidadAutonoma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Andalucía", "Aragón", "Canarias", "Cantabria", "Castilla-LM", "Castilla y León", "Cataluña", "Ceuta", "Madrid", "C.Valenciana", "Extremadura", "Galicia", "Baleares", "La Rioja", "Melilla", "Navarra", "País Vasco", "Asturias", "Murcia" }));
         comunidadAutonoma.setToolTipText("");
-        getContentPane().add(comunidadAutonoma, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 130, 30));
+        comunidadAutonoma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comunidadAutonomaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comunidadAutonoma, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 130, 30));
 
         NIF.setBackground(new java.awt.Color(0, 51, 0));
         NIF.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         NIF.setForeground(new java.awt.Color(255, 255, 255));
         NIF.setToolTipText("");
-        getContentPane().add(NIF, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 130, 30));
+        getContentPane().add(NIF, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 130, 30));
 
         contrasena.setBackground(new java.awt.Color(0, 51, 0));
         contrasena.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         contrasena.setForeground(new java.awt.Color(255, 255, 255));
         contrasena.setToolTipText("");
-        getContentPane().add(contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, 130, 30));
+        getContentPane().add(contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, 130, 30));
 
         repetirContrasena.setBackground(new java.awt.Color(0, 51, 0));
         repetirContrasena.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         repetirContrasena.setForeground(new java.awt.Color(255, 255, 255));
         repetirContrasena.setToolTipText("");
-        getContentPane().add(repetirContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, 130, 30));
+        getContentPane().add(repetirContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 300, 130, 30));
 
         email.setBackground(new java.awt.Color(0, 51, 0));
         email.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         email.setForeground(new java.awt.Color(255, 255, 255));
         email.setToolTipText("");
-        getContentPane().add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 130, 30));
+        getContentPane().add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 130, 30));
 
         telefono.setBackground(new java.awt.Color(0, 51, 0));
         telefono.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         telefono.setForeground(new java.awt.Color(255, 255, 255));
         telefono.setToolTipText("");
-        getContentPane().add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 130, 30));
+        getContentPane().add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 130, 30));
 
         Localidad.setBackground(new java.awt.Color(0, 51, 0));
         Localidad.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Localidad.setForeground(new java.awt.Color(255, 255, 255));
         Localidad.setToolTipText("");
-        getContentPane().add(Localidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, 130, 30));
+        getContentPane().add(Localidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 130, 30));
 
         CodigoPostal.setBackground(new java.awt.Color(0, 51, 0));
         CodigoPostal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         CodigoPostal.setForeground(new java.awt.Color(255, 255, 255));
         CodigoPostal.setToolTipText("");
-        getContentPane().add(CodigoPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, 130, 30));
+        getContentPane().add(CodigoPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 130, 30));
 
         Direccion.setBackground(new java.awt.Color(0, 51, 0));
         Direccion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Direccion.setForeground(new java.awt.Color(255, 255, 255));
         Direccion.setToolTipText("");
-        getContentPane().add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 130, 30));
+        getContentPane().add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 130, 30));
+
+        codigoSupermercado.setBackground(new java.awt.Color(0, 51, 0));
+        codigoSupermercado.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        codigoSupermercado.setForeground(new java.awt.Color(255, 255, 255));
+        codigoSupermercado.setToolTipText("");
+        getContentPane().add(codigoSupermercado, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 130, 30));
+
+        puestoTrabajo.setBackground(new java.awt.Color(0, 51, 0));
+        puestoTrabajo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        puestoTrabajo.setForeground(new java.awt.Color(255, 255, 255));
+        puestoTrabajo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dependiente", "Supervisor", "RRHH", "Director" }));
+        getContentPane().add(puestoTrabajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 130, 30));
 
         botonRegistro.setBackground(new java.awt.Color(102, 102, 102));
         botonRegistro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -262,7 +310,7 @@ public class Registrador extends javax.swing.JFrame {
                 botonRegistroActionPerformed(evt);
             }
         });
-        getContentPane().add(botonRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 310, 150, 40));
+        getContentPane().add(botonRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, 160, 30));
 
         botonAtras.setBackground(new java.awt.Color(102, 102, 102));
         botonAtras.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -278,17 +326,27 @@ public class Registrador extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Codigo Postal:");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, -1, 30));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, -1, 30));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Localidad:");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, -1, 30));
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, 30));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Comunidad Autonoma:");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, 30));
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, -1, 30));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Puesto trabajo:");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 340, -1, 30));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Codigo supermercado:");
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, -1, 30));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green-Wallpaper-5.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, -1));
@@ -297,7 +355,6 @@ public class Registrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasActionPerformed
-        InicioSesion login=new InicioSesion();
         this.dispose();
     }//GEN-LAST:event_botonAtrasActionPerformed
 
@@ -315,6 +372,10 @@ public class Registrador extends javax.swing.JFrame {
             this.aviso("La edad tiene que ser un numero");
         }*/
     }//GEN-LAST:event_botonRegistroActionPerformed
+
+    private void comunidadAutonomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comunidadAutonomaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comunidadAutonomaActionPerformed
 
     public void aviso (String mensaje){
         JOptionPane.showMessageDialog(null,mensaje); 
@@ -336,21 +397,23 @@ public class Registrador extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Registrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistradoEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Registrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistradoEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Registrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistradoEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Registrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistradoEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Registrador();
+                new RegistradoEmpleados().setVisible(true);
             }
         });
     }
@@ -364,7 +427,8 @@ public class Registrador extends javax.swing.JFrame {
     private javax.swing.JTextField apellido2;
     private javax.swing.JButton botonAtras;
     private javax.swing.JButton botonRegistro;
-    private javax.swing.JTextField comunidadAutonoma;
+    private javax.swing.JTextField codigoSupermercado;
+    private javax.swing.JComboBox<String> comunidadAutonoma;
     private javax.swing.JTextField contrasena;
     private javax.swing.JTextField edad;
     private javax.swing.JTextField email;
@@ -375,6 +439,8 @@ public class Registrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -385,6 +451,7 @@ public class Registrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField nombre;
+    private javax.swing.JComboBox<String> puestoTrabajo;
     private javax.swing.JTextField repetirContrasena;
     private javax.swing.JTextField telefono;
     // End of variables declaration//GEN-END:variables
