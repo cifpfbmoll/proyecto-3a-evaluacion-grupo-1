@@ -71,12 +71,12 @@ public class Tarjeta {
     
     public static void anadirTarjeta(int numero, String Nombre_tarjeta, Calendar fecha_caducidad, String tipo_tarjeta) throws SQLException{
         Tarjeta t1=new Tarjeta(numero, Nombre_tarjeta, fecha_caducidad, tipo_tarjeta);
-        Herramientas.enviarComando("INSERT INTO Tarjeta Values("+t1.getNumero()+","+t1.getNombre_tarjeta()+","+t1.getFecha_caducidad()+","+t1.getTipo_tarjeta()+")");
+        Herramientas.hacerSelect("INSERT INTO Tarjeta Values("+t1.getNumero()+","+t1.getNombre_tarjeta()+","+t1.getFecha_caducidad()+","+t1.getTipo_tarjeta()+")",true);
         Herramientas.cerrarConexion();
     }
 
     public static void eliminarTarjeta(int numero)throws SQLException{
-        Herramientas.enviarComando("DELETE FROM Tarjeta WHERE numero_tarjeta = " +numero+ ";");
+        Herramientas.modificarDatosTabla("DELETE FROM Tarjeta WHERE numero_tarjeta = " +numero+ ";",true);
         Herramientas.cerrarConexion();
     }
 }
