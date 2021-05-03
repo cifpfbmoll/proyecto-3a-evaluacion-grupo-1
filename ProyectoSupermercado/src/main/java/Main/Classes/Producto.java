@@ -59,7 +59,7 @@ abstract class Producto {
     }
     
     public static int UltimoNumero() throws SQLException{
-        Herramientas.hacerSelect("SELECT MAX(Codigo_producto) FROM producto");
+        Herramientas.hacerSelect("SELECT MAX(Codigo_producto) FROM producto",true);
         ResultSet result=Herramientas.getResultado();
         result.next();
         int ultimo = result.getInt(1);

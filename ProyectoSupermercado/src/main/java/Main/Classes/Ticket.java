@@ -204,5 +204,6 @@ public class Ticket {
     public static void main(String[] args) throws SQLException {
         Herramientas.crearConexion();
         verTicket("'55577788A'");
+        Herramientas.cerrarConexion();
     }
 }
