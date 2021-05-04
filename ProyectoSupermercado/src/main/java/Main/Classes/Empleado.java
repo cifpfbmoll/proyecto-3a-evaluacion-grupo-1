@@ -112,11 +112,4 @@ public class Empleado extends Persona {
     public void consultarNominas(int id) {
         // TODO Cuando BBDD
     }
-
-    public static void main(String[] args) throws SQLException {
-        Herramientas.crearConexion();
-        Empleado emp = new Empleado();
-        emp = Empleado.recogerEmpleado(Herramientas.getConexion(), 1);
-        System.out.println(emp.toString());
-    }
 }
