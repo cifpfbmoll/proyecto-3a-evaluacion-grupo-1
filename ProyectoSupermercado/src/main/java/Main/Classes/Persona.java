@@ -10,7 +10,7 @@ public abstract class Persona {
     private String nif;
     private String cAutonoma;
     private String localidad;
-    private int cPostal;
+    private String cPostal;
     private String direccion;
     private String email;
     private String contraseña;
@@ -22,7 +22,7 @@ public abstract class Persona {
 
     }
     
-    public Persona(String nombre, String apellido1, String apellido2, int edad,String nif, String cAutonoma, String localidad, int cPostal, String direccion,
+    public Persona(String nombre, String apellido1, String apellido2, int edad,String nif, String cAutonoma, String localidad, String cPostal, String direccion,
     String email, String contraseña, String telefono) {
         setNombre(nombre);
         setApellido1(apellido1);
@@ -96,11 +96,11 @@ public abstract class Persona {
         this.localidad = localidad;
     }
 
-    public int getCPostal() {
+    public String getCPostal() {
         return this.cPostal;
     }
 
-    public void setCPostal(int cPostal) {
+    public void setCPostal(String cPostal) {
         this.cPostal = cPostal;
     }
 

@@ -14,7 +14,7 @@ public class Cliente extends Persona {
         super();
     }
 
-    public Cliente(String nombre, String apellido1, String apellido2, int edad,String nif, String cAutonoma, String localidad, int cPostal, String direccion,
+    public Cliente(String nombre, String apellido1, String apellido2, int edad,String nif, String cAutonoma, String localidad, String cPostal, String direccion,
     String email, String contraseña, String telefono) {
         super(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
         this.cestaCompra=new ArrayList();
@@ -40,7 +40,7 @@ public class Cliente extends Persona {
     }
    
     public static Cliente añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
-    String localidad, int cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono) throws Excepciones{
+    String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono) throws Excepciones{
 
         if (!contraseña.equals(rContraseña)) {
             Excepciones e = new Excepciones(6);
