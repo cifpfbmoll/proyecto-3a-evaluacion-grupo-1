@@ -8,12 +8,13 @@ package Grafics;
 
 //import codigo.Excepciones;
 import java.util.InputMismatchException;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
  *
- * @author PC
+ * @author jaume
  */
 public class Registrador extends javax.swing.JFrame {
     
@@ -69,7 +70,7 @@ public class Registrador extends javax.swing.JFrame {
         return repetirContrasena;
     }
 
-    public JTextField getTrabajo() {
+    public JComboBox<String> getComunidadAutonoma() {
         return comunidadAutonoma;
     }
     
@@ -98,7 +99,6 @@ public class Registrador extends javax.swing.JFrame {
         nombre = new javax.swing.JTextField();
         apellido1 = new javax.swing.JTextField();
         apellido2 = new javax.swing.JTextField();
-        comunidadAutonoma = new javax.swing.JTextField();
         NIF = new javax.swing.JTextField();
         contrasena = new javax.swing.JTextField();
         repetirContrasena = new javax.swing.JTextField();
@@ -107,6 +107,7 @@ public class Registrador extends javax.swing.JFrame {
         Localidad = new javax.swing.JTextField();
         CodigoPostal = new javax.swing.JTextField();
         Direccion = new javax.swing.JTextField();
+        comunidadAutonoma = new javax.swing.JComboBox<>();
         botonRegistro = new javax.swing.JButton();
         botonAtras = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -199,12 +200,6 @@ public class Registrador extends javax.swing.JFrame {
         apellido2.setToolTipText("");
         getContentPane().add(apellido2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 130, 30));
 
-        comunidadAutonoma.setBackground(new java.awt.Color(0, 51, 0));
-        comunidadAutonoma.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        comunidadAutonoma.setForeground(new java.awt.Color(255, 255, 255));
-        comunidadAutonoma.setToolTipText("");
-        getContentPane().add(comunidadAutonoma, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 130, 30));
-
         NIF.setBackground(new java.awt.Color(0, 51, 0));
         NIF.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         NIF.setForeground(new java.awt.Color(255, 255, 255));
@@ -252,6 +247,18 @@ public class Registrador extends javax.swing.JFrame {
         Direccion.setForeground(new java.awt.Color(255, 255, 255));
         Direccion.setToolTipText("");
         getContentPane().add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 130, 30));
+
+        comunidadAutonoma.setBackground(new java.awt.Color(0, 51, 0));
+        comunidadAutonoma.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comunidadAutonoma.setForeground(new java.awt.Color(255, 255, 255));
+        comunidadAutonoma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Andalucía", "Aragón", "Canarias", "Cantabria", "Castilla-LM", "Castilla y León", "Cataluña", "Ceuta", "Madrid", "C.Valenciana", "Extremadura", "Galicia", "Baleares", "La Rioja", "Melilla", "Navarra", "País Vasco", "Asturias", "Murcia" }));
+        comunidadAutonoma.setToolTipText("");
+        comunidadAutonoma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comunidadAutonomaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comunidadAutonoma, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 130, 30));
 
         botonRegistro.setBackground(new java.awt.Color(102, 102, 102));
         botonRegistro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -316,6 +323,10 @@ public class Registrador extends javax.swing.JFrame {
         }*/
     }//GEN-LAST:event_botonRegistroActionPerformed
 
+    private void comunidadAutonomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comunidadAutonomaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comunidadAutonomaActionPerformed
+
     public void aviso (String mensaje){
         JOptionPane.showMessageDialog(null,mensaje); 
     }
@@ -364,7 +375,7 @@ public class Registrador extends javax.swing.JFrame {
     private javax.swing.JTextField apellido2;
     private javax.swing.JButton botonAtras;
     private javax.swing.JButton botonRegistro;
-    private javax.swing.JTextField comunidadAutonoma;
+    private javax.swing.JComboBox<String> comunidadAutonoma;
     private javax.swing.JTextField contrasena;
     private javax.swing.JTextField edad;
     private javax.swing.JTextField email;

@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author PC
+ * @author jaume
  */
 public class RegistradoEmpleados extends javax.swing.JFrame {
     

@@ -6,6 +6,7 @@
 package Main.Classes;
 
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -88,5 +89,9 @@ public class Herramientas {
     
     public static void cerrarConexion() throws SQLException {
         conexion.close();
+    }
+    
+    public static void aviso (String mensaje){
+        JOptionPane.showMessageDialog(null,mensaje); 
     }
 }

@@ -7,9 +7,13 @@ package Grafics;
 
 
 
-
+import Main.Classes.*;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -17,7 +21,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author PC
+ * @author jaume
  */
 public class InicioSesion extends javax.swing.JFrame {
 
@@ -147,7 +151,12 @@ public class InicioSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
          
     private void botonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLoginActionPerformed
-        
+        try {
+            this.inicioSesion();
+        } catch (SQLException ex) {
+            //modificar
+            Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonLoginActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
@@ -175,11 +184,12 @@ public class InicioSesion extends javax.swing.JFrame {
         return usuario;
     }
     
-    public void aviso (String mensaje){
-        JOptionPane.showMessageDialog(null,mensaje); 
-    }
-    
     public void salir() {                                           
+        try {
+            Herramientas.cerrarConexion();
+        } catch (SQLException ex) {
+            Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.exit(0);
     }   
     /**
@@ -212,9 +222,74 @@ public class InicioSesion extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InicioSesion();
+                try {
+                    Herramientas.crearConexion();
+                } catch (SQLException ex) {
+                    Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                InicioSesion login=new InicioSesion();
             }
         });
+    }
+    //tengo que cambiar tipo columna contraseñas a string por ahora
+    public void inicioSesion() throws SQLException{
+        boolean clienteLogeado=this.inicioSesionCliente();
+        boolean empleadoLogeado=false;
+        if (!clienteLogeado){
+            empleadoLogeado=this.inicioSesionEmpleado();
+        }
+        if(!empleadoLogeado && !clienteLogeado){
+            Herramientas.aviso("El usuario o contraseña son incorrectos");
+        }
+        else if(empleadoLogeado){
+            //abrir frame principal empleados
+        }
+        else if(clienteLogeado){
+            ElegirSupermercado eleccion=new ElegirSupermercado(this);
+        }
+    }
+    
+    //falta bastante, aron tiene que hacer metodo
+    public boolean inicioSesionCliente() throws SQLException {        
+        String usuario=this.getUsuario().getText();
+        char[] aContrasena=this.getContraseña().getPassword();
+        String contrasena=String.valueOf(aContrasena);
+        Herramientas.hacerSelect("SELECT * FROM cliente ", true); 
+        ResultSet resultadoClientes=Herramientas.getResultado();
+        boolean encontrado=false;
+        boolean coincide=false;
+        while(resultadoClientes.next() && !encontrado){
+            if(resultadoClientes.getString("DNI_cliente").equals(usuario)){
+                encontrado=true;
+                if(resultadoClientes.getString("contraseña").equals(contrasena)){
+                    coincide=true;
+                    //Cliente c1=new Cliente();
+                    //Main.setClienteActivo(c1); 
+                }
+            }
+        }
+        return coincide;
+    }
+    
+        public boolean inicioSesionEmpleado() throws SQLException {        
+        String usuario=this.getUsuario().getText();
+        char[] aContrasena=this.getContraseña().getPassword();
+        String contrasena=String.valueOf(aContrasena);
+        Herramientas.hacerSelect("SELECT * FROM empleado ", true); 
+        ResultSet resultadoEmpleados=Herramientas.getResultado();
+        boolean encontrado=false;
+        boolean coincide=false;
+        while(resultadoEmpleados.next() && !encontrado){
+            if(Integer.toString(resultadoEmpleados.getInt("ID_empleado")).equals(usuario)){
+                encontrado=true;
+                if(resultadoEmpleados.getString("contraseña").equals(contrasena)){
+                    coincide=true;
+                    //Empleado e1=new Empleado(resultadoemple....);
+                    //Main.setEmpleadoActivo(e1);
+                }
+            }
+        } 
+        return coincide;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

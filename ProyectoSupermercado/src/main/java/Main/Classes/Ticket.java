@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author PC
+ * @author jaume
  */
 public class Ticket {
     
