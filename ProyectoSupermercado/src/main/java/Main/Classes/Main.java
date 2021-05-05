@@ -48,7 +48,7 @@ public class Main {
         Main.supermercadoActivo = supermercadoActivo;
     }
     
-    public static void main(String[] args){
+    public static void main(String[] args) throws Excepciones, SQLException{
                 /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -73,15 +73,18 @@ public class Main {
         //</editor-fold>
         //</editor-fold>
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Herramientas.crearConexion();
-                } catch (SQLException ex) {
-                    Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                InicioSesion login=new InicioSesion();
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    Herramientas.crearConexion();
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                InicioSesion login=new InicioSesion();
+//            }
+//        });
+        Herramientas.crearConexion();
+        Cliente.añadirPersona("pepe", "llabres", "coll", 50, "43213527T", "Baleares", "Palma", "07006", "calle", "mail", "password123", "password123", "127317263", Herramientas.getConexion());
+        Herramientas.cerrarConexion();
     }
 }

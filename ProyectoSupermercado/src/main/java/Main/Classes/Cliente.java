@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import Main.Classes.Excepciones;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Cliente extends Persona {
@@ -41,13 +42,16 @@ public class Cliente extends Persona {
     }
 
     public static void añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
-    String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, Conection conexion) throws Excepciones{
+    String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, Connection conexion) throws Excepciones, SQLException{
 
         if (!contraseña.equals(rContraseña)) {
             Excepciones e = new Excepciones(6);
             throw e;
         }
-        PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO cliente (DNI_Cliente, Nombre_cliente, Apellido_cliente_1, Apellido_cliente_2, Edad, Comunidad_autonoma, Localidad, Codigo_postal, Direccion, Telefono, Email, Contraseña) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?");
+        PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO cliente"
+                + " (DNI_Cliente, Nombre_cliente, Apellido_cliente_1, Apellido_cliente_2, Edad, Comunidad_autonoma, Localidad, Codigo_postal, Direccion, Telefono, Email, Contraseña)"
+                + " VALUES"
+                + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         sentencia.setString(1, nif);
         sentencia.setString(2, nombre);
         sentencia.setString(3, apellido1);
@@ -89,9 +93,10 @@ public class Cliente extends Persona {
         //TO DO and define
     }
     /**
-     * Metodo que añade una linea de compra al carrito. Es de instancia, por tanto
-     * necesita un objeto de esta clase.
-     * @param producto
+     * Metodo que añade una linea de compra al carrito.Es de instancia, por tanto
+    necesita un objeto de esta clase.
+     * @param codigo_producto
+     * @param precio_producto
      * @param cantidad 
      */
     public void añadirProductoCarrito(int codigo_producto, double precio_producto, int cantidad){
