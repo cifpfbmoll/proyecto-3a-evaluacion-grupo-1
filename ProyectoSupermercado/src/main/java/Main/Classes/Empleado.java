@@ -58,16 +58,16 @@ public class Empleado extends Persona {
 		this.privilegios = privilegios;
 	}
         
-    public static Empleado añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
+    public static void añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
     String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, 
-    int codigoSupermercado, String puestoTrabajo, int privilegios, Connection conexion) throws Excepciones{
+    int codigoSupermercado, String puestoTrabajo, int privilegios, Connection conexion) throws Excepciones, SQLException{
         if (!contraseña.equals(rContraseña)) {
             Excepciones e = new Excepciones(6);
             throw e;
         }
         PreparedStatement sentencia2 = conexion.prepareStatement("SELECT MAX(ID_EMPLEADO) FROM empleado;");
-        ResultSet resultado2 = sentencia.executeQuery();
-        resultado.next();
+        ResultSet resultado2 = sentencia2.executeQuery();
+        resultado2.next();
         int id = resultado2.getInt(1);
         id++;
         PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO empleado"
@@ -120,7 +120,7 @@ public class Empleado extends Persona {
         return per;
     }
 
-    public void eliminarPersona(Connection conexion, int id) throws SQLException {
+    public static void eliminarPersona(Connection conexion, int id) throws SQLException {
         PreparedStatement borrar = conexion.prepareStatement("DELETE FROM empleado WHERE ID_EMPLEADO = ?");
         borrar.setInt(1, id);
         borrar.executeUpdate();

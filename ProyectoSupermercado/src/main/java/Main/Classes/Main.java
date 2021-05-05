@@ -84,7 +84,8 @@ public class Main {
 //            }
 //        });
         Herramientas.crearConexion();
-        Cliente.añadirPersona("pepe", "llabres", "coll", 50, "43213527T", "Baleares", "Palma", "07006", "calle", "mail", "password123", "password123", "127317263", Herramientas.getConexion());
+        Empleado.eliminarPersona(Herramientas.getConexion(), 25);
+        Empleado.añadirPersona("Manolo", "Martinez", "sol", 20, "43213528T", "Balears", "Palma", "07006", "Calle Aragon", "manolo@gmail.com", "sisi123", "sisi123", "3687465736", 1, "Dependiente", 1, Herramientas.getConexion());
         Herramientas.cerrarConexion();
     }
 }
