@@ -57,15 +57,21 @@ public final class ProductoAlimento extends Producto {
     }
     
     public static void AñadirAlimento(ProductoAlimento pa1) throws SQLException{
-        Herramientas.modificarDatosTabla("INSERT INTO ProductoAlimento VALUES("+pa1.getCaducidad()+","+pa1.getCategoria()+","+pa1.getCodigoProd()+","+pa1.getNombreProd()+","+pa1.getPrecioProd()+","+pa1.getDescripcionProd()+")");
+        Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+pa1.getCodigoProd()+","+pa1.getNombreProd()+","+pa1.getPrecioProd()+","+pa1.getDescripcionProd()+")",true);
+        Herramientas.modificarDatosTabla("INSERT INTO producto_alimento VALUES("+pa1.getCodigoProd()+","+pa1.getCaducidad()+","+pa1.getCategoria()+")",true);
+        Herramientas.cerrarStatementResult();
     }
     
-    public static void EliminarAlimento(ProductoAlimento pa1) throws SQLException{
-        Herramientas.modificarDatosTabla("DELETE FROM ProductoAlimento WHERE codigo_producto = "+pa1.getCodigoProd());
+    public static void EliminarAlimento(int codigoProd) throws SQLException{
+        Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,true);
+        Herramientas.modificarDatosTabla("DELETE FROM producto_alimento WHERE Codigo_producto = "+codigoProd,true);
+        Herramientas.cerrarStatementResult();
     }
     
+    //falta añadir que a parte del nombre te digo que tipo de producto es
     public static void BuscarAlimento(String buscar) throws SQLException{
-        Herramientas.modificarDatosTabla("SELECT * FROM ProductoAlimento WHERE nombre_productoAlimento LIKE '%"+buscar+"%'");
+        Herramientas.modificarDatosTabla("SELECT * FROM producto WHERE Nombre_producto LIKE '%"+buscar+"%'",true);
+        Herramientas.cerrarStatementResult();
     }    
 }
 

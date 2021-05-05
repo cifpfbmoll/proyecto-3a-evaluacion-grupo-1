@@ -48,15 +48,30 @@ public class Cliente extends Persona {
         return null;
     }
 
-    public static Cliente añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
-    String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono) throws Excepciones{
+    public static void añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
+    String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, Connection conexion) throws Excepciones, SQLException{
 
         if (!contraseña.equals(rContraseña)) {
             Excepciones e = new Excepciones(6);
             throw e;
         }
-        Cliente per = new Cliente(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
-        return per;
+        PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO cliente"
+                + " (DNI_Cliente, Nombre_cliente, Apellido_cliente_1, Apellido_cliente_2, Edad, Comunidad_autonoma, Localidad, Codigo_postal, Direccion, Telefono, Email, Contraseña)"
+                + " VALUES"
+                + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        sentencia.setString(1, nif);
+        sentencia.setString(2, nombre);
+        sentencia.setString(3, apellido1);
+        sentencia.setString(4, apellido2);
+        sentencia.setInt(5, edad);
+        sentencia.setString(6, cAutonoma);
+        sentencia.setString(7, localidad);
+        sentencia.setString(8, cPostal);
+        sentencia.setString(9, direccion);
+        sentencia.setString(10, telefono);
+        sentencia.setString(11, email);
+        sentencia.setString(12, contraseña);
+        sentencia.executeUpdate();
     }
 
     public static Cliente recogerCliente(Connection conexion, String nif) throws SQLException {
@@ -85,9 +100,10 @@ public class Cliente extends Persona {
         //TO DO and define
     }
     /**
-     * Metodo que añade una linea de compra al carrito. Es de instancia, por tanto
-     * necesita un objeto de esta clase.
-     * @param producto
+     * Metodo que añade una linea de compra al carrito.Es de instancia, por tanto
+    necesita un objeto de esta clase.
+     * @param codigo_producto
+     * @param precio_producto
      * @param cantidad 
      */
     public void añadirProductoCarrito(int codigo_producto, double precio_producto, int cantidad){

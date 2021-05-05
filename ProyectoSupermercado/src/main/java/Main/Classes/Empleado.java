@@ -59,16 +59,38 @@ public class Empleado extends Persona {
 	}
         
     public static Empleado añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
-    String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, int id, 
-    int codigoSupermercado, String puestoTrabajo, int privilegios) throws Excepciones{
-
+    String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, 
+    int codigoSupermercado, String puestoTrabajo, int privilegios, Connection conexion) throws Excepciones{
         if (!contraseña.equals(rContraseña)) {
             Excepciones e = new Excepciones(6);
             throw e;
         }
-        Empleado per = new Empleado(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono, 
-        id, codigoSupermercado, puestoTrabajo, privilegios);
-        return per;
+        PreparedStatement sentencia2 = conexion.prepareStatement("SELECT MAX(ID_EMPLEADO) FROM empleado;");
+        ResultSet resultado2 = sentencia.executeQuery();
+        resultado.next();
+        int id = resultado2.getInt(1);
+        id++;
+        PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO empleado"
+                + " (ID_EMPLEADO, Codigo_supermercado, DNI_empleado, Nombre_empleado, Apellido_empleado_1, Apellido_empleado_2, Edad, Comunidad_autonoma, Localidad, Codigo_postal, Direccion, Telefono, Email, Puesto_trabajo, Privilegios, Contraseña)"
+                + " VALUES"
+                + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        sentencia.setInt(1, id);
+        sentencia.setInt(2, codigoSupermercado);
+        sentencia.setString(3, nif);
+        sentencia.setString(4, nombre);
+        sentencia.setString(5, apellido1);
+        sentencia.setString(6, apellido2);
+        sentencia.setInt(7, edad);
+        sentencia.setString(8, cAutonoma);
+        sentencia.setString(9, localidad);
+        sentencia.setString(10, cPostal);
+        sentencia.setString(11, direccion);
+        sentencia.setString(12, telefono);
+        sentencia.setString(13, email);
+        sentencia.setString(14, puestoTrabajo);
+        sentencia.setInt(15, privilegios);
+        sentencia.setString(16, contraseña);
+        sentencia.executeUpdate();
     }
 
     public static Empleado recogerEmpleado(Connection conexion, int id) throws SQLException {
