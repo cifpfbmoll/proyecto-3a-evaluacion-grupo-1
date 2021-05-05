@@ -29,7 +29,7 @@ public class Cliente extends Persona {
         this.cestaCompra = cestaCompra;
     }
 
-    public void eliminarPersona(Connection conexion, String nif) throws SQLException {
+    public static void eliminarPersona(Connection conexion, String nif) throws SQLException {
         PreparedStatement borrar = conexion.prepareStatement("DELETE FROM cliente WHERE DNI_Cliente = ?");
         borrar.setString(1, nif);
         borrar.executeUpdate();
