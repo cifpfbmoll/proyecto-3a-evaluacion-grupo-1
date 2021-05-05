@@ -73,19 +73,18 @@ public class Main {
         //</editor-fold>
         //</editor-fold>
         
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    Herramientas.crearConexion();
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//                InicioSesion login=new InicioSesion();
-//            }
-//        });
-        Herramientas.crearConexion();
-        Empleado.eliminarPersona(Herramientas.getConexion(), 25);
-        Empleado.añadirPersona("Manolo", "Martinez", "sol", 20, "43213528T", "Balears", "Palma", "07006", "Calle Aragon", "manolo@gmail.com", "sisi123", "sisi123", "3687465736", 1, "Dependiente", 1, Herramientas.getConexion());
-        Herramientas.cerrarConexion();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    Herramientas.crearConexion();
+                } catch (SQLException ex) {
+                    Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                InicioSesion login=new InicioSesion();
+            }
+        });
+//        Herramientas.crearConexion();
+//        
+//        Herramientas.cerrarConexion();
     }
 }
