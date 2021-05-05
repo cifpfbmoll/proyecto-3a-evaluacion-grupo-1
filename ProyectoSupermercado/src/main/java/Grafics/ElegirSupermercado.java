@@ -116,7 +116,7 @@ public class ElegirSupermercado extends javax.swing.JFrame {
                 case "Metradona Barcelona":
                     System.out.println(supermercado);
                     //copiar datos de supermercado en supermercado activo
-                    //iniciar frame principal cliente
+                    InterfazUsuario programa=new InterfazUsuario();
                     login.dispose();
                     this.dispose();
                     break;
@@ -124,7 +124,7 @@ public class ElegirSupermercado extends javax.swing.JFrame {
                 case "Metradona Las Plamas de Gran Canaria":
                     System.out.println(supermercado);
                     //copiar datos de supermercado en supermercado activo
-                    //iniciar frame principal cliente
+                    programa=new InterfazUsuario();
                     login.dispose();
                     this.dispose();
                     break;
@@ -132,7 +132,7 @@ public class ElegirSupermercado extends javax.swing.JFrame {
                 case "Metradona Madrid":
                     System.out.println(supermercado);
                     //copiar datos de supermercado en supermercado activo
-                    //iniciar frame principal cliente
+                    programa=new InterfazUsuario();
                     login.dispose();
                     this.dispose();
                     break;
@@ -140,7 +140,7 @@ public class ElegirSupermercado extends javax.swing.JFrame {
                 case "Metradona Mallorca":
                     System.out.println(supermercado);
                     //copiar datos de supermercado en supermercado activo
-                    //iniciar frame principal cliente
+                    programa=new InterfazUsuario();
                     login.dispose();
                     this.dispose();
                     break;
@@ -148,7 +148,7 @@ public class ElegirSupermercado extends javax.swing.JFrame {
                 case "Metradona Sevilla":
                     System.out.println(supermercado);
                     //copiar datos de supermercado en supermercado activo
-                    //iniciar frame principal cliente
+                    programa=new InterfazUsuario();
                     login.dispose();
                     this.dispose();
                     break;

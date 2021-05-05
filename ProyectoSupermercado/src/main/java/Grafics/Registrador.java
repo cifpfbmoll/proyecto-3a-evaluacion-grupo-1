@@ -6,9 +6,12 @@
 package Grafics;
 
 
-//import codigo.Excepciones;
+import Main.Classes.*;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -42,6 +45,18 @@ public class Registrador extends javax.swing.JFrame {
         this.biblioteca = biblioteca;
     }*/
 
+    public JTextField getCodigoPostal() {
+        return CodigoPostal;
+    }
+
+    public JTextField getDireccion() {
+        return Direccion;
+    }
+
+    public JTextField getLocalidad() {
+        return Localidad;
+    }
+
     public JTextField getNIF() {
         return NIF;
     }
@@ -54,12 +69,24 @@ public class Registrador extends javax.swing.JFrame {
         return apellido2;
     }
 
+    public JComboBox<String> getComunidadAutonoma() {
+        return comunidadAutonoma;
+    }
+
     public JTextField getContrasena() {
         return contrasena;
     }
 
     public JTextField getEdad() {
         return edad;
+    }
+
+    public JTextField getEmail() {
+        return email;
+    }
+
+    public JLabel getFondo() {
+        return fondo;
     }
 
     public JTextField getNombre() {
@@ -70,9 +97,11 @@ public class Registrador extends javax.swing.JFrame {
         return repetirContrasena;
     }
 
-    public JComboBox<String> getComunidadAutonoma() {
-        return comunidadAutonoma;
+    public JTextField getTelefono() {
+        return telefono;
     }
+
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -309,18 +338,19 @@ public class Registrador extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAtrasActionPerformed
 
     private void botonRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistroActionPerformed
-        /*try{
-            MainGrafic.crearBibliotecario(this.getBiblioteca(), this);
+        try {
+            Cliente.añadirPersona(this.getNombre().getText(), this.getApellido1().getText(), this.getApellido2().getText(),
+                    Integer.parseInt(this.getEdad().getText()), this.getNIF().getText(), this.getComunidadAutonoma().getSelectedItem().toString(), this.getLocalidad().getText(),
+                    this.getCodigoPostal().getText(), this.getDireccion().getText(), this.getEmail().getText(), this.getContrasena().getText(),
+                    this.getRepetirContrasena().getText(), this.getTelefono().getText(),Herramientas.getConexion());
             this.aviso("HAS SIDO REGISTRADO");
-            InicioSesion login=new InicioSesion(this.getBiblioteca());
+            InicioSesion login=new InicioSesion();
             this.dispose();
+        } catch (Excepciones ex) {
+            Herramientas.aviso(ex.getMessage());
+        } catch (Exception error) {
+            Herramientas.aviso("Ha habido algun error, porfavor inserta los datos correctos");
         }
-        catch(Excepciones e){
-            this.aviso(e.getMessage());
-        }
-        catch(NumberFormatException excepcion){
-            this.aviso("La edad tiene que ser un numero");
-        }*/
     }//GEN-LAST:event_botonRegistroActionPerformed
 
     private void comunidadAutonomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comunidadAutonomaActionPerformed

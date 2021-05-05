@@ -249,7 +249,7 @@ public class InicioSesion extends javax.swing.JFrame {
         }
     }
     
-    //falta bastante, aron tiene que hacer metodo
+    //comentar
     public boolean inicioSesionCliente() throws SQLException {        
         String usuario=this.getUsuario().getText();
         char[] aContrasena=this.getContraseña().getPassword();
@@ -263,15 +263,15 @@ public class InicioSesion extends javax.swing.JFrame {
                 encontrado=true;
                 if(resultadoClientes.getString("contraseña").equals(contrasena)){
                     coincide=true;
-                    //Cliente c1=new Cliente();
-                    //Main.setClienteActivo(c1); 
+                    Cliente c1=Cliente.recogerCliente(Herramientas.getConexion(), usuario);
+                    Main.setClienteActivo(c1); 
                 }
             }
         }
         return coincide;
     }
-    
-        public boolean inicioSesionEmpleado() throws SQLException {        
+    //comentar
+    public boolean inicioSesionEmpleado() throws SQLException {        
         String usuario=this.getUsuario().getText();
         char[] aContrasena=this.getContraseña().getPassword();
         String contrasena=String.valueOf(aContrasena);
@@ -284,8 +284,8 @@ public class InicioSesion extends javax.swing.JFrame {
                 encontrado=true;
                 if(resultadoEmpleados.getString("contraseña").equals(contrasena)){
                     coincide=true;
-                    //Empleado e1=new Empleado(resultadoemple....);
-                    //Main.setEmpleadoActivo(e1);
+                    Empleado e1=Empleado.recogerEmpleado(Herramientas.getConexion(), resultadoEmpleados.getInt("ID_empleado"));
+                    Main.setEmpleadoActivo(e1);
                 }
             }
         } 

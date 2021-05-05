@@ -158,6 +158,7 @@ public class Ticket {
     //no probado
     public static void crearTicket(int codigoSupermercado, ArrayList <LineaCompra> lineasTicket, String nif ) throws SQLException{
         //codigo supermercado y nif se coge del que se ha eligido al entrar.
+        try{
         double precioTotal=0;
         for(int i=0;i<lineasTicket.size();i++){
             precioTotal+=lineasTicket.get(i).getPrecio_linea();
@@ -174,6 +175,12 @@ public class Ticket {
         Herramientas.getConexion().commit();
         Herramientas.getConexion().setAutoCommit(true);
         Herramientas.cerrarStatementResult();
+        }
+        catch(SQLException error){
+            Herramientas.getConexion().rollback();
+            Herramientas.aviso("Ha habido un error");
+        };
+        
     }
     //Actualmente este metodo solo ve el ultimo ticket del cliente.
     //probado

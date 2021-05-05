@@ -143,4 +143,11 @@ public abstract class Persona {
         }
         setContraseña(novaContraseña);
     }
+
+    @Override
+    public String toString() {
+        return "Persona{" + "nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", edad=" + edad + ", nif=" + nif + ", cAutonoma=" + cAutonoma + ", localidad=" + localidad + ", cPostal=" + cPostal + ", direccion=" + direccion + ", email=" + email + ", contrase\u00f1a=" + contraseña + ", telefono=" + telefono +  '}';
+    }
+    
+    
 }
