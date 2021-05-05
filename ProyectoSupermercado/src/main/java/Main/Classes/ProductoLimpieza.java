@@ -46,14 +46,20 @@ public class ProductoLimpieza extends Producto {
     }
     
     public static void AñadirLimpieza(ProductoLimpieza pl1) throws SQLException{
-        Herramientas.modificarDatosTabla("INSERT INTO ProductoLimpieza VALUES("+pl1.getSuperficie()+","+pl1.getCodigoProd()+","+pl1.getNombreProd()+","+pl1.getPrecioProd()+","+pl1.getDescripcionProd()+")");
+        Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+pl1.getCodigoProd()+","+pl1.getNombreProd()+","+pl1.getPrecioProd()+","+pl1.getDescripcionProd()+")",true);
+        Herramientas.modificarDatosTabla("INSERT INTO producto_limpieza VALUES("+pl1.getCodigoProd()+","+pl1.getSuperficie()+")",true);
+        Herramientas.cerrarStatementResult();
     }
     
-    public static void EliminarLimpieza(ProductoLimpieza pl1) throws SQLException{
-        Herramientas.modificarDatosTabla("DELETE FROM ProductoLimpieza WHERE codigo_producto = "+pl1.getCodigoProd());
+    public static void EliminarLimpieza(int codigoProd) throws SQLException{
+        Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,true);
+        Herramientas.modificarDatosTabla("DELETE FROM producto_limpieza WHERE Codigo_producto = "+codigoProd,true);
+        Herramientas.cerrarStatementResult();
     }
     
+    //falta añadir que a parte del nombre te digo que tipo de producto es
     public static void BuscarLimpieza(String buscar) throws SQLException{
-        Herramientas.modificarDatosTabla("SELECT * FROM ProductoLimpieza WHERE nombre_productoLimpieza LIKE '%"+buscar+"%'");
+        Herramientas.modificarDatosTabla("SELECT * FROM producto WHERE Nombre_producto LIKE '%"+buscar+"%'",true);
+        Herramientas.cerrarStatementResult();
     }
 }

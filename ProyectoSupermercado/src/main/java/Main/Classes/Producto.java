@@ -62,7 +62,7 @@ abstract class Producto {
         Herramientas.hacerSelect("SELECT MAX(Codigo_producto) FROM producto",true);
         ResultSet result=Herramientas.getResultado();
         result.next();
-        int ultimo = result.getInt(1);
+        int ultimo = result.getInt(1)+1;
         Herramientas.cerrarConexion();
         return ultimo;
     }
