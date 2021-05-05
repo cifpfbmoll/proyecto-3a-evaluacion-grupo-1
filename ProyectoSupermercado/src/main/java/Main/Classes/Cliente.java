@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import Main.Classes.Excepciones;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Cliente extends Persona {
@@ -27,6 +28,13 @@ public class Cliente extends Persona {
     public void setCestaCompra(ArrayList<LineaCompra> cestaCompra) {
         this.cestaCompra = cestaCompra;
     }
+
+    @Override
+    public String toString() {
+        return super.toString()+"Cliente{" + "cestaCompra=" + cestaCompra + '}';
+    }
+    
+    
 
     public void eliminarPersona(Connection conexion, String nif) throws SQLException {
         PreparedStatement borrar = conexion.prepareStatement("DELETE FROM cliente WHERE DNI_Cliente = ?");
@@ -66,6 +74,7 @@ public class Cliente extends Persona {
         String direccion = resultado.getString("Direccion");
         String email = resultado.getString("Email");
         String contraseña = resultado.getString("Contraseña");
+        String telefono = resultado.getString("Telefono");
         Cliente per = new Cliente(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
         resultado.close();
         sentencia.close();
