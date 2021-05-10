@@ -106,21 +106,6 @@ public class Supermercado {
 
     }
 
-    private Supermercado createSupermarket(String[] splitInfo) {
-        final Supermercado supermercado = Supermercado.Builder.newInstance()
-                                                  .code(Integer.parseInt(splitInfo[0]))
-                                                  .NIF(splitInfo[1])
-                                                  .CCAA(splitInfo[2])
-                                                  .localitat(splitInfo[3])
-                                                  .zipCode(splitInfo[4])
-                                                  .address(splitInfo[5])
-                                                  .phoneNumber(splitInfo[6])
-                                                  .email(splitInfo[7])
-                                                  .area(Integer.parseInt(splitInfo[8]))
-                                                  .build();
-        return supermercado;
-    }
-
     public Supermercado createSupermarket(int supermarketCode) throws SQLException {
         ResultSet resultSet = getData(supermarketCode);
         resultSet.next();
