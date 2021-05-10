@@ -1,14 +1,11 @@
 package Main.Classes;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class Supermercado {
-    private AtomicInteger amount = new AtomicInteger(0);
     private int code;
     private String NIF;
     private String CCAA;
     private String localitat;
-    private int zipCode;
+    private String zipCode;
     private String address;
     private String phoneNumber;
     private String email;
@@ -17,10 +14,11 @@ public class Supermercado {
 
 
     public static class Builder { //Builder Pattern
+        private int code;
         private String NIF;
         private String CCAA;
         private String localitat;
-        private int zipCode;
+        private String zipCode;
         private String address;
         private String phoneNumber;
         private String email;
@@ -29,6 +27,11 @@ public class Supermercado {
         public static Builder newInstance() {
             return new Builder();
 
+        }
+
+        public Builder code(int code) {
+            this.code = code;
+            return this;
         }
 
         public Builder NIF(String NIF) {
@@ -49,7 +52,7 @@ public class Supermercado {
 
         }
 
-        public Builder zipCode(int zipCode) {
+        public Builder zipCode(String zipCode) {
             this.zipCode = zipCode;
             return this;
 
@@ -81,7 +84,7 @@ public class Supermercado {
 
         public Supermercado build() {
             Supermercado supermarket = new Supermercado();
-            supermarket.code = supermarket.amount.getAndIncrement();
+            supermarket.code = this.code;
             supermarket.NIF = this.NIF;
             supermarket.CCAA = this.CCAA;
             supermarket.localitat = this.localitat;
