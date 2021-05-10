@@ -1,5 +1,7 @@
 package Main.Classes;
 
+import java.sql.*;
+
 public class Supermercado {
     private int code;
     private String NIF;
@@ -103,4 +105,69 @@ public class Supermercado {
     private Supermercado() {
 
     }
+
+    private Supermercado createSupermarket(String[] splitInfo) {
+        final Supermercado supermercado = Supermercado.Builder.newInstance()
+                                                  .code(Integer.parseInt(splitInfo[0]))
+                                                  .NIF(splitInfo[1])
+                                                  .CCAA(splitInfo[2])
+                                                  .localitat(splitInfo[3])
+                                                  .zipCode(splitInfo[4])
+                                                  .address(splitInfo[5])
+                                                  .phoneNumber(splitInfo[6])
+                                                  .email(splitInfo[7])
+                                                  .area(Integer.parseInt(splitInfo[8]))
+                                                  .build();
+        return supermercado;
+    }
+
+    public Supermercado createSupermarket(int supermarketCode) throws SQLException {
+        ResultSet resultSet = getData(supermarketCode);
+        resultSet.next();
+
+        int code = resultSet.getInt(1);
+        String NIF = resultSet.getString(2);
+        String CCAA = resultSet.getString(3);
+        String localitat = resultSet.getString(4);
+        String zipCode = resultSet.getString(5);
+        String address = resultSet.getString(6);
+        String phoneNumber = resultSet.getString(7);
+        String email = resultSet.getString(8);
+        int area = resultSet.getInt(9);
+
+
+        Supermercado supermercado = Supermercado.Builder.newInstance()
+                                            .code(code)
+                                            .NIF(NIF)
+                                            .CCAA(CCAA)
+                                            .localitat(localitat)
+                                            .zipCode(zipCode)
+                                            .address(address)
+                                            .phoneNumber(phoneNumber)
+                                            .email(email)
+                                            .area(area)
+                                            .build();
+
+        resultSet.close();
+
+        return supermercado;
+
+    }
+
+    private ResultSet getData(int code) throws SQLException {
+            Connection connection = Herramientas.getConexion();
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM SUPERMERCADO WHERE Codigo_Supermercado = ?");
+            preparedStatement.setInt(1, code);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            preparedStatement.close();
+
+
+            return resultSet;
+
+
+    }
+
 }

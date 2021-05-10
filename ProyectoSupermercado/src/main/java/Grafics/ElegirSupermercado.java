@@ -198,4 +198,7 @@ public class ElegirSupermercado extends javax.swing.JFrame {
     private javax.swing.JList<String> listaSupermercados;
     private javax.swing.JScrollPane scrollSupermercados;
     // End of variables declaration//GEN-END:variables
+
+
+
 }
