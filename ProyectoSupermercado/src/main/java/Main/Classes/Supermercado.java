@@ -1,5 +1,6 @@
 package Main.Classes;
 
+import javax.swing.*;
 import java.sql.*;
 
 public class Supermercado {
@@ -154,5 +155,112 @@ public class Supermercado {
 
 
     }
+
+    public class addSupermarket {
+        private JTextField NIFTextField;
+        private JTextField CCAATextField;
+        private JTextField localitatTextField;
+        private JTextField zipCodeTextField;
+        private JTextField addressTextField;
+        private JTextField phoneNumberTextField;
+        private JTextField emailTextField;
+        private JTextField areaTextField;
+
+        private JButton addSupermarketButton;
+
+
+
+        public JTextField getNIFTextField() {
+            return NIFTextField;
+        }
+
+        public JTextField getCCAATextField() {
+            return CCAATextField;
+        }
+
+        public JTextField getLocalitatTextField() {
+            return localitatTextField;
+        }
+
+        public JTextField getZipCodeTextField() {
+            return zipCodeTextField;
+        }
+
+        public JTextField getAddressTextField() {
+            return addressTextField;
+        }
+
+        public JTextField getPhoneNumberTextField() {
+            return phoneNumberTextField;
+        }
+
+        public JTextField getEmailTextField() {
+            return emailTextField;
+        }
+
+        public JTextField getAreaTextField() {
+            return areaTextField;
+        }
+
+        public addSupermarket() {
+            addSupermarketButton.addActionListener(e -> {
+                try {
+                    insertSupermarketIntoDB();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
+        }
+
+        private void insertSupermarketIntoDB() throws SQLException {
+            Connection connection = Herramientas.getConexion();
+            PreparedStatement insertSupermarketPreparedStatement = connection.prepareStatement("INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?, ?, ?. ?); ");
+
+            insertSupermarketPreparedStatement.setInt(1, (getLastCode()+1));
+            insertSupermarketPreparedStatement.setString(2, getNIFTextField().getText());
+            insertSupermarketPreparedStatement.setString(3, getCCAATextField().getText());
+            insertSupermarketPreparedStatement.setString(4, getLocalitatTextField().getText());
+            insertSupermarketPreparedStatement.setString(5, getZipCodeTextField().getText());
+            insertSupermarketPreparedStatement.setString(6, getAddressTextField().getText());
+            insertSupermarketPreparedStatement.setString(7, getPhoneNumberTextField().getText());
+            insertSupermarketPreparedStatement.setString(8, getEmailTextField().getText());
+            insertSupermarketPreparedStatement.setInt(9, Integer.parseInt(getAreaTextField().getText()));
+
+        }
+
+        private int getLastCode() throws SQLException {
+            Connection connection = Herramientas.getConexion();
+
+            PreparedStatement getCodePreparedStatement = connection.prepareStatement("SELECT MAX(Codigo_supermercado) FROM SUPERMERCADO");
+            ResultSet lastCodeValue = getCodePreparedStatement.executeQuery();
+
+            if (lastCodeValue.next()) {
+                int codeValue = lastCodeValue.getInt(1);
+                getCodePreparedStatement.close();
+                lastCodeValue.close();
+
+                return codeValue;
+            } else {
+                throw new SQLException("Query error, code not found.");
+            }
+
+        }
+
+    }
+
+    public class removeSupermarket {
+
+        public removeSupermarket(int code) throws SQLException {
+            Connection connection = Herramientas.getConexion();
+            PreparedStatement removeSupermarketPreparedStatement = connection.prepareStatement("DELETE FROM SUPERMERCADO WHERE Codigo_supermercado = ?");
+
+            removeSupermarketPreparedStatement.setInt(1, code);
+            removeSupermarketPreparedStatement.executeQuery();
+
+            removeSupermarketPreparedStatement.close();
+
+        }
+    }
+
 
 }
