@@ -145,7 +145,7 @@ public class Supermercado {
 
     }
 
-    public class addSupermarket {
+    public static class addSupermarket {
         private JTextField NIFTextField;
         private JTextField CCAATextField;
         private JTextField localitatTextField;
@@ -156,7 +156,6 @@ public class Supermercado {
         private JTextField areaTextField;
 
         private JButton addSupermarketButton;
-
 
 
         public JTextField getNIFTextField() {
@@ -203,19 +202,19 @@ public class Supermercado {
 
         private void insertSupermarketIntoDB() throws SQLException {
             Supermercado supermercado = Builder.newInstance()
-                                               .code(getLastCode()+1)
-                                               .NIF(getNIFTextField().getText())
-                                               .CCAA(getCCAATextField().getText())
-                                               .localitat(getLocalitatTextField().getText())
-                                               .zipCode(getZipCodeTextField().getText())
-                                               .address(getAddressTextField().getText())
-                                               .phoneNumber(getPhoneNumberTextField().getText())
-                                               .email(getEmailTextField().getText())
-                                               .area(Integer.parseInt(getAreaTextField().getText()))
-                                               .build();
+                                                .code(getLastCode()+1)
+                                                .NIF(getNIFTextField().getText())
+                                                .CCAA(getCCAATextField().getText())
+                                                .localitat(getLocalitatTextField().getText())
+                                                .zipCode(getZipCodeTextField().getText())
+                                                .address(getAddressTextField().getText())
+                                                .phoneNumber(getPhoneNumberTextField().getText())
+                                                .email(getEmailTextField().getText())
+                                                .area(Integer.parseInt(getAreaTextField().getText()))
+                                                .build();
 
             Connection connection = Herramientas.getConexion();
-            PreparedStatement insertSupermarketPreparedStatement = connection.prepareStatement("INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?, ?, ?. ?); ");
+            PreparedStatement insertSupermarketPreparedStatement = connection.prepareStatement("INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?, ?, ?. ?)");
 
             insertSupermarketPreparedStatement.setInt(1, supermercado.code);
             insertSupermarketPreparedStatement.setString(2, supermercado.NIF);
@@ -226,6 +225,10 @@ public class Supermercado {
             insertSupermarketPreparedStatement.setString(7, supermercado.phoneNumber);
             insertSupermarketPreparedStatement.setString(8, supermercado.email);
             insertSupermarketPreparedStatement.setInt(9, supermercado.area);
+
+
+            insertSupermarketPreparedStatement.executeUpdate();
+            insertSupermarketPreparedStatement.close();
 
         }
 
@@ -253,6 +256,7 @@ public class Supermercado {
 
         public removeSupermarket(int code) throws SQLException {
             Connection connection = Herramientas.getConexion();
+
             PreparedStatement removeSupermarketPreparedStatement = connection.prepareStatement("DELETE FROM SUPERMERCADO WHERE Codigo_supermercado = ?");
 
             removeSupermarketPreparedStatement.setInt(1, code);
