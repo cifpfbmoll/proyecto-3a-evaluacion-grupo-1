@@ -107,31 +107,20 @@ public class Supermercado {
 
     }
 
-    public Supermercado createSupermarket(int supermarketCode) throws SQLException {
+    public Supermercado instantiateSupermarketFromDB(int supermarketCode) throws SQLException {
         ResultSet resultSet = getData(supermarketCode);
         resultSet.next();
 
-        int code = resultSet.getInt(1);
-        String NIF = resultSet.getString(2);
-        String CCAA = resultSet.getString(3);
-        String localitat = resultSet.getString(4);
-        String zipCode = resultSet.getString(5);
-        String address = resultSet.getString(6);
-        String phoneNumber = resultSet.getString(7);
-        String email = resultSet.getString(8);
-        int area = resultSet.getInt(9);
-
-
-        Supermercado supermercado = Supermercado.Builder.newInstance()
-                                            .code(code)
-                                            .NIF(NIF)
-                                            .CCAA(CCAA)
-                                            .localitat(localitat)
-                                            .zipCode(zipCode)
-                                            .address(address)
-                                            .phoneNumber(phoneNumber)
-                                            .email(email)
-                                            .area(area)
+        Supermercado supermercado = Builder.newInstance()
+                                            .code(resultSet.getInt(1))
+                                            .NIF(resultSet.getString(2))
+                                            .CCAA(resultSet.getString(3))
+                                            .localitat(resultSet.getString(4))
+                                            .zipCode(resultSet.getString(5))
+                                            .address(resultSet.getString(6))
+                                            .phoneNumber(resultSet.getString(7))
+                                            .email(resultSet.getString(8))
+                                            .area(resultSet.getInt(9))
                                             .build();
 
         resultSet.close();
@@ -213,18 +202,30 @@ public class Supermercado {
         }
 
         private void insertSupermarketIntoDB() throws SQLException {
+            Supermercado supermercado = Builder.newInstance()
+                                               .code(getLastCode()+1)
+                                               .NIF(getNIFTextField().getText())
+                                               .CCAA(getCCAATextField().getText())
+                                               .localitat(getLocalitatTextField().getText())
+                                               .zipCode(getZipCodeTextField().getText())
+                                               .address(getAddressTextField().getText())
+                                               .phoneNumber(getPhoneNumberTextField().getText())
+                                               .email(getEmailTextField().getText())
+                                               .area(Integer.parseInt(getAreaTextField().getText()))
+                                               .build();
+
             Connection connection = Herramientas.getConexion();
             PreparedStatement insertSupermarketPreparedStatement = connection.prepareStatement("INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?, ?, ?. ?); ");
 
-            insertSupermarketPreparedStatement.setInt(1, (getLastCode()+1));
-            insertSupermarketPreparedStatement.setString(2, getNIFTextField().getText());
-            insertSupermarketPreparedStatement.setString(3, getCCAATextField().getText());
-            insertSupermarketPreparedStatement.setString(4, getLocalitatTextField().getText());
-            insertSupermarketPreparedStatement.setString(5, getZipCodeTextField().getText());
-            insertSupermarketPreparedStatement.setString(6, getAddressTextField().getText());
-            insertSupermarketPreparedStatement.setString(7, getPhoneNumberTextField().getText());
-            insertSupermarketPreparedStatement.setString(8, getEmailTextField().getText());
-            insertSupermarketPreparedStatement.setInt(9, Integer.parseInt(getAreaTextField().getText()));
+            insertSupermarketPreparedStatement.setInt(1, supermercado.code);
+            insertSupermarketPreparedStatement.setString(2, supermercado.NIF);
+            insertSupermarketPreparedStatement.setString(3, supermercado.CCAA);
+            insertSupermarketPreparedStatement.setString(4, supermercado.localitat);
+            insertSupermarketPreparedStatement.setString(5, supermercado.zipCode);
+            insertSupermarketPreparedStatement.setString(6, supermercado.address);
+            insertSupermarketPreparedStatement.setString(7, supermercado.phoneNumber);
+            insertSupermarketPreparedStatement.setString(8, supermercado.email);
+            insertSupermarketPreparedStatement.setInt(9, supermercado.area);
 
         }
 
