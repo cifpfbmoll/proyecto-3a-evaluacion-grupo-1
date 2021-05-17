@@ -16,7 +16,7 @@ public final class ProductoBebida extends Producto {
     private int caducidad;
     private Boolean alcoholica;
 
-    public ProductoBebida(int caducidad, Boolean alcoholica, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
+    public ProductoBebida(int caducidad, Boolean alcoholica, int codigoProd, String nombreProd, double precioProd, String descripcionProd) {
         super(codigoProd, nombreProd, precioProd,descripcionProd);
         this.setCaducidad(caducidad);
         this.setAlcoholica(alcoholica);
@@ -38,21 +38,41 @@ public final class ProductoBebida extends Producto {
         this.alcoholica = alcoholica;
     } 
     
-    public static void CrearProductoBebida(int caducidad, Boolean alcoholica, String nombreProd, float precioProd, String descripcionProd) throws SQLException {
-        int ultimoCodigoProd = ProductoAlimento.UltimoNumero();
+    public static ProductoBebida CrearProductoBebida(int caducidad, Boolean alcoholica, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
+        int ultimoCodigoProd = ProductoBebida.UltimoNumero();
         ProductoBebida pb1 = new ProductoBebida(caducidad, alcoholica, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
+        return pb1;
     }
     
     public static void AñadirBebida(ProductoBebida pb1) throws SQLException{
-        Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+pb1.getCodigoProd()+","+pb1.getNombreProd()+","+pb1.getPrecioProd()+","+pb1.getDescripcionProd()+")",true);
-        Herramientas.modificarDatosTabla("INSERT INTO producto_bebida VALUES("+pb1.getCodigoProd()+","+pb1.getCaducidad()+","+pb1.getAlcoholica()+")",true);
-        Herramientas.cerrarStatementResult();
+        try{
+            Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+pb1.getCodigoProd()+",'"+pb1.getNombreProd()+"',"+pb1.getPrecioProd()+",'"+pb1.getDescripcionProd()+"','Bebida')",false);
+            Herramientas.modificarDatosTabla("INSERT INTO producto_bebida VALUES("+pb1.getCodigoProd()+","+pb1.getCaducidad()+","+pb1.getAlcoholica()+")",false);
+            Herramientas.getConexion().commit();
+            Herramientas.getConexion().setAutoCommit(true);
+            Herramientas.cerrarStatementResult();
+        } catch (SQLException error){
+            Herramientas.getConexion().rollback();
+            Herramientas.getConexion().setAutoCommit(true);
+            Herramientas.aviso("Ha habido un error");
+            //error.printStackTrace();
+        }
+        
     }
     
     public static void EliminarBebida(int codigoProd) throws SQLException{
-        Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,true);
-        Herramientas.modificarDatosTabla("DELETE FROM producto_bebida WHERE Codigo_producto = "+codigoProd,true);
-        Herramientas.cerrarStatementResult();
+        try{
+            Herramientas.modificarDatosTabla("DELETE FROM producto_bebida WHERE Codigo_producto = "+codigoProd,false);
+            Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,false);
+            Herramientas.getConexion().commit();
+            Herramientas.getConexion().setAutoCommit(true);
+            Herramientas.cerrarStatementResult();
+        } catch (SQLException error){
+            Herramientas.getConexion().rollback();
+            Herramientas.getConexion().setAutoCommit(true);
+            Herramientas.aviso("Ha habido un error");
+            //error.printStackTrace();
+        }
     }
     
     //falta añadir que a parte del nombre te digo que tipo de producto es

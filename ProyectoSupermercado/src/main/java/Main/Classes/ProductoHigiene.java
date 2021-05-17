@@ -28,7 +28,7 @@ public class ProductoHigiene extends Producto {
         otros
     }
 
-    public ProductoHigiene(TipoHigiene tipoHigiene, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
+    public ProductoHigiene(TipoHigiene tipoHigiene, int codigoProd, String nombreProd, double precioProd, String descripcionProd) {
         super(codigoProd, nombreProd, precioProd, descripcionProd);
         this.tipoHigiene = tipoHigiene;
     }
@@ -53,20 +53,42 @@ public class ProductoHigiene extends Producto {
         }
     }
     
-    public static void CrearProductoHigiene(TipoHigiene tipoHigiene, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
-        ProductoHigiene ph1 = new ProductoHigiene(tipoHigiene, codigoProd, nombreProd, precioProd, descripcionProd);
+    public static ProductoHigiene CrearProductoHigiene(TipoHigiene tipoHigiene, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
+        int ultimoCodigoProd = ProductoHigiene.UltimoNumero();
+        ProductoHigiene ph1 = new ProductoHigiene(tipoHigiene, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
+        return ph1;
     }
     
     public static void AñadirHigiene(ProductoHigiene ph1) throws SQLException{
-        Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+ph1.getCodigoProd()+","+ph1.getNombreProd()+","+ph1.getPrecioProd()+","+ph1.getDescripcionProd()+")",true);
-        Herramientas.modificarDatosTabla("INSERT INTO producto_higiene VALUES("+ph1.getCodigoProd()+","+ph1.getTipoHigiene()+")",true);
-        Herramientas.cerrarStatementResult();
+        try{
+            Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+ph1.getCodigoProd()+",'"+ph1.getNombreProd()+"',"+ph1.getPrecioProd()+",'"+ph1.getDescripcionProd()+"','Higiene')",false);
+            Herramientas.modificarDatosTabla("INSERT INTO producto_higiene VALUES("+ph1.getCodigoProd()+",'"+ph1.getTipoHigiene()+"')",false);
+            Herramientas.getConexion().commit();
+            Herramientas.getConexion().setAutoCommit(true);
+            Herramientas.cerrarStatementResult();
+        } catch (SQLException error){
+            Herramientas.getConexion().rollback();
+            Herramientas.getConexion().setAutoCommit(true);
+            Herramientas.aviso("Ha habido un error");
+            //error.printStackTrace();
+        }
+        
     }
     
     public static void EliminarHigiene(int codigoProd) throws SQLException{
-        Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,true);
-        Herramientas.modificarDatosTabla("DELETE FROM producto_higiene WHERE Codigo_producto = "+codigoProd,true);
-        Herramientas.cerrarStatementResult();
+        try{
+            Herramientas.modificarDatosTabla("DELETE FROM producto_higiene WHERE Codigo_producto = "+codigoProd,false);
+            Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,false);
+            Herramientas.getConexion().commit();
+            Herramientas.getConexion().setAutoCommit(true);
+            Herramientas.cerrarStatementResult();
+        } catch (SQLException error){
+            Herramientas.getConexion().rollback();
+            Herramientas.getConexion().setAutoCommit(true);
+            Herramientas.aviso("Ha habido un error");
+            //error.printStackTrace();
+        }
+        
     }
     
     //falta añadir que a parte del nombre te digo que tipo de producto es
