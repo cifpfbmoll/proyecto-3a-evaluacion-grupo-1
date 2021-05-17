@@ -173,12 +173,14 @@ public class Ticket {
             Herramientas.modificarDatosTabla("INSERT INTO linea_ticket VALUES("+t1.getCodigo()+","+lineasTicket.get(i).getCodigo_producto()+","+lineasTicket.get(i).getCantidad()+","+lineasTicket.get(i).getPrecio_linea()+")", false);
         }
         Herramientas.getConexion().commit();
-        Herramientas.getConexion().setAutoCommit(true);
         Herramientas.cerrarStatementResult();
         }
         catch(SQLException error){
             Herramientas.getConexion().rollback();
             Herramientas.aviso("Ha habido un error");
+        }
+        finally{
+            Herramientas.getConexion().setAutoCommit(true);
         };
         
     }

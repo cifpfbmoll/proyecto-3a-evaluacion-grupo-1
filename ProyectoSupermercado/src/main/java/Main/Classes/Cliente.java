@@ -89,9 +89,30 @@ public class Cliente extends Persona {
         String contraseña = resultado.getString("Contraseña");
         String telefono = resultado.getString("Telefono");
         Cliente per = new Cliente(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
+        per.recuperarCesta();
         resultado.close();
         sentencia.close();
         return per;
+    }
+    
+    public void recuperarCesta() throws SQLException{
+        PreparedStatement query=Herramientas.getConexion().prepareStatement("SELECT * FROM linea_carrito WHERE dni_cliente=?");
+        query.setString(1, this.getNif());
+        ResultSet resultado=query.executeQuery();
+        ArrayList <LineaCompra> carrito=new ArrayList();
+        if(!resultado.next()){
+        }
+        else{
+            do{
+                LineaCompra linea=new LineaCompra(resultado.getInt("codigo_producto"),
+                resultado.getInt("cantidad"),resultado.getDouble("Precio"));
+                carrito.add(linea);
+            }
+            while(resultado.next());
+        }
+        this.setCestaCompra(carrito);
+        query.close();
+        resultado.close();
     }
 
     public void editarCLiente() {
@@ -107,5 +128,7 @@ public class Cliente extends Persona {
     public void añadirProductoCarrito(int codigo_producto, double precio_producto, int cantidad){
         LineaCompra lc1=new LineaCompra(codigo_producto, precio_producto, cantidad);
         this.getCestaCompra().add(lc1);
+        //añadir valores en tabla carrito bbdd
+        //restar valor tabla stock supermercado
     }
 }

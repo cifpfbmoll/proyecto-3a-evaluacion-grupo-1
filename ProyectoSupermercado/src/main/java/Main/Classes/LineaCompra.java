@@ -86,7 +86,7 @@ public class LineaCompra {
      */
     public void setPrecio_linea(double precio_producto, int cantidad) {
         double precio_linea=precio_producto*cantidad;
-        this.precio_linea = precio_linea;
+        this.precio_linea = Math.round(precio_linea*100.0)/100.0;
     }
 
     @Override
