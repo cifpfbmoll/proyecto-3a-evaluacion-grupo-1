@@ -127,6 +127,27 @@ public class Empleado extends Persona {
         borrar.close();
     }
 
+    public void borrarEmpleadoYNominas(Connection conexion, int id) {
+        try {
+            conexion.setAutoCommit(false);
+            Empleado.eliminarPersona(conexion, id);
+            PreparedStatement borrar = conexion.prepareStatement("DELETE FROM nomina WHERE ID_EMPLEADO = ?");
+            borrar.setInt(1, id);
+            borrar.executeUpdate();
+            borrar.close();
+            conexion.commit();
+        }
+
+        catch (SQLException e) {
+            conexion.rollback();
+        }
+
+        finally {
+            conexion.setAutoCommit(true);
+        }
+
+    }
+
     public void certificadoIRPFAnual(int id) {
         // TODO Cuando BBDD
     }
