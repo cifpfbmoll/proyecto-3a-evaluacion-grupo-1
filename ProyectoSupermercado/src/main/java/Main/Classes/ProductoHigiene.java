@@ -5,6 +5,9 @@
  */
 package Main.Classes;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -91,9 +94,33 @@ public class ProductoHigiene extends Producto {
         
     }
     
+    public static void RecogerHigiene(Connection conexion, int buscar) throws SQLException{
+        PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto_higiene WHERE Codigo_producto = ?");
+        query.setInt(1, buscar);
+        ResultSet resultado = query.executeQuery();
+        resultado.next();
+        TipoHigiene tipo = TipoHigiene.valueOf(resultado.getString("Tipo_higiene"));
+        query = conexion.prepareStatement("SELECT * FROM producto WHERE Codigo_producto = ?");
+        query.setInt(1, buscar);
+        resultado = query.executeQuery();
+        resultado.next();
+        String name = resultado.getString("Nombre_producto");
+        double precio = resultado.getDouble("Precio_producto");
+        String descri = resultado.getString("descripcionProd");
+        ProductoHigiene ph1 = new ProductoHigiene(tipo, buscar, name, precio, descri);
+        System.out.println(ph1.toString());
+        //int caducidad, Categoria categoria, String nombreProd, double precioProd, String descripcionProd
+    }
+    
     //falta añadir que a parte del nombre te digo que tipo de producto es
     public static void BuscarHigiene(String buscar) throws SQLException{
         Herramientas.modificarDatosTabla("SELECT * FROM producto WHERE Nombre_producto LIKE '%"+buscar+"%'",true);
         Herramientas.cerrarStatementResult();
     }
+    
+//    public static void main(String[] args) throws SQLException {
+//        Herramientas.crearConexion();
+//        ProductoHigiene.RecogerHigiene(Herramientas.getConexion(), 11);
+//        Herramientas.cerrarConexion();
+//    }
 }
