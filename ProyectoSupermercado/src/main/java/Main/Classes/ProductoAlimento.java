@@ -17,7 +17,6 @@ public final class ProductoAlimento extends Producto {
     public static Scanner lectorLibro = new Scanner(System.in);
     private int caducidad;
     private Categoria categoria;
-    boolean UltimoNumero;
     
     public enum Categoria{
         vegano,
@@ -25,7 +24,7 @@ public final class ProductoAlimento extends Producto {
         carnivoro
     }
 
-    public ProductoAlimento(int caducidad, Categoria categoria, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
+    public ProductoAlimento(int caducidad, Categoria categoria, int codigoProd, String nombreProd, double precioProd, String descripcionProd) {
         super(codigoProd, nombreProd, precioProd,descripcionProd);
         this.setCaducidad(caducidad);
         this.setCategoria(categoria);
@@ -50,22 +49,54 @@ public final class ProductoAlimento extends Producto {
             case carnivoro -> this.categoria = categoria;
         }
     }
+
+    @Override
+    public String toString() {
+        return super.toString()+ "ProductoAlimento{" + "caducidad=" + caducidad + ", categoria=" + categoria + '}';
+        
+    }
     
-    public static void CrearProductoAlimento(int caducidad, Categoria categoria, String nombreProd, float precioProd, String descripcionProd) throws SQLException {
+    public static ProductoAlimento CrearProductoAlimento(int caducidad, Categoria categoria, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
         int ultimoCodigoProd = ProductoAlimento.UltimoNumero();
         ProductoAlimento pa1 = new ProductoAlimento(caducidad, categoria, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
+        return pa1;
     }
     
     public static void AñadirAlimento(ProductoAlimento pa1) throws SQLException{
-        Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+pa1.getCodigoProd()+","+pa1.getNombreProd()+","+pa1.getPrecioProd()+","+pa1.getDescripcionProd()+")",true);
-        Herramientas.modificarDatosTabla("INSERT INTO producto_alimento VALUES("+pa1.getCodigoProd()+","+pa1.getCaducidad()+","+pa1.getCategoria()+")",true);
-        Herramientas.cerrarStatementResult();
+        try{
+            Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+pa1.getCodigoProd()+",'"+pa1.getNombreProd()+"',"+pa1.getPrecioProd()+",'"+pa1.getDescripcionProd()+"','Alimento')",false);
+            Herramientas.modificarDatosTabla("INSERT INTO producto_alimento VALUES("+pa1.getCodigoProd()+","+pa1.getCaducidad()+",'"+pa1.getCategoria()+"')",false);
+            Herramientas.getConexion().commit();
+            Herramientas.getConexion().setAutoCommit(true);
+            Herramientas.cerrarStatementResult();
+        } catch (SQLException error){
+            Herramientas.getConexion().rollback();
+            Herramientas.getConexion().setAutoCommit(true);
+            Herramientas.aviso("Ha habido un error");
+            //error.printStackTrace();
+        }
+
     }
     
     public static void EliminarAlimento(int codigoProd) throws SQLException{
-        Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,true);
-        Herramientas.modificarDatosTabla("DELETE FROM producto_alimento WHERE Codigo_producto = "+codigoProd,true);
-        Herramientas.cerrarStatementResult();
+        try{
+            Herramientas.modificarDatosTabla("DELETE FROM producto_alimento WHERE Codigo_producto = "+codigoProd,false);
+            Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,false);
+            Herramientas.getConexion().commit();
+            Herramientas.getConexion().setAutoCommit(true);
+            Herramientas.cerrarStatementResult();
+            Herramientas.cerrarStatementResult();  
+        } catch (SQLException error){
+            Herramientas.getConexion().rollback();
+            Herramientas.getConexion().setAutoCommit(true);
+            Herramientas.aviso("Ha habido un error");
+            error.printStackTrace();
+        }
+
+    }
+    
+    public static void RecogerAlimento(Connection conexion, int buscar) throws SQLException{
+        //PreparedStatement query
     }
     
     //falta añadir que a parte del nombre te digo que tipo de producto es

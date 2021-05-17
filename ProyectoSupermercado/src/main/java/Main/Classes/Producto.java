@@ -5,6 +5,8 @@
  */
 package Main.Classes;
 
+import static Main.Classes.ProductoHigiene.TipoHigiene.mascarilla;
+import static Main.Classes.ProductoLimpieza.Superficie.cristal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -57,13 +59,17 @@ abstract class Producto {
     public void setDescripcionProd(String descripcionProd) {
         this.descripcionProd = descripcionProd;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" + "codigoProd=" + codigoProd + ", nombreProd=" + nombreProd + ", precioProd=" + precioProd + ", descripcionProd=" + descripcionProd + '}';
+    }
     
     public static int UltimoNumero() throws SQLException{
-        Herramientas.hacerSelect("SELECT MAX(Codigo_producto) FROM producto",true);
+        Herramientas.hacerSelect("SELECT MAX(Codigo_producto) FROM producto");
         ResultSet result=Herramientas.getResultado();
         result.next();
         int ultimo = result.getInt(1)+1;
-        Herramientas.cerrarConexion();
         return ultimo;
     }
     
@@ -77,5 +83,18 @@ abstract class Producto {
     //        ProductoAlimento pipas = new ProductoAlimento(fecha, Categoria.vegano, 2, "pipas" , myNum ,  "pipas saladas");
     //        System.out.println(pipas.getCaducidad());
     //        System.out.println(pipas.UltimoNumero);
+    public static void main(String[] args) throws SQLException {
+        Herramientas.crearConexion();
+//        ProductoLimpieza.Superficie superficie = cristal;
+//        ProductoLimpieza pl1=ProductoLimpieza.CrearProductoLimpieza(superficie, "Lejia", 3.9, "Chupito de lejia");
+//        System.out.println(pl1.toString());
+//        ProductoLimpieza.AñadirLimpieza(pl1);
+        ProductoLimpieza.EliminarLimpieza(24);
+        Herramientas.cerrarConexion();
+    }
+    
+//        ProductoAlimento.Categoria categoria = vegano;
+//        ProductoAlimento pa1=ProductoAlimento.CrearProductoAlimento(5, categoria, "patatas", 5.4f, "Patatas recogidas en los campos de Mallorca");
+//        ProductoAlimento.AñadirAlimento(pa1);
 }
 
