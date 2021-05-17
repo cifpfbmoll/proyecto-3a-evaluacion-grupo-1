@@ -40,21 +40,12 @@ public class InicioSesion extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        //this.setBiblioteca(b);
     }
-
-   /* public Biblioteca getBiblioteca() {
-        return biblioteca;
-    }
-
-    public void setBiblioteca(Biblioteca biblioteca) {
-        this.biblioteca = biblioteca;
-    }*/
     
     
 
     public Image getIconImage(){
-        Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/2153422.png"));
+        Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/logo1.png"));
         return miIcono;
     }
     /**
@@ -154,8 +145,7 @@ public class InicioSesion extends javax.swing.JFrame {
         try {
             this.inicioSesion();
         } catch (SQLException ex) {
-            //modificar
-            Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+            Herramientas.aviso("Algo ha fallado en el inicio de Sesion");
         }
     }//GEN-LAST:event_botonLoginActionPerformed
 

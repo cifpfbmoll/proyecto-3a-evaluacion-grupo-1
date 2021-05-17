@@ -2,6 +2,7 @@ package Main.Classes;
 
 import javax.swing.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Supermercado {
     private int code;
@@ -13,8 +14,15 @@ public class Supermercado {
     private String phoneNumber;
     private String email;
     private int area;
+    private ArrayList <StockProducto> stockSupermercado;
 
+    public int getCode() {
+        return code;
+    }
 
+    public ArrayList<StockProducto> getStockSupermercado() {
+        return stockSupermercado;
+    }
 
     public static class Builder { //Builder Pattern
         private int code;
@@ -26,7 +34,8 @@ public class Supermercado {
         private String phoneNumber;
         private String email;
         private int area;
-
+        private ArrayList <StockProducto> stockSupermercado;
+        
         public static Builder newInstance() {
             return new Builder();
 
@@ -84,6 +93,11 @@ public class Supermercado {
             return this;
 
         }
+        
+        public Builder stockSupermercado(ArrayList <StockProducto> stockSupermercado) {
+            this.stockSupermercado = stockSupermercado;
+            return this;
+        }
 
         public Supermercado build() {
             Supermercado supermarket = new Supermercado();
@@ -96,6 +110,7 @@ public class Supermercado {
             supermarket.phoneNumber = this.phoneNumber;
             supermarket.email = this.email;
             supermarket.area = this.area;
+            supermarket.stockSupermercado = this.stockSupermercado;
             return supermarket;
 
         }
@@ -107,8 +122,9 @@ public class Supermercado {
 
     }
 
-    public Supermercado instantiateSupermarketFromDB(int supermarketCode) throws SQLException {
-        ResultSet resultSet = getData(supermarketCode);
+    public static Supermercado instantiateSupermarketFromDB(int supermarketCode) throws SQLException {
+        PreparedStatement preparedStatement = getData(supermarketCode);
+        ResultSet resultSet=preparedStatement.executeQuery();
         resultSet.next();
 
         Supermercado supermercado = Builder.newInstance()
@@ -121,28 +137,22 @@ public class Supermercado {
                                             .phoneNumber(resultSet.getString(7))
                                             .email(resultSet.getString(8))
                                             .area(resultSet.getInt(9))
+                                            .stockSupermercado(StockProducto.obtenerStockSupermercado(supermarketCode))
                                             .build();
-
+        
+        preparedStatement.close();
         resultSet.close();
 
         return supermercado;
-
     }
 
-    private ResultSet getData(int code) throws SQLException {
+    private static PreparedStatement getData(int code) throws SQLException {
             Connection connection = Herramientas.getConexion();
 
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM SUPERMERCADO WHERE Codigo_Supermercado = ?");
             preparedStatement.setInt(1, code);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            preparedStatement.close();
-
-
-            return resultSet;
-
-
+            return preparedStatement;
     }
 
     public static class addSupermarket {

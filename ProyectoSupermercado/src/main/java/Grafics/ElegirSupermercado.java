@@ -8,6 +8,8 @@ package Grafics;
 import Main.Classes.Herramientas;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import Main.Classes.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -107,52 +109,58 @@ public class ElegirSupermercado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ElegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElegirActionPerformed
-        String supermercado=this.getListaSupermercados().getSelectedValue();
-        if (supermercado==null){
-            Herramientas.aviso("Elige un supermercado primero");
-        }
-        else{
-            switch (supermercado){
-                case "Metradona Barcelona":
-                    System.out.println(supermercado);
-                    //copiar datos de supermercado en supermercado activo
-                    InterfazUsuario programa=new InterfazUsuario();
-                    login.dispose();
-                    this.dispose();
-                    break;
-                    
-                case "Metradona Las Plamas de Gran Canaria":
-                    System.out.println(supermercado);
-                    //copiar datos de supermercado en supermercado activo
-                    programa=new InterfazUsuario();
-                    login.dispose();
-                    this.dispose();
-                    break;
-                    
-                case "Metradona Madrid":
-                    System.out.println(supermercado);
-                    //copiar datos de supermercado en supermercado activo
-                    programa=new InterfazUsuario();
-                    login.dispose();
-                    this.dispose();
-                    break;
-                    
-                case "Metradona Mallorca":
-                    System.out.println(supermercado);
-                    //copiar datos de supermercado en supermercado activo
-                    programa=new InterfazUsuario();
-                    login.dispose();
-                    this.dispose();
-                    break;
-                    
-                case "Metradona Sevilla":
-                    System.out.println(supermercado);
-                    //copiar datos de supermercado en supermercado activo
-                    programa=new InterfazUsuario();
-                    login.dispose();
-                    this.dispose();
-                    break;
+        try{
+            String supermercado=this.getListaSupermercados().getSelectedValue();
+            if (supermercado==null){
+                Herramientas.aviso("Elige un supermercado primero");
             }
+            else{
+                switch (supermercado){
+                    case "Metradona Barcelona":
+                        System.out.println(supermercado);
+                        Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(3));
+                        InterfazUsuario3 programa=new InterfazUsuario3();
+                        login.dispose();
+                        this.dispose();
+                        break;
+
+                    case "Metradona Las Plamas de Gran Canaria":
+                        System.out.println(5);
+                        Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(5));
+                        programa=new InterfazUsuario3();
+                        login.dispose();
+                        this.dispose();
+                        break;
+
+                    case "Metradona Madrid":
+                        System.out.println(supermercado);
+                        Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(2));
+                        programa=new InterfazUsuario3();
+                        login.dispose();
+                        this.dispose();
+                        break;
+
+                    case "Metradona Mallorca":
+                        System.out.println(supermercado);
+                        Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(1));
+                        programa=new InterfazUsuario3();
+                        login.dispose();
+                        this.dispose();
+                        break;
+
+                    case "Metradona Sevilla":
+                        System.out.println(supermercado);
+                        Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(4));
+                        programa=new InterfazUsuario3();
+                        login.dispose();
+                        this.dispose();
+                        break;
+                }
+            }
+        }
+        catch(SQLException ex){
+            Herramientas.aviso("Ha habido un problema al seleccionar el Supermercado");
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_ElegirActionPerformed
     
