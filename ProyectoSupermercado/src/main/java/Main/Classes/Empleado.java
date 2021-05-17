@@ -57,6 +57,13 @@ public class Empleado extends Persona {
 	public void setPrivilegios(int privilegios) {
 		this.privilegios = privilegios;
 	}
+
+        @Override
+        public String toString() {
+            return super.toString() + "Empleado{" + "id=" + id + ", codigoSupermercado=" + codigoSupermercado + ", puestoTrabajo=" + puestoTrabajo + ", privilegios=" + privilegios + '}';
+        }
+
+
         
     public static void añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
     String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, 
@@ -127,23 +134,28 @@ public class Empleado extends Persona {
         borrar.close();
     }
 
-    public void borrarEmpleadoYNominas(Connection conexion, int id) {
+    public static void borrarEmpleadoYNominas(Connection conexion, int id, boolean comitear) throws SQLException {
+        PreparedStatement borrar = null;
         try {
+            
             conexion.setAutoCommit(false);
-            Empleado.eliminarPersona(conexion, id);
-            PreparedStatement borrar = conexion.prepareStatement("DELETE FROM nomina WHERE ID_EMPLEADO = ?");
+            borrar = conexion.prepareStatement("DELETE FROM nomina WHERE ID_empleado = ?");
             borrar.setInt(1, id);
             borrar.executeUpdate();
-            borrar.close();
-            conexion.commit();
+            Empleado.eliminarPersona(conexion, id);
+            if (comitear){
+                conexion.commit();
+            }
         }
 
         catch (SQLException e) {
             conexion.rollback();
+            //e.printStackTrace();
         }
 
         finally {
-            conexion.setAutoCommit(true);
+            borrar.close();
+            conexion.setAutoCommit(comitear);
         }
 
     }
@@ -155,4 +167,10 @@ public class Empleado extends Persona {
     public void consultarNominas(int id) {
         // TODO Cuando BBDD
     }
+    
+//    public static void main(String[] args) throws SQLException {
+//        Herramientas.crearConexion();
+//        Empleado.borrarEmpleadoYNominas(Herramientas.getConexion(), 2, true);
+//        Herramientas.cerrarConexion();
+//    }
 }
