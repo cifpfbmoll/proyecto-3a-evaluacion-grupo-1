@@ -122,9 +122,14 @@ public class Supermercado {
 
     }
 
-    public static Supermercado instantiateSupermarketFromDB(int supermarketCode) throws SQLException {
-        PreparedStatement preparedStatement = getData(supermarketCode);
+
+    private static Supermercado instantiateSupermarketFromDB(int supermarketCode) throws SQLException {
+        Connection connection = Herramientas.getConexion();
+
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM SUPERMERCADO WHERE Codigo_Supermercado = ?");
+        preparedStatement.setInt(1, supermarketCode);
         ResultSet resultSet=preparedStatement.executeQuery();
+
         resultSet.next();
 
         Supermercado supermercado = Builder.newInstance()
@@ -139,23 +144,17 @@ public class Supermercado {
                                             .area(resultSet.getInt(9))
                                             .stockSupermercado(StockProducto.obtenerStockSupermercado(supermarketCode))
                                             .build();
-        
-        preparedStatement.close();
+
         resultSet.close();
+        preparedStatement.close();
 
         return supermercado;
-    }
 
-    private static PreparedStatement getData(int code) throws SQLException {
-            Connection connection = Herramientas.getConexion();
 
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM SUPERMERCADO WHERE Codigo_Supermercado = ?");
-            preparedStatement.setInt(1, code);
-
-            return preparedStatement;
     }
 
     public static class addSupermarket {
+
         private JTextField NIFTextField;
         private JTextField CCAATextField;
         private JTextField localitatTextField;
@@ -264,15 +263,66 @@ public class Supermercado {
 
     public class removeSupermarket {
 
-        public removeSupermarket(int code) throws SQLException {
+        public removeSupermarketFromDB(int supermarketCode) {
             Connection connection = Herramientas.getConexion();
 
-            PreparedStatement removeSupermarketPreparedStatement = connection.prepareStatement("DELETE FROM SUPERMERCADO WHERE Codigo_supermercado = ?");
+            PreparedStatement removeSupmerkaretPreparedStatement = null;
+            PreparedStatement getEmployeesList = null;
+            Boolean autoCommitValue = null;
+            Savepoint savepoint = null;
 
-            removeSupermarketPreparedStatement.setInt(1, code);
-            removeSupermarketPreparedStatement.executeQuery();
+            try {
+                autoCommitValue = connection.getAutoCommit();
+                connection.setAutoCommit(false);
+                savepoint = connection.setSavepoint("Start Removing");
 
-            removeSupermarketPreparedStatement.close();
+                //Get Employees
+                getEmployeesList = connection.prepareStatement("SELECT  ID_EMPLEADO FROM EMPLEADO WHERE Codigo_supermercado = ?");
+                getEmployeesList.setInt(1, supermarketCode);
+                ResultSet getEmployeesResultSet = getEmployeesList.executeQuery();
+
+                //Delete Empleado and Nominas
+                while (getEmployeesResultSet.next()) {
+                    Empleado.borrarEmpleadoYNominas(connection, getEmployeesResultSet.getInt(1) ,false);
+
+                }
+
+                //Delete Stock
+                StockProducto.deleteStockSupermercado(supermarketCode);
+
+                //Delete Supermarket
+                PreparedStatement removeSupermarketPreparedStatement = connection.prepareStatement("DELETE FROM SUPERMERCADO WHERE Codigo_supermercado = ?");
+
+                removeSupermarketPreparedStatement.setInt(1, supermarketCode);
+                removeSupermarketPreparedStatement.executeUpdate();
+
+                connection.commit();
+
+            } catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+
+                try {
+                    connection.rollback(savepoint);
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+
+                }
+
+
+            } finally {
+                try {
+                    removeSupmerkaretPreparedStatement.close();
+                    connection.setAutoCommit(autoCommitValue);
+
+                } catch (SQLException sqlException) {
+                    sqlException.printStackTrace();
+
+                }
+
+            }
+
+
 
         }
     }
