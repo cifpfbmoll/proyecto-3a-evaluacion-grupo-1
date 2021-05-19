@@ -3,6 +3,8 @@ package Main.Classes;
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Supermercado {
     private int code;
@@ -22,6 +24,10 @@ public class Supermercado {
 
     public ArrayList<StockProducto> getStockSupermercado() {
         return stockSupermercado;
+    }
+
+    public String getLocalitat() {
+        return localitat;
     }
 
     public static class Builder { //Builder Pattern
@@ -154,7 +160,56 @@ public class Supermercado {
 
             return preparedStatement;
     }
+    
+    public void restarStock(LineaCompra lc1) throws SQLException, Excepciones{
+        
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("UPDATE stock_supermercado SET cantidad=? "
+                + "WHERE codigo_supermercado=? AND codigo_producto=?")) {
+            int i=0;
+            boolean encontrado=false;
+            while(i<this.getStockSupermercado().size() && !encontrado){
+                if(this.getStockSupermercado().get(i).getCodigoProducto()==lc1.getCodigo_producto()){
+                    if((this.getStockSupermercado().get(i).getCantidad()-lc1.getCantidad())<0){
+                        throw new Excepciones(2);
+                    }
+                    else{
+                        query.setInt(1, this.getStockSupermercado().get(i).getCantidad()-lc1.getCantidad());
+                        this.getStockSupermercado().get(i).setCantidad(
+                        this.getStockSupermercado().get(i).getCantidad()-lc1.getCantidad());
+                    }
+                    encontrado=true;
+                }
+                i++;
+            }
+            query.setInt(2, this.getCode());
+            query.setInt(3, lc1.getCodigo_producto());
+            query.executeUpdate();
+        }
 
+    }
+    
+    public void devolverStock(int codigoProducto, int cantidad) throws SQLException{
+        
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("UPDATE stock_supermercado SET cantidad=? "
+                + "WHERE codigo_supermercado=? AND codigo_producto=?")) {
+            int i=0;
+            boolean encontrado=false;
+            while(i<this.getStockSupermercado().size() && !encontrado){
+                if(this.getStockSupermercado().get(i).getCodigoProducto()==codigoProducto){
+                        query.setInt(1, this.getStockSupermercado().get(i).getCantidad()+cantidad);
+                        this.getStockSupermercado().get(i).setCantidad(
+                        this.getStockSupermercado().get(i).getCantidad()+cantidad);
+                        encontrado=true;
+                }
+                i++;
+            }
+            query.setInt(2, this.getCode());
+            query.setInt(3, codigoProducto);
+            query.executeUpdate();
+        }
+
+    }
+    
     public static class addSupermarket {
         private JTextField NIFTextField;
         private JTextField CCAATextField;
@@ -276,6 +331,5 @@ public class Supermercado {
 
         }
     }
-
 
 }
