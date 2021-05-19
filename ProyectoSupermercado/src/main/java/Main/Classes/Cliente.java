@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import Main.Classes.Excepciones;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Cliente extends Persona {
     
     private ArrayList <LineaCompra> cestaCompra;
+    private int supermercadoCesta;
     
     public Cliente() {
         super();
@@ -29,6 +32,13 @@ public class Cliente extends Persona {
         this.cestaCompra = cestaCompra;
     }
 
+    public int getSupermercadoCesta() {
+        return supermercadoCesta;
+    }
+
+    public void setSupermercadoCesta(int supermercadoCesta) {
+        this.supermercadoCesta = supermercadoCesta;
+    }
     
     @Override
     public String toString() {
@@ -103,6 +113,7 @@ public class Cliente extends Persona {
         if(!resultado.next()){
         }
         else{
+            this.setSupermercadoCesta(resultado.getInt("supermercado"));
             do{
                 LineaCompra linea=new LineaCompra(resultado.getInt("codigo_producto"),
                 resultado.getInt("cantidad"),resultado.getDouble("Precio"));
@@ -125,10 +136,81 @@ public class Cliente extends Persona {
      * @param precio_producto
      * @param cantidad 
      */
-    public void añadirProductoCarrito(int codigo_producto, double precio_producto, int cantidad){
+    public void añadirProductoCarrito(int codigo_producto, double precio_producto, int cantidad) throws SQLException{
+        int i=0;
+        boolean encontrado=false;
         LineaCompra lc1=new LineaCompra(codigo_producto, precio_producto, cantidad);
-        this.getCestaCompra().add(lc1);
-        //añadir valores en tabla carrito bbdd
-        //restar valor tabla stock supermercado
+        while(i<this.getCestaCompra().size() && !encontrado){
+            if(this.getCestaCompra().get(i).getCodigo_producto()==codigo_producto){
+                encontrado=true;
+                try{
+                    Herramientas.getConexion().setAutoCommit(false);
+                    Main.getSupermercadoActivo().restarStock(lc1);
+                    this.getCestaCompra().get(i).setCantidad(this.getCestaCompra().get(i).getCantidad()+cantidad);
+                    this.getCestaCompra().get(i).setPrecio_linea(precio_producto, this.getCestaCompra().get(i).getCantidad());
+                    this.getCestaCompra().get(i).modificarLineaCarrito(precio_producto);
+                    Herramientas.getConexion().commit();
+                } catch (SQLException ex) {
+                    Herramientas.aviso("Ha habido algun error al añadir el producto en su carrito");
+                    ex.printStackTrace();
+                    Herramientas.getConexion().rollback();
+                } catch (Excepciones ex1) {
+                    Herramientas.aviso(ex1.getMessage());
+                    ex1.printStackTrace();
+                    Herramientas.getConexion().rollback();
+                }
+                finally{
+                    Herramientas.getConexion().setAutoCommit(true);
+                }
+            }
+            i++;
+        }
+        if (!encontrado){
+            try {
+                Herramientas.getConexion().setAutoCommit(false);
+                Main.getSupermercadoActivo().restarStock(lc1);
+                lc1.insertLineaCarrito();
+                this.getCestaCompra().add(lc1);
+                Herramientas.getConexion().commit();
+            } catch (SQLException ex) {
+                Herramientas.aviso("Ha habido algun error al añadir el producto en su carrito");
+                ex.printStackTrace();
+                Herramientas.getConexion().rollback();
+            } catch (Excepciones ex1) {
+                Herramientas.aviso(ex1.getMessage());
+                ex1.printStackTrace();
+                Herramientas.getConexion().rollback();
+            }
+            finally{
+                Herramientas.getConexion().setAutoCommit(true);
+            }
+        }
     }
+    
+    public void eliminarProductoCarrito(int codigo_producto, int cantidad) throws SQLException{
+        try {
+            Herramientas.getConexion().setAutoCommit(false);
+            Main.getSupermercadoActivo().devolverStock(codigo_producto,cantidad);
+            LineaCompra.borarLineaCarrito(codigo_producto);
+            int i=0;
+            boolean encontrado=false;
+            while(i<this.getCestaCompra().size() && !encontrado){
+                if (this.getCestaCompra().get(i).getCodigo_producto()==codigo_producto){
+                    encontrado=true;
+                    this.getCestaCompra().remove(i);
+                }
+                i++;
+            }
+            Herramientas.getConexion().commit();
+        } catch (SQLException ex) {
+            Herramientas.aviso("Ha habido algun error al eliminar el producto en su carrito");
+            ex.printStackTrace();
+            Herramientas.getConexion().rollback();
+        }
+        finally{
+            Herramientas.getConexion().setAutoCommit(true);
+        }
+        
+    }
+    
 }

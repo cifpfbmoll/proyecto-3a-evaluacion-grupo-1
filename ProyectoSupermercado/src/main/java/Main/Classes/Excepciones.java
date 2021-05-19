@@ -44,7 +44,7 @@ public class Excepciones extends Exception {
                 mensaje="ERROR 1: Ese numero no esta entre las opciones disponibles, inserta un numero que si lo este";
                 break;
             case 2:
-                mensaje="ERROR 2: El valor introducido no es correcto, inserta un valor numerico";
+                mensaje="ERROR 2: No es posible añadir esa cantidad ya que el stock es menor a la cantidad demandada";
                 break;
             case 3:
                 mensaje="ERROR 3: No existe ningun usuario de la biblioteca que tenga ese telefono y ese correo electronico";
@@ -64,4 +64,8 @@ public class Excepciones extends Exception {
         }
         return mensaje;
     }
+    
+    public void pasarExcepcionLog(){
+        
+    } 
 }

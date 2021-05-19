@@ -235,7 +235,17 @@ public class InicioSesion extends javax.swing.JFrame {
             //abrir frame principal empleados
         }
         else if(clienteLogeado){
-            ElegirSupermercado eleccion=new ElegirSupermercado(this);
+            if(Main.getClienteActivo().getCestaCompra().isEmpty()){
+                ElegirSupermercado eleccion=new ElegirSupermercado(this);
+            } else{
+                Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(Main.getClienteActivo().getSupermercadoCesta()));
+                InterfazUsuario3 programa=new InterfazUsuario3();
+                Herramientas.aviso("Se ha entrado directamente al supermercado de "+Main.getSupermercadoActivo().getLocalitat()+
+                "\nporque habia productos guardados en su carrito de ese supermercado. "
+                + "\nSi desea entrar a otro supermercado elimine todos los productos de su cesta, "
+                + "\ncierre el programa y vuelva a logearse");
+                this.dispose();
+            }
         }
     }
     

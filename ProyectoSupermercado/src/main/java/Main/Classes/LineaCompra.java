@@ -5,6 +5,7 @@
  */
 package Main.Classes;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -94,4 +95,32 @@ public class LineaCompra {
         return "LineaCompra{" + "codigo_producto=" + codigo_producto + ", cantidad=" + cantidad + ", precio_linea=" + precio_linea + '}';
     }
     
+    public void insertLineaCarrito() throws SQLException{
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("INSERT INTO linea_carrito VALUES (?,?,?,?,?)")) {
+            query.setString(1, Main.getClienteActivo().getNif());
+            query.setInt(2, this.getCodigo_producto());
+            query.setInt(3, this.getCantidad());
+            query.setDouble(4, this.getPrecio_linea());
+            query.setInt(5, Main.getSupermercadoActivo().getCode());
+            query.executeUpdate();
+        }
+    }
+    
+    public static void borarLineaCarrito(int codigoProducto) throws SQLException{
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("DELETE FROM linea_carrito WHERE dni_cliente=? AND codigo_producto=?")) {
+            query.setString(1, Main.getClienteActivo().getNif());
+            query.setInt(2, codigoProducto);
+            query.executeUpdate();
+        }
+    }
+    
+    public void modificarLineaCarrito( double precio) throws SQLException{
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("UPDATE linea_carrito SET cantidad=?, precio=? WHERE dni_cliente=? AND codigo_producto=?")) {
+            query.setInt(1, this.getCantidad());
+            query.setDouble(2, this.getPrecio_linea());
+            query.setString(3, Main.getClienteActivo().getNif());
+            query.setInt(4, this.getCodigo_producto());
+            query.executeUpdate();
+        }
+    }
 }
