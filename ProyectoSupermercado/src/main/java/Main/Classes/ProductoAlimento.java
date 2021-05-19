@@ -96,7 +96,22 @@ public final class ProductoAlimento extends Producto {
     }
     
     public static void RecogerAlimento(Connection conexion, int buscar) throws SQLException{
-        //PreparedStatement query
+        PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto_alimento WHERE Codigo_producto = ?");
+        query.setInt(1, buscar);
+        ResultSet resultado = query.executeQuery();
+        resultado.next();
+        int cadu = resultado.getInt("Caducidad");
+        Categoria cat = Categoria.valueOf(resultado.getString("Categoria"));
+        query = conexion.prepareStatement("SELECT * FROM producto WHERE Codigo_producto = ?");
+        query.setInt(1, buscar);
+        resultado = query.executeQuery();
+        resultado.next();
+        String name = resultado.getString("Nombre_producto");
+        double precio = resultado.getDouble("Precio_producto");
+        String descri = resultado.getString("descripcionProd");
+        ProductoAlimento pa1 = new ProductoAlimento(cadu, cat, buscar, name, precio, descri);
+        System.out.println(pa1.toString());
+        //int caducidad, Categoria categoria, String nombreProd, double precioProd, String descripcionProd
     }
     
     //falta añadir que a parte del nombre te digo que tipo de producto es
@@ -104,6 +119,12 @@ public final class ProductoAlimento extends Producto {
         Herramientas.modificarDatosTabla("SELECT * FROM producto WHERE Nombre_producto LIKE '%"+buscar+"%'",true);
         Herramientas.cerrarStatementResult();
     }    
+    
+    public static void main(String[] args) throws SQLException {
+        Herramientas.crearConexion();
+        ProductoAlimento.RecogerAlimento(Herramientas.getConexion(), 3);
+        Herramientas.cerrarConexion();
+    }
 }
 
 

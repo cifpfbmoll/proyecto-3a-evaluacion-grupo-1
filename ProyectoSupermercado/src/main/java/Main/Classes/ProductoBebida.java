@@ -5,6 +5,9 @@
  */
 package Main.Classes;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -74,6 +77,31 @@ public final class ProductoBebida extends Producto {
             //error.printStackTrace();
         }
     }
+    
+    public static void RecogerBebida(Connection conexion, int buscar) throws SQLException{
+        PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto_bebida WHERE Codigo_producto = ?");
+        query.setInt(1, buscar);
+        ResultSet resultado = query.executeQuery();
+        resultado.next();
+        int cadu = resultado.getInt("Caducidad");
+        boolean alcohol = resultado.getBoolean("Alcoholica");
+        query = conexion.prepareStatement("SELECT * FROM producto WHERE Codigo_producto = ?");
+        query.setInt(1, buscar);
+        resultado = query.executeQuery();
+        resultado.next();
+        String name = resultado.getString("Nombre_producto");
+        double precio = resultado.getDouble("Precio_producto");
+        String descri = resultado.getString("descripcionProd");
+        ProductoBebida pb1 = new ProductoBebida(cadu, alcohol, buscar, name, precio, descri);
+        System.out.println(pb1.toString());
+        //int caducidad, Categoria categoria, String nombreProd, double precioProd, String descripcionProd
+    }
+    
+//    public static void main(String[] args) throws SQLException {
+//        Herramientas.crearConexion();
+//        ProductoBebida.RecogerBebida(Herramientas.getConexion(), 8);
+//        Herramientas.cerrarConexion();
+//    }
     
     //falta añadir que a parte del nombre te digo que tipo de producto es
     public static void BuscarBebida(String buscar) throws SQLException{

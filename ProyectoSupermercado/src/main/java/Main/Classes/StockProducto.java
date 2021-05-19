@@ -5,6 +5,7 @@
  */
 package Main.Classes;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -69,4 +70,32 @@ public class StockProducto {
         }
         return stockSupermercado;
     }
+
+    public static void deleteStockSupermercado(int supermarketCode) {
+        Connection connection = Herramientas.getConexion();
+
+        PreparedStatement deleteStockPreparedStatement = null;
+
+        try {
+            deleteStockPreparedStatement = connection.prepareStatement("DELETE FROM STOCK_SUPERMERCADO WHERE Codigo_supermercado = ?");
+            deleteStockPreparedStatement.setInt(1, supermarketCode);
+            deleteStockPreparedStatement.executeUpdate();
+
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+
+        } finally {
+            try {
+                deleteStockPreparedStatement.close();
+
+            } catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+
+            }
+
+        }
+
+
+    }
+
 }
