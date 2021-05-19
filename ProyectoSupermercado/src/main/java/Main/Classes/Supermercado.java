@@ -19,7 +19,7 @@ public class Supermercado {
     private String phoneNumber;
     private String email;
     private int area;
-    private ArrayList <StockProducto> stockSupermercado;
+    private ArrayList<StockProducto> stockSupermercado;
 
     public int getCode() {
         return code;
@@ -35,7 +35,7 @@ public class Supermercado {
 
     @Override
     public String toString() {
-        return "Supermercado" + code  + '\'' +
+        return "Supermercado" + code + '\'' +
                 " con NIF " + NIF +
                 " en la comunidad autónoma de " + CCAA +
                 " y localidad de " + localitat +
@@ -57,8 +57,8 @@ public class Supermercado {
         private String phoneNumber;
         private String email;
         private int area;
-        private ArrayList <StockProducto> stockSupermercado;
-        
+        private ArrayList<StockProducto> stockSupermercado;
+
         public static Builder newInstance() {
             return new Builder();
 
@@ -116,8 +116,8 @@ public class Supermercado {
             return this;
 
         }
-        
-        public Builder stockSupermercado(ArrayList <StockProducto> stockSupermercado) {
+
+        public Builder stockSupermercado(ArrayList<StockProducto> stockSupermercado) {
             this.stockSupermercado = stockSupermercado;
             return this;
         }
@@ -149,7 +149,7 @@ public class Supermercado {
         LocalDateTime localDateTime = LocalDateTime.now();
         File file = new File("SupermarketInfo.txt");
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))){
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
             bufferedWriter.write(String.valueOf(localDateTime));
             bufferedWriter.newLine();
             bufferedWriter.write(this.toString());
@@ -167,22 +167,22 @@ public class Supermercado {
 
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM SUPERMERCADO WHERE Codigo_Supermercado = ?");
         preparedStatement.setInt(1, supermarketCode);
-        ResultSet resultSet=preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.executeQuery();
 
         resultSet.next();
 
         Supermercado supermercado = Builder.newInstance()
-                                            .code(resultSet.getInt(1))
-                                            .NIF(resultSet.getString(2))
-                                            .CCAA(resultSet.getString(3))
-                                            .localitat(resultSet.getString(4))
-                                            .zipCode(resultSet.getString(5))
-                                            .address(resultSet.getString(6))
-                                            .phoneNumber(resultSet.getString(7))
-                                            .email(resultSet.getString(8))
-                                            .area(resultSet.getInt(9))
-                                            .stockSupermercado(StockProducto.obtenerStockSupermercado(supermarketCode))
-                                            .build();
+                .code(resultSet.getInt(1))
+                .NIF(resultSet.getString(2))
+                .CCAA(resultSet.getString(3))
+                .localitat(resultSet.getString(4))
+                .zipCode(resultSet.getString(5))
+                .address(resultSet.getString(6))
+                .phoneNumber(resultSet.getString(7))
+                .email(resultSet.getString(8))
+                .area(resultSet.getInt(9))
+                .stockSupermercado(StockProducto.obtenerStockSupermercado(supermarketCode))
+                .build();
 
         resultSet.close();
         preparedStatement.close();
@@ -191,24 +191,23 @@ public class Supermercado {
 
 
     }
-    
-    public void restarStock(LineaCompra lc1) throws SQLException, Excepciones{
-        
+
+    public void restarStock(LineaCompra lc1) throws SQLException, Excepciones {
+
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("UPDATE stock_supermercado SET cantidad=? "
                 + "WHERE codigo_supermercado=? AND codigo_producto=?")) {
-            int i=0;
-            boolean encontrado=false;
-            while(i<this.getStockSupermercado().size() && !encontrado){
-                if(this.getStockSupermercado().get(i).getCodigoProducto()==lc1.getCodigo_producto()){
-                    if((this.getStockSupermercado().get(i).getCantidad()-lc1.getCantidad())<0){
+            int i = 0;
+            boolean encontrado = false;
+            while (i < this.getStockSupermercado().size() && !encontrado) {
+                if (this.getStockSupermercado().get(i).getCodigoProducto() == lc1.getCodigo_producto()) {
+                    if ((this.getStockSupermercado().get(i).getCantidad() - lc1.getCantidad()) < 0) {
                         throw new Excepciones(2);
-                    }
-                    else{
-                        query.setInt(1, this.getStockSupermercado().get(i).getCantidad()-lc1.getCantidad());
+                    } else {
+                        query.setInt(1, this.getStockSupermercado().get(i).getCantidad() - lc1.getCantidad());
                         this.getStockSupermercado().get(i).setCantidad(
-                        this.getStockSupermercado().get(i).getCantidad()-lc1.getCantidad());
+                                this.getStockSupermercado().get(i).getCantidad() - lc1.getCantidad());
                     }
-                    encontrado=true;
+                    encontrado = true;
                 }
                 i++;
             }
@@ -218,19 +217,19 @@ public class Supermercado {
         }
 
     }
-    
-    public void devolverStock(int codigoProducto, int cantidad) throws SQLException{
-        
+
+    public void devolverStock(int codigoProducto, int cantidad) throws SQLException {
+
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("UPDATE stock_supermercado SET cantidad=? "
                 + "WHERE codigo_supermercado=? AND codigo_producto=?")) {
-            int i=0;
-            boolean encontrado=false;
-            while(i<this.getStockSupermercado().size() && !encontrado){
-                if(this.getStockSupermercado().get(i).getCodigoProducto()==codigoProducto){
-                        query.setInt(1, this.getStockSupermercado().get(i).getCantidad()+cantidad);
-                        this.getStockSupermercado().get(i).setCantidad(
-                        this.getStockSupermercado().get(i).getCantidad()+cantidad);
-                        encontrado=true;
+            int i = 0;
+            boolean encontrado = false;
+            while (i < this.getStockSupermercado().size() && !encontrado) {
+                if (this.getStockSupermercado().get(i).getCodigoProducto() == codigoProducto) {
+                    query.setInt(1, this.getStockSupermercado().get(i).getCantidad() + cantidad);
+                    this.getStockSupermercado().get(i).setCantidad(
+                            this.getStockSupermercado().get(i).getCantidad() + cantidad);
+                    encontrado = true;
                 }
                 i++;
             }
@@ -240,7 +239,7 @@ public class Supermercado {
         }
 
     }
-    
+
     public static class addSupermarket {
 
         private static JTextField NIFTextField;
@@ -300,16 +299,16 @@ public class Supermercado {
 
         private static void insertSupermarketIntoDB() throws SQLException {
             Supermercado supermercado = Builder.newInstance()
-                                                .code(getLastCode()+1)
-                                                .NIF(getNIFTextField().getText())
-                                                .CCAA(getCCAATextField().getText())
-                                                .localitat(getLocalitatTextField().getText())
-                                                .zipCode(getZipCodeTextField().getText())
-                                                .address(getAddressTextField().getText())
-                                                .phoneNumber(getPhoneNumberTextField().getText())
-                                                .email(getEmailTextField().getText())
-                                                .area(Integer.parseInt(getAreaTextField().getText()))
-                                                .build();
+                    .code(getLastCode() + 1)
+                    .NIF(getNIFTextField().getText())
+                    .CCAA(getCCAATextField().getText())
+                    .localitat(getLocalitatTextField().getText())
+                    .zipCode(getZipCodeTextField().getText())
+                    .address(getAddressTextField().getText())
+                    .phoneNumber(getPhoneNumberTextField().getText())
+                    .email(getEmailTextField().getText())
+                    .area(Integer.parseInt(getAreaTextField().getText()))
+                    .build();
 
             Connection connection = Herramientas.getConexion();
             PreparedStatement insertSupermarketPreparedStatement = connection.prepareStatement("INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?, ?, ?. ?)");
@@ -357,7 +356,7 @@ public class Supermercado {
             Boolean autoCommitValue = null;
             Savepoint savepoint = null;
 
-            try (PreparedStatement removeSupermarketPreparedStatement = connection.prepareStatement("DELETE FROM SUPERMERCADO WHERE Codigo_supermercado = ?"); PreparedStatement getEmployeesList = connection.prepareStatement("SELECT  ID_EMPLEADO FROM EMPLEADO WHERE Codigo_supermercado = ?")){
+            try (PreparedStatement removeSupermarketPreparedStatement = connection.prepareStatement("DELETE FROM SUPERMERCADO WHERE Codigo_supermercado = ?"); PreparedStatement getEmployeesList = connection.prepareStatement("SELECT  ID_EMPLEADO FROM EMPLEADO WHERE Codigo_supermercado = ?")) {
                 autoCommitValue = connection.getAutoCommit();
                 connection.setAutoCommit(false);
                 savepoint = connection.setSavepoint("Start Removing");
@@ -368,7 +367,7 @@ public class Supermercado {
 
                 //Delete Empleado and Nominas
                 while (getEmployeesResultSet.next()) {
-                    Empleado.borrarEmpleadoYNominas(connection, getEmployeesResultSet.getInt(1) ,false);
+                    Empleado.borrarEmpleadoYNominas(connection, getEmployeesResultSet.getInt(1), false);
 
                 }
 
