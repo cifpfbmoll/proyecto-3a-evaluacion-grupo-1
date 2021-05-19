@@ -5,6 +5,14 @@
  */
 package Main.Classes;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -66,6 +74,29 @@ public class Excepciones extends Exception {
     }
     
     public void pasarExcepcionLog(){
-        
-    } 
+        LocalDate fecha=LocalDate.now();
+        LocalTime hora=LocalTime.now();
+        DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
+        File archivo=new File("LogErrores.txt");
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(archivo,true))) {
+            escritor.write("------------------EXEPCION------------------");
+            escritor.newLine();
+            escritor.newLine();
+            escritor.write("Mensaje: "+this.getMessage());
+            escritor.newLine();
+            escritor.write("Fecha: "+fecha.format(formatoFecha)+"   Hora: "+hora.format(formatoHora));
+            escritor.newLine();
+            escritor.write("STACKTRACE:");
+            escritor.newLine();
+            for(int i=0;i<this.getStackTrace().length;i++){
+                escritor.write(this.getStackTrace()[i].toString());
+                escritor.newLine();
+            };
+            escritor.newLine();
+        }
+        catch(IOException ex){
+            System.out.println("Ha habido un problema capturando la excepcion");
+        }
+    }
 }
