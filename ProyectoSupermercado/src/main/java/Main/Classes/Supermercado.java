@@ -129,7 +129,7 @@ public class Supermercado {
     }
 
 
-    private static Supermercado instantiateSupermarketFromDB(int supermarketCode) throws SQLException {
+    public static Supermercado instantiateSupermarketFromDB(int supermarketCode) throws SQLException {
         Connection connection = Herramientas.getConexion();
 
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM SUPERMERCADO WHERE Codigo_Supermercado = ?");
@@ -380,6 +380,6 @@ public class Supermercado {
 
 
         }
-    }
+    } 
 
 }

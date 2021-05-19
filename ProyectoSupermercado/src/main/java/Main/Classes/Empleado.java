@@ -1,6 +1,10 @@
 package Main.Classes;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDateTime;
 
 public class Empleado extends Persona {
     private int id;
@@ -166,6 +170,31 @@ public class Empleado extends Persona {
 
     public void consultarNominas(int id) {
         // TODO Cuando BBDD
+    }
+    
+    public static void escribirIncidencia(String texto){
+        int idEmpleado = Main.getEmpleadoActivo().getId();
+        LocalDateTime actual = LocalDateTime.now();
+        try{
+            BufferedWriter escribir = new BufferedWriter(new FileWriter("Incidencias"+Main.getSupermercadoActivo().getLocalitat()+".txt",true));
+            escribir.write("ID Empleado: "+String.valueOf(idEmpleado));
+            escribir.newLine();
+            escribir.write("Incidencia: "+texto);
+            escribir.newLine();
+            escribir.newLine();
+            escribir.close(); 
+        } catch (IOException error){
+            error.printStackTrace();
+        }   
+    }
+    
+    public static void main(String[] args) {
+        Empleado josep = new Empleado();
+        josep.setId(7);
+        Supermercado si = Supermercado.Builder.newInstance().localitat("Palma").build();
+        Main.setSupermercadoActivo(si);
+        Main.setEmpleadoActivo(josep);
+        Empleado.escribirIncidencia("me quejo hehe");
     }
     
 //    public static void main(String[] args) throws SQLException {

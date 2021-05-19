@@ -61,6 +61,12 @@ public class Herramientas {
         resultado=comando.executeQuery();
     }
     
+    public static void hacerSelect(String query) throws SQLException{
+        //Tomeu21!
+        comando=conexion.prepareStatement(query);        
+        resultado=comando.executeQuery();
+    }
+    
     /**
      * Metodo que realizar una modificacion en la bbdd a la cual nos hemos conectado previamente.
      * Una modificacion es un Update, Delete, Insert o una DDL.
