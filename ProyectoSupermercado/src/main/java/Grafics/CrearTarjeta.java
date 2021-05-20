@@ -217,8 +217,40 @@ public class CrearTarjeta extends javax.swing.JFrame {
         jTextField3.requestFocus();
         jComboBox1.requestFocus();
     } else {
+            try {
+                res = Herramientas.Consulta("Select COUNT(Numero_tarjeta)from TARGETA_CLIENTE where Numero_tarjeta='" + jTextField1.getText() + "'");
+                try{
+                    while(res.next()){
+                        cont = res.getInt(1);
+                    }
+                }catch (SQLException  e){
+                }
+                if(cont >= 1){
+                    JOptionPane.showMessageDialog(this, "ESTA TARJETA YA EXISTE" , "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    Tarjeta.insertarTarjeta(jTextField1.getText(), jTextField2.getText(), jTextField3.getText());
+                    jTextField1.setText("");
+                    jTextField2.setText("");
+                    jTextField3.setText("");
+                    jTextField1.requestFocus();
+                    jTextField2.requestFocus();
+                    jTextField3.requestFocus();
+                    JOptionPane.showMessageDialog(this, "LOS DATOS HAN SIGO GUARDADOS CORRECTAMENTE");
+                }
+            }catch (SQLException e){
+            }
+        }
+    }            
+    
+    
+    
+    
+    
+    
+    
+    /*else {
         try {
-            Herramientas.hacerSelect("INSERT INTO Tarjeta Values("+ jTextField1.getText()+","+jTextField2.getText()+","+jTextField3.getText()+")",true);
+            Tarjeta.insertarTarjeta("INSERT INTO Tarjeta Values("+ jTextField1.getText()+","+jTextField2.getText()+","+jTextField3.getText()+")",true);
             res = Herramientas.getResultado();
             }catch (SQLException e){
             }
