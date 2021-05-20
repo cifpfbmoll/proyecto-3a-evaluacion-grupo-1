@@ -11,8 +11,12 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import Main.Classes.*;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import Main.Classes.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,38 +29,40 @@ public class CrearTarjeta extends javax.swing.JFrame {
      */
     public CrearTarjeta() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
-    public JComboBox<String> getjComboBox1() {
-        return jComboBox1;
+    public JTextField getFechaCaducidad() {
+        return fechaCaducidad;
     }
 
-    public void setjComboBox1(JComboBox<String> jComboBox1) {
-        this.jComboBox1 = jComboBox1;
+    public void setFechaCaducidad(JTextField fechaCaducidad) {
+        this.fechaCaducidad = fechaCaducidad;
     }
 
-    public JTextField getjTextField1() {
-        return jTextField1;
+    public JTextField getNumeroTarjeta() {
+        return numeroTarjeta;
     }
 
-    public void setjTextField1(JTextField jTextField1) {
-        this.jTextField1 = jTextField1;
+    public void setNumeroTarjeta(JTextField numeroTarjeta) {
+        this.numeroTarjeta = numeroTarjeta;
     }
 
-    public JTextField getjTextField2() {
-        return jTextField2;
+    public JComboBox getTipoTarjeta() {
+        return tipoTarjeta;
     }
 
-    public void setjTextField2(JTextField jTextField2) {
-        this.jTextField2 = jTextField2;
+    public void setTipoTarjeta(JComboBox tipoTarjeta) {
+        this.tipoTarjeta = tipoTarjeta;
     }
 
-    public JTextField getjTextField3() {
-        return jTextField3;
+    public JTextField getTitularTarjeta() {
+        return titularTarjeta;
     }
 
-    public void setjTextField3(JTextField jTextField3) {
-        this.jTextField3 = jTextField3;
+    public void setTitularTarjeta(JTextField titularTarjeta) {
+        this.titularTarjeta = titularTarjeta;
     }
     
     public Image getIconImage(){
@@ -64,8 +70,6 @@ public class CrearTarjeta extends javax.swing.JFrame {
         return miIcono;
     }
     
-    static ResultSet res;
-    int cont;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,17 +84,17 @@ public class CrearTarjeta extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        botonAtras = new javax.swing.JButton();
+        numeroTarjeta = new javax.swing.JTextField();
+        fechaCaducidad = new javax.swing.JTextField();
+        titularTarjeta = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        tipoTarjeta = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        botonGuardar = new javax.swing.JButton();
         fondo1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -127,25 +131,19 @@ public class CrearTarjeta extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setText("Atras");
-        jButton2.setToolTipText("");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonAtras.setText("Atras");
+        botonAtras.setToolTipText("");
+        botonAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonAtrasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 70, -1));
+        getContentPane().add(botonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 70, -1));
+        getContentPane().add(numeroTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 200, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 200, -1));
-
-        jTextField3.setText("MM/YY");
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 70, -1));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 230, -1));
+        fechaCaducidad.setText("MM/YY");
+        getContentPane().add(fechaCaducidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 70, -1));
+        getContentPane().add(titularTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 230, -1));
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -167,26 +165,21 @@ public class CrearTarjeta extends javax.swing.JFrame {
         jLabel4.setText("Tipo tarjeta");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Visa", "Mastercard", "American Express" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 190, -1));
+        tipoTarjeta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Visa", "Mastercard", "American Express" }));
+        getContentPane().add(tipoTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 190, -1));
 
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Guardar Tarjeta");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 200, 40));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 280, 40));
 
-        jButton3.setText("Guardar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        botonGuardar.setText("Guardar");
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                botonGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 310, -1, -1));
+        getContentPane().add(botonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 310, -1, -1));
 
         fondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green-Wallpaper-5.jpg"))); // NOI18N
         getContentPane().add(fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, -1));
@@ -194,68 +187,56 @@ public class CrearTarjeta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void botonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botonAtrasActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    if(jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty()){
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+    if(numeroTarjeta.getText().isEmpty() || titularTarjeta.getText().isEmpty() || fechaCaducidad.getText().isEmpty()){
         JOptionPane.showMessageDialog(this, "META SUS DATOS", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jTextField1.requestFocus();
-        jTextField2.requestFocus();
-        jTextField3.requestFocus();
-        jComboBox1.requestFocus();
+        numeroTarjeta.setText("");
+        titularTarjeta.setText("");
+        fechaCaducidad.setText("");
+        numeroTarjeta.requestFocus();
+        titularTarjeta.requestFocus();
+        fechaCaducidad.requestFocus();
+        tipoTarjeta.requestFocus();
     } else {
+            PreparedStatement query=null;
             try {
-                res = Herramientas.Consulta("Select COUNT(Numero_tarjeta)from TARGETA_CLIENTE where Numero_tarjeta='" + jTextField1.getText() + "'");
-                try{
-                    while(res.next()){
-                        cont = res.getInt(1);
-                    }
-                }catch (SQLException  e){
-                }
-                if(cont >= 1){
+                query=Herramientas.getConexion().prepareStatement(
+                "Select COUNT(Numero_tarjeta) from TARJETA_CLIENTE where Numero_tarjeta=?");
+                query.setString(1, this.getNumeroTarjeta().getText());
+                ResultSet resultado=query.executeQuery();
+                resultado.next();
+                if(resultado.getInt(1) >= 1){
                     JOptionPane.showMessageDialog(this, "ESTA TARJETA YA EXISTE" , "Informacion", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    Tarjeta.insertarTarjeta(jTextField1.getText(), jTextField2.getText(), jTextField3.getText());
-                    jTextField1.setText("");
-                    jTextField2.setText("");
-                    jTextField3.setText("");
-                    jTextField1.requestFocus();
-                    jTextField2.requestFocus();
-                    jTextField3.requestFocus();
+                    Tarjeta.añadirTarjeta(this.getNumeroTarjeta().getText(), this.getTitularTarjeta().getText(), 
+                    this.getFechaCaducidad().getText(), this.getTipoTarjeta().getSelectedItem().toString());
+                    numeroTarjeta.setText("");
+                    titularTarjeta.setText("");
+                    fechaCaducidad.setText("");
+                    numeroTarjeta.requestFocus();
+                    titularTarjeta.requestFocus();
+                    fechaCaducidad.requestFocus();
                     JOptionPane.showMessageDialog(this, "LOS DATOS HAN SIGO GUARDADOS CORRECTAMENTE");
                 }
-            }catch (SQLException e){
+            }catch (SQLException ex){
+                Herramientas.aviso("Ha ocurrido un error al guardar su tarjeta");
+                //Excepciones.pasarExcepcionLog("Ha ocurrido un error al guardar su tarjeta", ex);
+                ex.printStackTrace();
             }
-        }
-    }            
-    
-    
-    
-    
-    
-    
-    
-    /*else {
-        try {
-            Tarjeta.insertarTarjeta("INSERT INTO Tarjeta Values("+ jTextField1.getText()+","+jTextField2.getText()+","+jTextField3.getText()+")",true);
-            res = Herramientas.getResultado();
-            }catch (SQLException e){
+            finally{
+                try {
+                    query.close();
+                } catch (SQLException ex) {
+                    Herramientas.aviso("Ha ocurrido un error al guardar su tarjeta");
+                    Excepciones.pasarExcepcionLog("Ha ocurrido un error al guardar su tarjeta", ex);
+                }
             }
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
+        }          
+    }//GEN-LAST:event_botonGuardarActionPerformed
     
     /**
      * @param args the command line arguments
@@ -287,16 +268,22 @@ public class CrearTarjeta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CrearTarjeta().setVisible(true);
+                try {
+                    Herramientas.crearConexion();
+                    new CrearTarjeta();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonAtras;
+    private javax.swing.JButton botonGuardar;
+    private javax.swing.JTextField fechaCaducidad;
     private javax.swing.JLabel fondo1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -307,9 +294,9 @@ public class CrearTarjeta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField numeroTarjeta;
+    private javax.swing.JComboBox tipoTarjeta;
+    private javax.swing.JTextField titularTarjeta;
     // End of variables declaration//GEN-END:variables
 
 

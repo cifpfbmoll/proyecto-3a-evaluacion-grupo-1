@@ -13,16 +13,16 @@ import java.text.*;
  * @author jcanarte
  */
 public class Tarjeta {
-    private int numero;
+    private String numero;
     private String Nombre_tarjeta;
-    private Calendar fecha_caducidad;
+    private String fecha_caducidad;
     private String tipo_tarjeta;
     private ArrayList <LineaCompra> listaTarjetas;
 
     public Tarjeta() {
     }
     
-    public Tarjeta(int numero, String Nombre_tarjeta, Calendar fecha_caducidad, String tipo_tarjeta) {
+    public Tarjeta(String numero, String Nombre_tarjeta, String fecha_caducidad, String tipo_tarjeta) {
         this.setNumero(numero);
         this.setNombre_tarjeta(Nombre_tarjeta);
         this.setFecha_caducidad(fecha_caducidad);
@@ -45,11 +45,11 @@ public class Tarjeta {
         this.listaTarjetas = listaTarjetas;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -61,11 +61,11 @@ public class Tarjeta {
         this.Nombre_tarjeta = Nombre_tarjeta;
     }
 
-    public Calendar getFecha_caducidad() {
+    public String getFecha_caducidad() {
         return fecha_caducidad;
     }
 
-    public void setFecha_caducidad(Calendar fecha_caducidad) {
+    public void setFecha_caducidad(String fecha_caducidad) {
         this.fecha_caducidad = fecha_caducidad;
     }
 
@@ -82,23 +82,30 @@ public class Tarjeta {
         return "Tarjeta{" + "numero=" + numero + ", Nombre_tarjeta=" + Nombre_tarjeta + ", fecha_caducidad=" + fecha_caducidad + ", tipo_tarjeta=" + tipo_tarjeta + '}';
     }
     
-    public static void añadirTarjeta(int numero, String Nombre_tarjeta, Calendar fecha_caducidad, String tipo_tarjeta) throws SQLException{
+    public static void añadirTarjeta(String numero, String Nombre_tarjeta, String fecha_caducidad, String tipo_tarjeta) throws SQLException{
         Tarjeta t1=new Tarjeta(numero, Nombre_tarjeta, fecha_caducidad, tipo_tarjeta);
-        Herramientas.hacerSelect("INSERT INTO Tarjeta Values("+t1.getNumero()+","+t1.getNombre_tarjeta()+","+t1.getFecha_caducidad()+","+t1.getTipo_tarjeta()+")",true);
-        Herramientas.cerrarConexion();
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("INSERT INTO TARJETA_CLIENTE VALUES(?,?,?,?,?)")) {
+            query.setString(1, numero);
+            //query.setString(2, Main.getClienteActivo().getNif());
+            query.setString(2, "55577788A");
+            query.setString(3, Nombre_tarjeta);
+            query.setString(4, fecha_caducidad);
+            query.setString(5, tipo_tarjeta);
+            query.executeUpdate();
+        }
     }
 
-    public static void eliminarTarjeta(int numero)throws SQLException{
+    public static void eliminarTarjeta(String numero)throws SQLException{
         Herramientas.modificarDatosTabla("DELETE FROM Tarjeta WHERE numero_tarjeta = " +numero+ ";",true);
         Herramientas.cerrarConexion();
     }
     
-    public static void insertarTarjeta(int numero, String Nombre_tarjeta, Calendar fecha_caducidad, String tipo_tarjeta, Connection conexion)throws SQLException{
+    public static void insertarTarjeta(String numero, String Nombre_tarjeta, String fecha_caducidad, String tipo_tarjeta, Connection conexion)throws SQLException{
         PreparedStatement insertar = conexion.prepareStatement("INSERT INTO Tarjeta"
                 + " (Numero_tarjeta, Nombre_cliente, Fecha_caducidad, Tipo_tarjeta)"
                 + " VALUES"
                 + " (?, ?, ?, ?);");
-        insertar.setInt(1, numero);
+        insertar.setString(1, numero);
         insertar.setString(2, Nombre_tarjeta);
         insertar.setObject(3, fecha_caducidad);
         insertar.setString(4, tipo_tarjeta);
