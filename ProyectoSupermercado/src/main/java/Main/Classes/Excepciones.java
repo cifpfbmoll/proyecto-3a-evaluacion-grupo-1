@@ -73,7 +73,7 @@ public class Excepciones extends Exception {
         return mensaje;
     }
     
-    public void pasarExcepcionLog(){
+    public static void pasarExcepcionLog(String mensaje, Exception ex){
         LocalDate fecha=LocalDate.now();
         LocalTime hora=LocalTime.now();
         DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -83,19 +83,19 @@ public class Excepciones extends Exception {
             escritor.write("------------------EXEPCION------------------");
             escritor.newLine();
             escritor.newLine();
-            escritor.write("Mensaje: "+this.getMessage());
+            escritor.write("Mensaje: "+mensaje);
             escritor.newLine();
             escritor.write("Fecha: "+fecha.format(formatoFecha)+"   Hora: "+hora.format(formatoHora));
             escritor.newLine();
             escritor.write("STACKTRACE:");
             escritor.newLine();
-            for(int i=0;i<this.getStackTrace().length;i++){
-                escritor.write(this.getStackTrace()[i].toString());
+            for(int i=0;i<ex.getStackTrace().length;i++){
+                escritor.write(ex.getStackTrace()[i].toString());
                 escritor.newLine();
             };
             escritor.newLine();
         }
-        catch(IOException ex){
+        catch(IOException exI){
             System.out.println("Ha habido un problema capturando la excepcion");
         }
     }

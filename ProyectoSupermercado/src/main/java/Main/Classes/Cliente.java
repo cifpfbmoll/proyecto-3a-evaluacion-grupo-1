@@ -209,8 +209,26 @@ public class Cliente extends Persona {
         }
         finally{
             Herramientas.getConexion().setAutoCommit(true);
+        }  
+    }
+    
+    public void confirmarCompra() throws SQLException{
+        try {
+            Herramientas.getConexion().setAutoCommit(false);
+            Ticket.crearTicket(Main.getSupermercadoActivo().getCode(), this.getCestaCompra(), this.getNif());
+            for(int i=0;i<this.getCestaCompra().size();i++){
+                LineaCompra.borarLineaCarrito(this.getCestaCompra().get(i).getCodigo_producto());
+            }
+            this.getCestaCompra().clear();
+            Herramientas.getConexion().commit();
+        }catch(SQLException ex){
+            Herramientas.aviso("Ha habido un error al procesar su compra");
+            Excepciones.pasarExcepcionLog("Ha habido un error al procesar su compra", ex);
+            ex.printStackTrace();
+            Herramientas.getConexion().rollback();
+        }finally{
+            Herramientas.getConexion().setAutoCommit(true);
         }
-        
     }
     
 }

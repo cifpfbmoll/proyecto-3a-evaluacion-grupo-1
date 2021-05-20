@@ -50,4 +50,28 @@ Ayer no tuvimos sesión de trabajo ya que explicamos los ficheros. Actualmente h
 
 # 05/05/2021
 
-Vamos progresando. Hoy se nos ha pedido que en el siguiente Sprint todos los programadores hagan una transacción. Ya tenemos algunos frames creados y conectados entre si (login, registro, elegir supermercado) funcionando completamente bien (métodos conectados con la base de datos). Seguimos trabajando y con los objetivos al dia.
+Vamos progresando. Hoy se nos ha pedido que en el siguiente Sprint todos los programadores hagan una transacción. Ya tenemos algunos frames creados y conectados entre si (login, registro, elegir supermercado) funcionando completamente bien (métodos conectados con la base de datos). Seguimos trabajando y con los objetivos al día.
+
+# 10/05/2021
+
+Los objetivos de este Sprint se van cumpliendo. Aún faltan 2 días y la gran mayoría de métodos están hechos. Hemos avanzado bastante con el frame principal de usuario la cual cosa nos permitirá ser más rápidos en los otros frames, ya que tendremos un ejemplo claro en el que fijarnos.
+
+# 11/05/2021
+
+Seguimos trabajando en nuestros objetivos. Hay gente que ha terminado sus métodos y empieza a desarrollar parte de la interfaz gráfica, otros ayudan a sus compañeros que aún están terminando sus métodos. Estamos teniendo problemas con la interfaz principal, siempre que encontramos la solución para una cosa salen dos problemas más, continuamos trabajando para intentar solucionarlo. Estoy pensando cuales podrían ser las transacciones a realizar en el próximo Sprint.
+
+# 12/05/2021
+
+Ultimo día del Sprint 4. Hoy termina este Sprint i mañana empieza el número 5. Hay gente que no ha terminado aun sus tareas así que tendrán que seguir trabajando en estas durante el siguiente Sprint. Al final hemos solucionado los problemas de ayer con el frame principal así que en principio no tendría que haber problemas con este por ahora. Ya tengo las transacciones que se tendrán que hacer en el siguiente Sprint que empieza hoy. Este Sprint se tendrá que hacer mayoritariamente en casa, ya que solo contaremos con 1 clase para trabajar en el.
+
+# 17/05/2021
+
+Hoy Termina el Sprint 5 y empieza el 6. Hay gente que ya tiene terminado el método y otros que aun van atrasados. Intentaremos ir ayudando a los que van un poco atrasados.
+
+# 18/05/2021
+
+Estamos en el Sprint 6. En este Sprint se trabajará con ficheros, como pidió el profesor. Vamos avanzando con la interfaz grafica también. 
+
+# 19/05/2021
+
+Continuamos con el Sprint 6. La gente ya ha empezado con los ficheros y por ahora no hay problemas. Vamos al día con los objetivos. La interfaz grafica de los clientes va en muy buen camino, se podría decir que ya estamos a punto de terminarla.

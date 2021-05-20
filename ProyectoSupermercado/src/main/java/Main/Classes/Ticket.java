@@ -82,7 +82,7 @@ public class Ticket {
      * @throws SQLException 
      */
     public void setCodigo() throws SQLException {
-        Herramientas.hacerSelect("SELECT MAX(codigo_ticket) FROM ticket",true);
+        Herramientas.hacerSelect("SELECT MAX(codigo_ticket) FROM ticket",false);
         ResultSet resultado=Herramientas.getResultado();
         resultado.next();
         this.codigo = (resultado.getInt(1))+1;
@@ -157,8 +157,6 @@ public class Ticket {
     
     //no probado
     public static void crearTicket(int codigoSupermercado, ArrayList <LineaCompra> lineasTicket, String nif ) throws SQLException{
-        //codigo supermercado y nif se coge del que se ha eligido al entrar.
-        try{
         double precioTotal=0;
         for(int i=0;i<lineasTicket.size();i++){
             precioTotal+=lineasTicket.get(i).getPrecio_linea();
@@ -168,21 +166,24 @@ public class Ticket {
         LocalTime hora=t1.getHoraCompra();
         DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
-        Herramientas.modificarDatosTabla("INSERT INTO ticket VALUES("+t1.getCodigo()+","+nif+","+t1.getCodigoSupermercado()+","+fecha.format(formatoFecha)+","+hora.format(formatoHora)+","+t1.getPrecioTotal()+")",false);
-        for(int i=0;i<lineasTicket.size();i++){
-            Herramientas.modificarDatosTabla("INSERT INTO linea_ticket VALUES("+t1.getCodigo()+","+lineasTicket.get(i).getCodigo_producto()+","+lineasTicket.get(i).getCantidad()+","+lineasTicket.get(i).getPrecio_linea()+")", false);
+        try(PreparedStatement query=Herramientas.getConexion().prepareStatement("INSERT INTO ticket VALUES(?,?,?,?,?,?)")){
+            query.setInt(1, t1.getCodigo());
+            query.setString(2, nif);
+            query.setInt(3, t1.getCodigoSupermercado());
+            query.setString(4, fecha.format(formatoFecha));
+            query.setString(5, hora.format(formatoHora));
+            query.setDouble(6, t1.getPrecioTotal());
+            query.executeUpdate();
+            for(int i=0;i<lineasTicket.size();i++){
+                try(PreparedStatement query2=Herramientas.getConexion().prepareStatement("INSERT INTO linea_ticket VALUES(?,?,?,?)")){
+                    query2.setInt(1, t1.getCodigo());
+                    query2.setInt(2, lineasTicket.get(i).getCodigo_producto());
+                    query2.setInt(3, lineasTicket.get(i).getCantidad());
+                    query2.setDouble(4, lineasTicket.get(i).getPrecio_linea());
+                    query2.executeUpdate();
+                }
+            }
         }
-        Herramientas.getConexion().commit();
-        Herramientas.cerrarStatementResult();
-        }
-        catch(SQLException error){
-            Herramientas.getConexion().rollback();
-            Herramientas.aviso("Ha habido un error");
-        }
-        finally{
-            Herramientas.getConexion().setAutoCommit(true);
-        };
-        
     }
     //Actualmente este metodo solo ve el ultimo ticket del cliente.
     //probado

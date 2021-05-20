@@ -41,6 +41,7 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
         this.getCestaCompra().setVisible(false);
         this.getjScrollPane1().setVisible(false);
         this.nombre.setText(Main.getClienteActivo().getNombre().toUpperCase());
+        this.nombreSupermercado.setText(Main.getSupermercadoActivo().getLocalitat().toUpperCase());
         this.setPanelActivo(panelInicial);
         this.setPanelCabezeraActivo(cabezeraInicial);
         this.setVisible(true);
@@ -94,6 +95,13 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        cabezeraCuenta = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        panelCuenta = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         panelPrincipal = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
@@ -113,6 +121,8 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         nombre = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
+        limpieza1 = new javax.swing.JButton();
+        nombreSupermercado = new javax.swing.JLabel();
 
         cabezeraAlimento.setBackground(new java.awt.Color(255, 255, 255));
         cabezeraAlimento.setPreferredSize(new java.awt.Dimension(702, 163));
@@ -381,6 +391,7 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
 
         jLabel15.setText("15,55");
 
+        jButton1.setForeground(new java.awt.Color(255, 0, 0));
         jButton1.setText("X");
         jButton1.setToolTipText("Eliminar producto de la cesta");
         jButton1.setMaximumSize(new java.awt.Dimension(23, 23));
@@ -394,11 +405,11 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
             .addGroup(lineaCestaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGap(61, 61, 61)
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -413,6 +424,90 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        cabezeraCuenta.setBackground(new java.awt.Color(255, 255, 255));
+        cabezeraCuenta.setPreferredSize(new java.awt.Dimension(702, 163));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 72)); // NOI18N
+        jLabel16.setText("Mi cuenta");
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel18.setText("Bienvenido "+Main.getClienteActivo().getNombre()+", consulte aqui cualquier cosa sobre su cuenta");
+
+        javax.swing.GroupLayout cabezeraCuentaLayout = new javax.swing.GroupLayout(cabezeraCuenta);
+        cabezeraCuenta.setLayout(cabezeraCuentaLayout);
+        cabezeraCuentaLayout.setHorizontalGroup(
+            cabezeraCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cabezeraCuentaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(cabezeraCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel18))
+                .addContainerGap(340, Short.MAX_VALUE))
+        );
+        cabezeraCuentaLayout.setVerticalGroup(
+            cabezeraCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cabezeraCuentaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel18)
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+
+        panelCuenta.setBackground(new java.awt.Color(255, 255, 255));
+        panelCuenta.setPreferredSize(new java.awt.Dimension(1200, 375));
+        panelCuenta.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)), new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true)));
+        jPanel1.setPreferredSize(new java.awt.Dimension(400, 375));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 390, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 365, Short.MAX_VALUE)
+        );
+
+        panelCuenta.add(jPanel1);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setPreferredSize(new java.awt.Dimension(400, 375));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 398, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 373, Short.MAX_VALUE)
+        );
+
+        panelCuenta.add(jPanel3);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setPreferredSize(new java.awt.Dimension(400, 375));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 375, Short.MAX_VALUE)
+        );
+
+        panelCuenta.add(jPanel4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("  METRADONA©");
@@ -587,6 +682,19 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
             }
         });
 
+        limpieza1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        limpieza1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/persona.png"))); // NOI18N
+        limpieza1.setText("  Cuenta");
+        limpieza1.setContentAreaFilled(false);
+        limpieza1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpieza1ActionPerformed(evt);
+            }
+        });
+
+        nombreSupermercado.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        nombreSupermercado.setText(" ");
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
@@ -598,30 +706,38 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(139, 139, 139))
-            .addComponent(panelInicial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1290, Short.MAX_VALUE)
+            .addComponent(panelInicial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(logo)
                 .addGap(18, 18, 18)
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nombreSupermercado, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(limpieza1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nombreSupermercado))
+                        .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(limpieza1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(cabezeraInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 1, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(panelInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -631,11 +747,11 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1290, Short.MAX_VALUE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1210, Short.MAX_VALUE)
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -715,7 +831,7 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
             this.cambiarPanel(scrollLimpieza, cabezeraLimpieza);
         } catch (SQLException ex) {
             Herramientas.aviso("Hay un problema con el stock en la base de datos, lo sentimos");
-            ex.printStackTrace();
+            Excepciones.pasarExcepcionLog("Hay un problema con el stock en la base de datos, lo sentimos", ex);
         } 
     }//GEN-LAST:event_limpiezaActionPerformed
 
@@ -730,6 +846,10 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void limpieza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpieza1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_limpieza1ActionPerformed
 
     public JComponent getPanelActivo() {
         return panelActivo;
@@ -755,10 +875,13 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
     public JScrollPane getjScrollPane1() {
         return jScrollPane1;
     }
-    //Main.getClienteActivo().getCestaCompra()
+    
     public void escribirListaCompra(ArrayList <LineaCompra> cesta) throws SQLException{
         this.getCestaCompra().removeAll();
+        InterfazUsuario3 frame=this;
+        boolean vacia=false;
         if (cesta.isEmpty()){
+            vacia=true;
             JLabel info1=new JLabel(" ");
             JLabel info=new JLabel("            NO HAY PRODUCTOS EN SU CESTA      ");
             info.setFont(new Font("Tahoma",Font.BOLD,12));
@@ -793,8 +916,6 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
                 botonEliminar.setMaximumSize(new java.awt.Dimension(23, 23));
                 botonEliminar.setMinimumSize(new java.awt.Dimension(23, 23));
                 botonEliminar.setPreferredSize(new java.awt.Dimension(23, 23));
-                
-                InterfazUsuario3 frame=this;
                 
                 botonEliminar.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -837,6 +958,27 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
                 this.getCestaCompra().add(lineaCesta);
             }
             Herramientas.cerrarStatementResult();
+        }
+        if (!vacia){
+            javax.swing.JButton botonComprar=new javax.swing.JButton();
+            botonComprar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+            botonComprar.setText("CONFIRMAR COMPRAR");
+            this.getCestaCompra().add(botonComprar);
+            botonComprar.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        /*try {
+                            //Seleccion de tarjeta con la que comprar, al seleccionar se compra
+                            al seleccionar borrar lista compra i pasar a ticket:
+                            Main.getClienteActivo().confirmarCompra();
+                            frame.escribirListaCompra(Main.getClienteActivo().getCestaCompra());
+                            
+                        } catch (SQLException ex) {
+                            Herramientas.aviso("Ha habido un error al procesar su compra");
+                            Excepciones.pasarExcepcionLog("Ha habido un error al procesar su compra", ex);
+                            ex.printStackTrace();
+                        }*/
+                    }
+                });
         }
         this.getCestaCompra().revalidate();
         this.getCestaCompra().repaint();
@@ -1082,6 +1224,7 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
     private javax.swing.JPanel cabezeraAlimento;
     private javax.swing.JPanel cabezeraBebida;
     private javax.swing.JPanel cabezeraCarrito;
+    private javax.swing.JPanel cabezeraCuenta;
     private javax.swing.JPanel cabezeraHigiene;
     private javax.swing.JPanel cabezeraInicial;
     private javax.swing.JPanel cabezeraLimpieza;
@@ -1098,6 +1241,8 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1107,9 +1252,13 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limpieza;
+    private javax.swing.JButton limpieza1;
     private javax.swing.JPanel lineaCesta;
     private javax.swing.JPanel lineaProductoAlimento;
     private javax.swing.JPanel lineaProductoAlimento0;
@@ -1117,8 +1266,10 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
     private javax.swing.JLabel nombre;
     private javax.swing.JLabel nombreProducto;
     private javax.swing.JLabel nombreProducto1;
+    private javax.swing.JLabel nombreSupermercado;
     private javax.swing.JPanel panelAlimento;
     private javax.swing.JPanel panelBebida;
+    private javax.swing.JPanel panelCuenta;
     private javax.swing.JPanel panelHigiene;
     private javax.swing.JPanel panelInicial;
     private javax.swing.JPanel panelLimpieza;
