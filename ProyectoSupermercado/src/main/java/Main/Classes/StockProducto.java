@@ -104,17 +104,20 @@ public class StockProducto {
     }
 
     public static void ficheroGestionStock(Boolean guardarFecha, String nProducto, String cantidad, String nSupermercado) throws IOException{
-        File archivoGestion = new File(nSupermercado);
+        File archivoGestion = new File("supermercado"+nSupermercado+".txt");
         BufferedWriter buffer = new BufferedWriter (new FileWriter(archivoGestion, true));
         if (guardarFecha) {
-            java.util.Date fecha=new java.util.Date(); 
-            buffer.append(fecha.toString());
+            java.util.Date fecha=new java.util.Date();
+            buffer.append("------------------------------------------------------------");
+            buffer.newLine();
+            buffer.append("Fecha: " + fecha.toString());
             buffer.newLine();
         }
-        buffer.append(nProducto + " " + cantidad);
+        else {
+        buffer.append("Producto: " + nProducto + " cantidad: " + cantidad);
         buffer.newLine();
+        }
         buffer.close();
     }
     
-
 }
