@@ -6,12 +6,15 @@
 package Main.Classes;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 
 /**
  *
@@ -102,16 +105,16 @@ public class StockProducto {
 
     public static void ficheroGestionStock(Boolean guardarFecha, String nProducto, String cantidad, String nSupermercado) throws IOException{
         File archivoGestion = new File(nSupermercado);
-        BufferedWriter buffer = new BufferedWriter (new FIleWritter(archivoGestion));
+        BufferedWriter buffer = new BufferedWriter (new FileWriter(archivoGestion, true));
         if (guardarFecha) {
-            java.util.Date fecha=new java.util.Date();  
-            buffer.append(fecha);
+            java.util.Date fecha=new java.util.Date(); 
+            buffer.append(fecha.toString());
             buffer.newLine();
         }
         buffer.append(nProducto + " " + cantidad);
         buffer.newLine();
         buffer.close();
-        archivoGestion.close();
     }
+    
 
 }
