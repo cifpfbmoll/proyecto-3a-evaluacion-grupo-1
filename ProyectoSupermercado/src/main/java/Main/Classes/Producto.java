@@ -90,7 +90,7 @@ abstract class Producto {
 //        ProductoLimpieza pl1=ProductoLimpieza.CrearProductoLimpieza(superficie, "Lejia", 3.9, "Chupito de lejia");
 //        System.out.println(pl1.toString());
 //        ProductoLimpieza.AñadirLimpieza(pl1);
-        ProductoLimpieza.EliminarLimpieza(24);
+        ProductoLimpieza.eliminarLimpieza(24);
         Herramientas.cerrarConexion();
     }
     

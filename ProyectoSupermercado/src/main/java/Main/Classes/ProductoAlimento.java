@@ -56,13 +56,41 @@ public final class ProductoAlimento extends Producto {
         
     }
     
-    public static ProductoAlimento CrearProductoAlimento(int caducidad, Categoria categoria, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
+    public static ProductoAlimento crearProductoAlimento(int caducidad, Categoria categoria, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
         int ultimoCodigoProd = ProductoAlimento.UltimoNumero();
         ProductoAlimento pa1 = new ProductoAlimento(caducidad, categoria, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
         return pa1;
     }
     
-    public static void AñadirAlimento(ProductoAlimento pa1) throws SQLException{
+    public static void añadirAlimento(ProductoAlimento pa1) throws SQLException{
+        Connection conexion = Herramientas.getConexion();
+        try{
+            conexion.setAutoCommit(false);
+            PreparedStatement query = conexion.prepareStatement("INSERT INTO producto VALUES(?,?,?,?,?)");
+            query.setInt(1, pa1.getCodigoProd());
+            query.setString(2, pa1.getNombreProd());
+            query.setDouble(3, pa1.getPrecioProd());
+            query.setString(4, pa1.getDescripcionProd());
+            query.setString(5, "Alimento");
+            query.executeUpdate();
+            conexion.commit();
+            query = conexion.prepareStatement("INSERT INTO producto_alimento VALUES(?,?,?)");
+            query.setInt(1, pa1.getCodigoProd());
+            query.setInt(2, pa1.getCaducidad());
+            query.setString(3, String.valueOf(pa1.getCategoria()));
+            query.executeUpdate();
+            conexion.commit();
+            conexion.setAutoCommit(true);
+            query.close();
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            conexion.rollback();
+            conexion.setAutoCommit(true);
+        }
+        
+        
+        /*Forma de hacerlo con herramientas (antigua):
+                
         try{
             Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+pa1.getCodigoProd()+",'"+pa1.getNombreProd()+"',"+pa1.getPrecioProd()+",'"+pa1.getDescripcionProd()+"','Alimento')",false);
             Herramientas.modificarDatosTabla("INSERT INTO producto_alimento VALUES("+pa1.getCodigoProd()+","+pa1.getCaducidad()+",'"+pa1.getCategoria()+"')",false);
@@ -74,11 +102,33 @@ public final class ProductoAlimento extends Producto {
             Herramientas.getConexion().setAutoCommit(true);
             Herramientas.aviso("Ha habido un error");
             //error.printStackTrace();
-        }
-
+        }*/
     }
     
-    public static void EliminarAlimento(int codigoProd) throws SQLException{
+    public static void eliminarAlimento(int codigoProd) throws SQLException{
+        Connection conexion = Herramientas.getConexion();
+        try{
+            conexion.setAutoCommit(false);
+            PreparedStatement query = conexion.prepareStatement("DELETE FROM producto_alimento WHERE Codigo_producto = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            conexion.commit();
+            query = conexion.prepareStatement("DELETE FROM producto WHERE Codigo_producto = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            conexion.commit();
+            query.close();
+            conexion.setAutoCommit(true);
+        } catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            conexion.rollback();
+            conexion.setAutoCommit(true);
+        }
+        
+        
+        
+        /*Forma de hacerlo con herramientas (antigua):
+        
         try{
             Herramientas.modificarDatosTabla("DELETE FROM producto_alimento WHERE Codigo_producto = "+codigoProd,false);
             Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,false);
@@ -90,49 +140,34 @@ public final class ProductoAlimento extends Producto {
             Herramientas.getConexion().rollback();
             Herramientas.getConexion().setAutoCommit(true);
             Herramientas.aviso("Ha habido un error");
-            error.printStackTrace();
+            //error.printStackTrace();
+        }*/
+    }
+    
+    public static ProductoAlimento recogerAlimento(int buscar){
+        Connection conexion = Herramientas.getConexion();
+        try{
+            PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto_alimento WHERE Codigo_producto = ?");
+            query.setInt(1, buscar);
+            ResultSet resultado = query.executeQuery();
+            resultado.next();
+            int cadu = resultado.getInt("Caducidad");
+            Categoria cat = Categoria.valueOf(resultado.getString("Categoria"));
+            query = conexion.prepareStatement("SELECT * FROM producto WHERE Codigo_producto = ?");
+            query.setInt(1, buscar);
+            resultado = query.executeQuery();
+            resultado.next();
+            String name = resultado.getString("Nombre_producto");
+            double precio = resultado.getDouble("Precio_producto");
+            String descri = resultado.getString("descripcionProd");
+            ProductoAlimento pa1 = new ProductoAlimento(cadu, cat, buscar, name, precio, descri);
+            query.close();
+            return pa1;
+        } catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            return null;
         }
-
-    }
-    
-    public static void RecogerAlimento(Connection conexion, int buscar) throws SQLException{
-        PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto_alimento WHERE Codigo_producto = ?");
-        query.setInt(1, buscar);
-        ResultSet resultado = query.executeQuery();
-        resultado.next();
-        int cadu = resultado.getInt("Caducidad");
-        Categoria cat = Categoria.valueOf(resultado.getString("Categoria"));
-        query = conexion.prepareStatement("SELECT * FROM producto WHERE Codigo_producto = ?");
-        query.setInt(1, buscar);
-        resultado = query.executeQuery();
-        resultado.next();
-        String name = resultado.getString("Nombre_producto");
-        double precio = resultado.getDouble("Precio_producto");
-        String descri = resultado.getString("descripcionProd");
-        ProductoAlimento pa1 = new ProductoAlimento(cadu, cat, buscar, name, precio, descri);
-        System.out.println(pa1.toString());
-        //int caducidad, Categoria categoria, String nombreProd, double precioProd, String descripcionProd
-    }
-    
-    //falta añadir que a parte del nombre te digo que tipo de producto es
-    public static void BuscarAlimento(String buscar) throws SQLException{
-        Herramientas.modificarDatosTabla("SELECT * FROM producto WHERE Nombre_producto LIKE '%"+buscar+"%'",true);
-        Herramientas.cerrarStatementResult();
-    }    
-    
-    public static void main(String[] args) throws SQLException {
-        Herramientas.crearConexion();
-        ProductoAlimento.RecogerAlimento(Herramientas.getConexion(), 3);
-        Herramientas.cerrarConexion();
+        
+       
     }
 }
-
-
-
-//test constructor comida que iria dentro del metodo main
-//      float myNum = 5.1f;
-//      int cadu = 30;
-//      int codigo = ProductoAlimento.UltimoNumero();
-//      ProductoAlimento pipas = new ProductoAlimento(cadu, Categoria.vegano, codigo, "pipas" , myNum ,  "pipas saladas");
-//      System.out.println(pipas.getCodigoProd());
-//      System.out.println(pipas.UltimoNumero);  

@@ -56,71 +56,109 @@ public class ProductoHigiene extends Producto {
         }
     }
     
-    public static ProductoHigiene CrearProductoHigiene(TipoHigiene tipoHigiene, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
+    public static ProductoHigiene crearProductoHigiene(TipoHigiene tipoHigiene, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
         int ultimoCodigoProd = ProductoHigiene.UltimoNumero();
         ProductoHigiene ph1 = new ProductoHigiene(tipoHigiene, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
         return ph1;
     }
     
-    public static void AñadirHigiene(ProductoHigiene ph1) throws SQLException{
+    public static void añadirHigiene(ProductoHigiene ph1) throws SQLException{
+        Connection conexion = Herramientas.getConexion();
         try{
-            Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+ph1.getCodigoProd()+",'"+ph1.getNombreProd()+"',"+ph1.getPrecioProd()+",'"+ph1.getDescripcionProd()+"','Higiene')",false);
-            Herramientas.modificarDatosTabla("INSERT INTO producto_higiene VALUES("+ph1.getCodigoProd()+",'"+ph1.getTipoHigiene()+"')",false);
-            Herramientas.getConexion().commit();
-            Herramientas.getConexion().setAutoCommit(true);
-            Herramientas.cerrarStatementResult();
-        } catch (SQLException error){
-            Herramientas.getConexion().rollback();
-            Herramientas.getConexion().setAutoCommit(true);
-            Herramientas.aviso("Ha habido un error");
-            //error.printStackTrace();
+            conexion.setAutoCommit(false);
+            PreparedStatement query = conexion.prepareStatement("INSERT INTO producto VALUES(?,?,?,?,?)");
+            query.setInt(1, ph1.getCodigoProd());
+            query.setString(2, ph1.getNombreProd());
+            query.setDouble(3, ph1.getPrecioProd());
+            query.setString(4, ph1.getDescripcionProd());
+            query.setString(5, "Higiene");
+            query.executeUpdate();
+            conexion.commit();
+            query = conexion.prepareStatement("INSERT INTO producto_higiene VALUES(?,?)");
+            query.setInt(1, ph1.getCodigoProd());
+            query.setString(2, String.valueOf(ph1.getTipoHigiene()));
+            query.executeUpdate();
+            conexion.commit();
+            conexion.setAutoCommit(true);
+            query.close();
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            conexion.rollback();
+            conexion.setAutoCommit(true);
         }
         
+//        Metodo antiguo con la clase Herramientas
+//        try{
+//            Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+ph1.getCodigoProd()+",'"+ph1.getNombreProd()+"',"+ph1.getPrecioProd()+",'"+ph1.getDescripcionProd()+"','Higiene')",false);
+//            Herramientas.modificarDatosTabla("INSERT INTO producto_higiene VALUES("+ph1.getCodigoProd()+",'"+ph1.getTipoHigiene()+"')",false);
+//            Herramientas.getConexion().commit();
+//            Herramientas.getConexion().setAutoCommit(true);
+//            Herramientas.cerrarStatementResult();
+//        } catch (SQLException error){
+//            Herramientas.getConexion().rollback();
+//            Herramientas.getConexion().setAutoCommit(true);
+//            Herramientas.aviso("Ha habido un error");
+//            //error.printStackTrace();
+//        }
     }
     
-    public static void EliminarHigiene(int codigoProd) throws SQLException{
+    public static void eliminarHigiene(int codigoProd) throws SQLException{
+        Connection conexion = Herramientas.getConexion();
         try{
-            Herramientas.modificarDatosTabla("DELETE FROM producto_higiene WHERE Codigo_producto = "+codigoProd,false);
-            Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,false);
-            Herramientas.getConexion().commit();
-            Herramientas.getConexion().setAutoCommit(true);
-            Herramientas.cerrarStatementResult();
-        } catch (SQLException error){
-            Herramientas.getConexion().rollback();
-            Herramientas.getConexion().setAutoCommit(true);
-            Herramientas.aviso("Ha habido un error");
-            //error.printStackTrace();
+            conexion.setAutoCommit(false);
+            PreparedStatement query = conexion.prepareStatement("DELETE FROM producto_higiene WHERE Codigo_producto = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            conexion.commit();
+            query = conexion.prepareStatement("DELETE FROM producto WHERE Codigo_higiene = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            conexion.commit();
+            query.close();
+            conexion.setAutoCommit(true);
+        } catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            conexion.rollback();
+            conexion.setAutoCommit(true);
         }
-        
+
+//        Metodo Antiguo con clase Herramientas
+//        try{
+//            Herramientas.modificarDatosTabla("DELETE FROM producto_higiene WHERE Codigo_producto = "+codigoProd,false);
+//            Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,false);
+//            Herramientas.getConexion().commit();
+//            Herramientas.getConexion().setAutoCommit(true);
+//            Herramientas.cerrarStatementResult();
+//        } catch (SQLException error){
+//            Herramientas.getConexion().rollback();
+//            Herramientas.getConexion().setAutoCommit(true);
+//            Herramientas.aviso("Ha habido un error");
+//            //error.printStackTrace();
+//        }
     }
     
-    public static void RecogerHigiene(Connection conexion, int buscar) throws SQLException{
-        PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto_higiene WHERE Codigo_producto = ?");
-        query.setInt(1, buscar);
-        ResultSet resultado = query.executeQuery();
-        resultado.next();
-        TipoHigiene tipo = TipoHigiene.valueOf(resultado.getString("Tipo_higiene"));
-        query = conexion.prepareStatement("SELECT * FROM producto WHERE Codigo_producto = ?");
-        query.setInt(1, buscar);
-        resultado = query.executeQuery();
-        resultado.next();
-        String name = resultado.getString("Nombre_producto");
-        double precio = resultado.getDouble("Precio_producto");
-        String descri = resultado.getString("descripcionProd");
-        ProductoHigiene ph1 = new ProductoHigiene(tipo, buscar, name, precio, descri);
-        System.out.println(ph1.toString());
-        //int caducidad, Categoria categoria, String nombreProd, double precioProd, String descripcionProd
-    }
-    
-    //falta añadir que a parte del nombre te digo que tipo de producto es
-    public static void BuscarHigiene(String buscar) throws SQLException{
-        Herramientas.modificarDatosTabla("SELECT * FROM producto WHERE Nombre_producto LIKE '%"+buscar+"%'",true);
-        Herramientas.cerrarStatementResult();
-    }
-    
-//    public static void main(String[] args) throws SQLException {
-//        Herramientas.crearConexion();
-//        ProductoHigiene.RecogerHigiene(Herramientas.getConexion(), 11);
-//        Herramientas.cerrarConexion();
-//    }
+    public static ProductoHigiene recogerHigiene(int buscar) throws SQLException{
+        Connection conexion = Herramientas.getConexion();
+        try{
+            PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto_higiene WHERE Codigo_producto = ?");
+            query.setInt(1, buscar);
+            ResultSet resultado = query.executeQuery();
+            resultado.next();
+            TipoHigiene tipo = TipoHigiene.valueOf(resultado.getString("Tipo_higiene"));
+            query = conexion.prepareStatement("SELECT * FROM producto WHERE Codigo_producto = ?");
+            query.setInt(1, buscar);
+            resultado = query.executeQuery();
+            resultado.next();
+            String name = resultado.getString("Nombre_producto");
+            double precio = resultado.getDouble("Precio_producto");
+            String descri = resultado.getString("descripcionProd");
+            ProductoHigiene ph1 = new ProductoHigiene(tipo, buscar, name, precio, descri);
+            query.close();
+            return ph1;
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            conexion.rollback();
+            return null;
+        }
+    } 
 }

@@ -41,76 +41,111 @@ public final class ProductoBebida extends Producto {
         this.alcoholica = alcoholica;
     } 
     
-    public static ProductoBebida CrearProductoBebida(int caducidad, Boolean alcoholica, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
+    public static ProductoBebida crearProductoBebida(int caducidad, Boolean alcoholica, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
         int ultimoCodigoProd = ProductoBebida.UltimoNumero();
         ProductoBebida pb1 = new ProductoBebida(caducidad, alcoholica, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
         return pb1;
     }
     
-    public static void AñadirBebida(ProductoBebida pb1) throws SQLException{
+    public static void añadirBebida(ProductoBebida pb1) throws SQLException{
+        Connection conexion = Herramientas.getConexion();
         try{
-            Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+pb1.getCodigoProd()+",'"+pb1.getNombreProd()+"',"+pb1.getPrecioProd()+",'"+pb1.getDescripcionProd()+"','Bebida')",false);
-            Herramientas.modificarDatosTabla("INSERT INTO producto_bebida VALUES("+pb1.getCodigoProd()+","+pb1.getCaducidad()+","+pb1.getAlcoholica()+")",false);
-            Herramientas.getConexion().commit();
-            Herramientas.getConexion().setAutoCommit(true);
-            Herramientas.cerrarStatementResult();
-        } catch (SQLException error){
-            Herramientas.getConexion().rollback();
-            Herramientas.getConexion().setAutoCommit(true);
-            Herramientas.aviso("Ha habido un error");
-            //error.printStackTrace();
+            conexion.setAutoCommit(false);
+            PreparedStatement query = conexion.prepareStatement("INSERT INTO producto VALUES(?,?,?,?,?)");
+            query.setInt(1, pb1.getCodigoProd());
+            query.setString(2, pb1.getNombreProd());
+            query.setDouble(3, pb1.getPrecioProd());
+            query.setString(4, pb1.getDescripcionProd());
+            query.setString(5, "Bebida");
+            query.executeUpdate();
+            conexion.commit();
+            query = conexion.prepareStatement("INSERT INTO producto_bebida VALUES(?,?,?)");
+            query.setInt(1, pb1.getCodigoProd());
+            query.setInt(2, pb1.getCaducidad());
+            query.setBoolean(3, pb1.getAlcoholica());
+            query.executeUpdate();
+            conexion.commit();
+            conexion.setAutoCommit(true);
+            query.close();
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            conexion.rollback();
+            conexion.setAutoCommit(true);
         }
         
+//        Antiguo metodo con la clase Herramienta        
+//        try{
+//            Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+pb1.getCodigoProd()+",'"+pb1.getNombreProd()+"',"+pb1.getPrecioProd()+",'"+pb1.getDescripcionProd()+"','Bebida')",false);
+//            Herramientas.modificarDatosTabla("INSERT INTO producto_bebida VALUES("+pb1.getCodigoProd()+","+pb1.getCaducidad()+","+pb1.getAlcoholica()+")",false);
+//            Herramientas.getConexion().commit();
+//            Herramientas.getConexion().setAutoCommit(true);
+//            Herramientas.cerrarStatementResult();
+//        } catch (SQLException error){
+//            Herramientas.getConexion().rollback();
+//            Herramientas.getConexion().setAutoCommit(true);
+//            Herramientas.aviso("Ha habido un error");
+//            //error.printStackTrace();
+//        }        
     }
     
-    public static void EliminarBebida(int codigoProd) throws SQLException{
+    public static void eliminarBebida(int codigoProd) throws SQLException{
+        Connection conexion = Herramientas.getConexion();
         try{
-            Herramientas.modificarDatosTabla("DELETE FROM producto_bebida WHERE Codigo_producto = "+codigoProd,false);
-            Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,false);
-            Herramientas.getConexion().commit();
-            Herramientas.getConexion().setAutoCommit(true);
-            Herramientas.cerrarStatementResult();
-        } catch (SQLException error){
-            Herramientas.getConexion().rollback();
-            Herramientas.getConexion().setAutoCommit(true);
-            Herramientas.aviso("Ha habido un error");
-            //error.printStackTrace();
+            conexion.setAutoCommit(false);
+            PreparedStatement query = conexion.prepareStatement("DELETE FROM producto_bebida WHERE Codigo_producto = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            conexion.commit();
+            query = conexion.prepareStatement("DELETE FROM producto WHERE Codigo_producto = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            conexion.commit();
+            query.close();
+            conexion.setAutoCommit(true);
+        } catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            conexion.rollback();
+            conexion.setAutoCommit(true);
         }
-    }
-    
-    public static void RecogerBebida(Connection conexion, int buscar) throws SQLException{
-        PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto_bebida WHERE Codigo_producto = ?");
-        query.setInt(1, buscar);
-        ResultSet resultado = query.executeQuery();
-        resultado.next();
-        int cadu = resultado.getInt("Caducidad");
-        boolean alcohol = resultado.getBoolean("Alcoholica");
-        query = conexion.prepareStatement("SELECT * FROM producto WHERE Codigo_producto = ?");
-        query.setInt(1, buscar);
-        resultado = query.executeQuery();
-        resultado.next();
-        String name = resultado.getString("Nombre_producto");
-        double precio = resultado.getDouble("Precio_producto");
-        String descri = resultado.getString("descripcionProd");
-        ProductoBebida pb1 = new ProductoBebida(cadu, alcohol, buscar, name, precio, descri);
-        System.out.println(pb1.toString());
-        //int caducidad, Categoria categoria, String nombreProd, double precioProd, String descripcionProd
-    }
-    
-//    public static void main(String[] args) throws SQLException {
-//        Herramientas.crearConexion();
-//        ProductoBebida.RecogerBebida(Herramientas.getConexion(), 8);
-//        Herramientas.cerrarConexion();
-//    }
-    
-    //falta añadir que a parte del nombre te digo que tipo de producto es
-    public static void BuscarBebida(String buscar) throws SQLException{
-        Herramientas.modificarDatosTabla("SELECT * FROM producto WHERE Nombre_producto LIKE '%"+buscar+"%'",true);
-        Herramientas.cerrarStatementResult();
-    } 
-}
 
-//Prueba añadir bebida
-//Date fecha = new SimpleDateFormat("dd/MM/yyyy").parse("02/01/2020");
-//ProductoBebida bebida = new ProductoBebida(fecha, true, 1, "Test", 3, "si");
-//System.out.println(bebida.getCaducidad());
+//        Forma antigua de hacerlo con Herramientas
+//        try{
+//            Herramientas.modificarDatosTabla("DELETE FROM producto_bebida WHERE Codigo_producto = "+codigoProd,false);
+//            Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,false);
+//            Herramientas.getConexion().commit();
+//            Herramientas.getConexion().setAutoCommit(true);
+//            Herramientas.cerrarStatementResult();
+//        } catch (SQLException error){
+//            Herramientas.getConexion().rollback();
+//            Herramientas.getConexion().setAutoCommit(true);
+//            Herramientas.aviso("Ha habido un error");
+//            error.printStackTrace();
+//        }
+    }
+    
+    public static ProductoBebida recogerBebida(int buscar) throws SQLException{
+        Connection conexion = Herramientas.getConexion();        
+        try{
+            PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto_bebida WHERE Codigo_producto = ?");
+            query.setInt(1, buscar);
+            ResultSet resultado = query.executeQuery();
+            resultado.next();
+            int cadu = resultado.getInt("Caducidad");
+            boolean alcohol = resultado.getBoolean("Alcoholica");
+            query = conexion.prepareStatement("SELECT * FROM producto WHERE Codigo_producto = ?");
+            query.setInt(1, buscar);
+            resultado = query.executeQuery();
+            resultado.next();
+            String name = resultado.getString("Nombre_producto");
+            double precio = resultado.getDouble("Precio_producto");
+            String descri = resultado.getString("descripcionProd");
+            ProductoBebida pb1 = new ProductoBebida(cadu, alcohol, buscar, name, precio, descri);
+            query.close();
+            return pb1;
+        } catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            return null;
+        }
+        
+    }    
+}
