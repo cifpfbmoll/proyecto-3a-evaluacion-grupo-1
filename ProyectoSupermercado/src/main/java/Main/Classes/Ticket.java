@@ -185,23 +185,36 @@ public class Ticket {
             }
         }
     }
-    //Actualmente este metodo solo ve el ultimo ticket del cliente.
+
     //probado
-    public static void verTicket (String cliente) throws SQLException{
-        Herramientas.hacerSelect("SELECT * FROM ticket WHERE DNI_cliente="+cliente+";", true);
-        ResultSet resultado=Herramientas.getResultado();
-        resultado.next();
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
-        LocalDate fecha=LocalDate.parse(resultado.getString(4),formatoFecha);
-        LocalTime hora=LocalTime.parse(resultado.getString(5),formatoHora);
-        ArrayList <LineaCompra> lineasT1=new ArrayList();
-        Ticket t1=new Ticket(resultado.getInt(1),resultado.getInt(3),fecha,hora,resultado.getDouble(6),lineasT1);
-        t1.verLineaTicket();
-        Herramientas.cerrarStatementResult();
-        System.out.println(t1.toString());
+    public static ArrayList verTicket (String DNICliente) throws SQLException{
+        PreparedStatement query=null;
+        ResultSet resultado=null;
+        ArrayList <Ticket> listaTickets=new ArrayList();
+        try{
+            query=Herramientas.getConexion().prepareStatement("SELECT * FROM ticket WHERE DNI_cliente=?");
+            query.setString(1, DNICliente);
+            resultado=query.executeQuery();
+            while(resultado.next()){
+                DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
+                LocalDate fecha=LocalDate.parse(resultado.getString(4),formatoFecha);
+                LocalTime hora=LocalTime.parse(resultado.getString(5),formatoHora);
+                ArrayList <LineaCompra> lineasT1=new ArrayList();
+                Ticket t1=new Ticket(resultado.getInt(1),resultado.getInt(3),fecha,hora,resultado.getDouble(6),lineasT1);
+                t1.verLineaTicket();
+                listaTickets.add(t1);
+            }
+        } catch(SQLException ex){
+            Herramientas.aviso("Ha habido un error con al recuperar sus tickets");
+            Excepciones.pasarExcepcionLog("Ha habido un error con al recuperar sus tickets", ex);
+        } finally{
+            resultado.close();
+            query.close();
+        }
+        return listaTickets;
     }
-    //probado
+    
     public void verLineaTicket() throws SQLException{
         Herramientas.hacerSelect("SELECT * FROM linea_ticket WHERE codigo_ticket="+this.getCodigo()+";", true);
         ResultSet resultado=Herramientas.getResultado();

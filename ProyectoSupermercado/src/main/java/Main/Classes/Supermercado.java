@@ -33,6 +33,36 @@ public class Supermercado {
         return localitat;
     }
 
+    public String getNIF() {
+        return NIF;
+    }
+
+    public String getCCAA() {
+        return CCAA;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getArea() {
+        return area;
+    }
+    
+    
+
     @Override
     public String toString() {
         return "Supermercado" + code + '\'' +
