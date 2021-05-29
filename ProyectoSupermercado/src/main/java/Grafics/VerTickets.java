@@ -6,6 +6,8 @@
 package Grafics;
 
 import Main.Classes.*;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +30,7 @@ public class VerTickets extends javax.swing.JFrame {
         try{
             ArrayList <Ticket> listaTickets=Ticket.verTicket(Main.getClienteActivo().getNif());
             for(int i=0;i<listaTickets.size();i++){
-                this.añadirTicket(listaTickets.get(i), Main.getSupermercadoActivo());
+                this.añadirTicket(listaTickets.get(i), Supermercado.instantiateSupermarketFromDB(listaTickets.get(i).getCodigoSupermercado()));
             }
         } 
         catch(SQLException ex){
@@ -36,7 +38,12 @@ public class VerTickets extends javax.swing.JFrame {
             Excepciones.pasarExcepcionLog("Ha habido un error al recoger sus tickets de la base de datos", ex);
         }
     }
-
+    
+    public Image getIconImage(){
+        Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/logo1.png"));
+        return miIcono;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -238,6 +245,8 @@ public class VerTickets extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("  METRADONA©");
+        setIconImage(getIconImage());
         setMaximumSize(new java.awt.Dimension(650, 458));
         setMinimumSize(new java.awt.Dimension(650, 458));
         setResizable(false);

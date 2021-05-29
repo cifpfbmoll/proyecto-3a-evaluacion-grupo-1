@@ -58,13 +58,13 @@ public class Excepciones extends Exception {
                 mensaje="ERROR 3: No existe ningun usuario de la biblioteca que tenga ese telefono y ese correo electronico";
                 break;
             case 4:
-                mensaje="ERROR 4: No existe ninguna biblioteca con ese nombre en nuestros registros";
+                mensaje="ERROR 4: Inserte un cvv correcto";
                 break;
             case 5:
                 mensaje="ERROR 5: No existe ninguna persona con ese nombre y apellidos en el sistema";
                 break;
             case 6:
-                mensaje="Las contraseñas no coinciden";
+                mensaje="ERROR 6: Las contraseñas no coinciden";
                 break;
             case 7:
                 mensaje="La contraseña tiene que ser de almenos 8 caracteres";
@@ -83,7 +83,9 @@ public class Excepciones extends Exception {
             escritor.write("------------------EXEPCION------------------");
             escritor.newLine();
             escritor.newLine();
-            escritor.write("Mensaje: "+mensaje);
+            escritor.write("Problema: "+mensaje);
+            escritor.newLine();
+            escritor.write("Mensaje: "+ex.getMessage());
             escritor.newLine();
             escritor.write("Fecha: "+fecha.format(formatoFecha)+"   Hora: "+hora.format(formatoHora));
             escritor.newLine();

@@ -152,11 +152,11 @@ public class Cliente extends Persona {
                     Herramientas.getConexion().commit();
                 } catch (SQLException ex) {
                     Herramientas.aviso("Ha habido algun error al añadir el producto en su carrito");
-                    ex.printStackTrace();
+                    Excepciones.pasarExcepcionLog("Ha habido algun error al añadir el producto en su carrito", ex);
                     Herramientas.getConexion().rollback();
                 } catch (Excepciones ex1) {
                     Herramientas.aviso(ex1.getMessage());
-                    ex1.printStackTrace();
+                    Excepciones.pasarExcepcionLog(ex1.getMessage(), ex1);
                     Herramientas.getConexion().rollback();
                 }
                 finally{

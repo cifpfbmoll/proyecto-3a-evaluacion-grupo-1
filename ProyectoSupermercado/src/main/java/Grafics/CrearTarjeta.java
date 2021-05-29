@@ -27,12 +27,32 @@ public class CrearTarjeta extends javax.swing.JFrame {
     /**
      * Creates new form CrearTarjeta
      */
+    
+    public InterfazUsuario3 frameLlamando2;
+    
     public CrearTarjeta() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
+    
+    public CrearTarjeta(InterfazUsuario3 frame) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.setFrameLlamando2(frame);
+    }
 
+    public InterfazUsuario3 getFrameLlamando2() {
+        return frameLlamando2;
+    }
+
+    public void setFrameLlamando2(InterfazUsuario3 frameLlamando2) {
+        this.frameLlamando2 = frameLlamando2;
+    }
+    
+    
+    
     public JTextField getFechaCaducidad() {
         return fechaCaducidad;
     }
@@ -66,7 +86,7 @@ public class CrearTarjeta extends javax.swing.JFrame {
     }
     
     public Image getIconImage(){
-        Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/2153422.png"));
+        Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/logo1.png"));
         return miIcono;
     }
     
@@ -84,7 +104,7 @@ public class CrearTarjeta extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        botonAtras = new javax.swing.JButton();
+        botonCancelar = new javax.swing.JButton();
         numeroTarjeta = new javax.swing.JTextField();
         fechaCaducidad = new javax.swing.JTextField();
         titularTarjeta = new javax.swing.JTextField();
@@ -125,71 +145,83 @@ public class CrearTarjeta extends javax.swing.JFrame {
 
         jLabel5.setText("jLabel5");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("  METRADONA©");
         setIconImage(getIconImage());
-        setMinimumSize(new java.awt.Dimension(700, 376));
+        setMaximumSize(new java.awt.Dimension(398, 331));
+        setMinimumSize(new java.awt.Dimension(398, 331));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(398, 331));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        botonAtras.setText("Atras");
-        botonAtras.setToolTipText("");
-        botonAtras.addActionListener(new java.awt.event.ActionListener() {
+        botonCancelar.setBackground(new java.awt.Color(102, 102, 102));
+        botonCancelar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        botonCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        botonCancelar.setText("Cancelar");
+        botonCancelar.setToolTipText("");
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAtrasActionPerformed(evt);
+                botonCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 70, -1));
-        getContentPane().add(numeroTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 200, -1));
+        getContentPane().add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, 110, 40));
+        getContentPane().add(numeroTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, -1));
 
         fechaCaducidad.setText("MM/YY");
-        getContentPane().add(fechaCaducidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 70, -1));
-        getContentPane().add(titularTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 230, -1));
+        getContentPane().add(fechaCaducidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 70, -1));
+        getContentPane().add(titularTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 230, -1));
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Número");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Fecha caducidad");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nombre titular");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Tipo tarjeta");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         tipoTarjeta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Visa", "Mastercard", "American Express" }));
-        getContentPane().add(tipoTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 190, -1));
+        getContentPane().add(tipoTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 120, -1));
 
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Guardar Tarjeta");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 280, 40));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 300, 40));
 
+        botonGuardar.setBackground(new java.awt.Color(102, 102, 102));
+        botonGuardar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        botonGuardar.setForeground(new java.awt.Color(255, 255, 255));
         botonGuardar.setText("Guardar");
+        botonGuardar.setMaximumSize(new java.awt.Dimension(75, 23));
+        botonGuardar.setMinimumSize(new java.awt.Dimension(75, 23));
+        botonGuardar.setPreferredSize(new java.awt.Dimension(75, 23));
         botonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 310, -1, -1));
+        getContentPane().add(botonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 240, 110, 40));
 
         fondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green-Wallpaper-5.jpg"))); // NOI18N
-        getContentPane().add(fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, -1));
+        getContentPane().add(fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 330));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasActionPerformed
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_botonAtrasActionPerformed
+    }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
     if(numeroTarjeta.getText().isEmpty() || titularTarjeta.getText().isEmpty() || fechaCaducidad.getText().isEmpty()){
@@ -220,12 +252,16 @@ public class CrearTarjeta extends javax.swing.JFrame {
                     numeroTarjeta.requestFocus();
                     titularTarjeta.requestFocus();
                     fechaCaducidad.requestFocus();
-                    JOptionPane.showMessageDialog(this, "LOS DATOS HAN SIGO GUARDADOS CORRECTAMENTE");
+                    if (this.getFrameLlamando2()!=null){
+                        ElegirTarjeta elegir=new ElegirTarjeta(this.getFrameLlamando2());
+                    } else{
+                        JOptionPane.showMessageDialog(this, "LOS DATOS HAN SIGO GUARDADOS CORRECTAMENTE");
+                    }
+                    this.dispose();
                 }
             }catch (SQLException ex){
                 Herramientas.aviso("Ha ocurrido un error al guardar su tarjeta");
-                //Excepciones.pasarExcepcionLog("Ha ocurrido un error al guardar su tarjeta", ex);
-                ex.printStackTrace();
+                Excepciones.pasarExcepcionLog("Ha ocurrido un error al guardar su tarjeta", ex);
             }
             finally{
                 try {
@@ -280,7 +316,7 @@ public class CrearTarjeta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonAtras;
+    private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonGuardar;
     private javax.swing.JTextField fechaCaducidad;
     private javax.swing.JLabel fondo1;

@@ -9,6 +9,8 @@ import Main.Classes.Herramientas;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import Main.Classes.*;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 
 /**
@@ -38,6 +40,11 @@ public class ElegirSupermercado extends javax.swing.JFrame {
         return listaSupermercados;
     }
     
+    public Image getIconImage(){
+        Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/logo1.png"));
+        return miIcono;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,7 +59,9 @@ public class ElegirSupermercado extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Elegir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("  METRADONA©");
+        setIconImage(getIconImage());
         setUndecorated(true);
 
         listaSupermercados.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

@@ -7,6 +7,8 @@ package Grafics;
 
 
 import Main.Classes.*;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.InputMismatchException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,28 +24,15 @@ import javax.swing.JTextField;
 public class Registrador extends javax.swing.JFrame {
     
     
-    //private Biblioteca biblioteca;
     /**
      * Creates new form Registrador
      */
-    public Registrador(/*Biblioteca b*/) {
+    public Registrador() {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        //this.setBiblioteca(b);
     }
     
-    /*public Registrador() {
-        initComponents();
-    }
-
-    public Biblioteca getBiblioteca() {
-        return biblioteca;
-    }
-
-    public void setBiblioteca(Biblioteca biblioteca) {
-        this.biblioteca = biblioteca;
-    }*/
 
     public JTextField getCodigoPostal() {
         return CodigoPostal;
@@ -101,7 +90,10 @@ public class Registrador extends javax.swing.JFrame {
         return telefono;
     }
 
-    
+    public Image getIconImage(){
+        Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/logo1.png"));
+        return miIcono;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -146,7 +138,9 @@ public class Registrador extends javax.swing.JFrame {
 
         jTextField1.setText("jTextField1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("  METRADONA©");
+        setIconImage(getIconImage());
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -282,11 +276,6 @@ public class Registrador extends javax.swing.JFrame {
         comunidadAutonoma.setForeground(new java.awt.Color(255, 255, 255));
         comunidadAutonoma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Andalucía", "Aragón", "Canarias", "Cantabria", "Castilla-LM", "Castilla y León", "Cataluña", "Ceuta", "Madrid", "C.Valenciana", "Extremadura", "Galicia", "Baleares", "La Rioja", "Melilla", "Navarra", "País Vasco", "Asturias", "Murcia" }));
         comunidadAutonoma.setToolTipText("");
-        comunidadAutonoma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comunidadAutonomaActionPerformed(evt);
-            }
-        });
         getContentPane().add(comunidadAutonoma, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 130, 30));
 
         botonRegistro.setBackground(new java.awt.Color(102, 102, 102));
@@ -348,14 +337,12 @@ public class Registrador extends javax.swing.JFrame {
             this.dispose();
         } catch (Excepciones ex) {
             Herramientas.aviso(ex.getMessage());
+            Excepciones.pasarExcepcionLog(ex.getMessage(), ex);
         } catch (Exception error) {
             Herramientas.aviso("Ha habido algun error, porfavor inserta los datos correctos");
+            Excepciones.pasarExcepcionLog("Ha habido algun error, porfavor inserta los datos correctos", error);
         }
     }//GEN-LAST:event_botonRegistroActionPerformed
-
-    private void comunidadAutonomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comunidadAutonomaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comunidadAutonomaActionPerformed
 
     public void aviso (String mensaje){
         JOptionPane.showMessageDialog(null,mensaje); 

@@ -94,7 +94,7 @@ public class RegistradoEmpleados extends javax.swing.JFrame {
     }    
     
     public Image getIconImage(){
-        Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/2153422.png"));
+        Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/logo1.png"));
         return miIcono;
     }
     
@@ -145,7 +145,8 @@ public class RegistradoEmpleados extends javax.swing.JFrame {
 
         jTextField1.setText("jTextField1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("  METRADONA©");
         setIconImage(getIconImage());
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
