@@ -7,6 +7,7 @@ package Grafics;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import Main.Classes.*;
 
 /**
  *
@@ -113,7 +114,8 @@ public class EscribirReclamacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarActionPerformed
-        
+        Main.getClienteActivo().escribirReclamacion(this.jTextArea1.getText());
+        this.dispose();
     }//GEN-LAST:event_botonEnviarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed

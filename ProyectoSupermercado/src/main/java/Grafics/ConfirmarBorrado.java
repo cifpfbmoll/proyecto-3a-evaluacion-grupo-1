@@ -111,12 +111,8 @@ public class ConfirmarBorrado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
-        try {
-            Cliente.eliminarPersona(Herramientas.getConexion(), Main.getClienteActivo().getNif());
-            System.exit(0);
-        } catch (SQLException ex) {
-            Excepciones.pasarExcepcionLog("Ha ocurrido un error al borrar su cuenta", ex);
-        }
+        Cliente.eliminarPersona(Herramientas.getConexion(), Main.getClienteActivo().getNif());
+        System.exit(0);
     }//GEN-LAST:event_botonConfirmarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed

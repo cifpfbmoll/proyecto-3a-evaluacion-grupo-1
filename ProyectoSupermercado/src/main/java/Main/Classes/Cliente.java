@@ -4,8 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import Main.Classes.Excepciones;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,11 +51,15 @@ public class Cliente extends Persona {
     public String toString() {
         return super.toString()+"Cliente{" + "cestaCompra=" + cestaCompra + '}';
     }
-    public static void eliminarPersona(Connection conexion, String nif) throws SQLException {
-        PreparedStatement borrar = conexion.prepareStatement("DELETE FROM cliente WHERE DNI_Cliente = ?");
-        borrar.setString(1, nif);
-        borrar.executeUpdate();
-        borrar.close();
+    public static void eliminarPersona(Connection conexion, String nif) {
+        try (PreparedStatement borrar = conexion.prepareStatement("DELETE FROM cliente WHERE DNI_Cliente = ?")) {
+            borrar.setString(1, nif);
+            borrar.executeUpdate();
+        }
+        catch (SQLException ex) {
+            Excepciones.pasarExcepcionLog("Ha ocurrido un error al borrar su cuenta", ex);
+            Herramientas.aviso("Ha ocurrido un error al borrar su cuenta");
+        }
     }
 
     public Cliente buscarCliente(String nif) {
@@ -228,6 +239,50 @@ public class Cliente extends Persona {
             Herramientas.getConexion().rollback();
         }finally{
             Herramientas.getConexion().setAutoCommit(true);
+        }
+    }
+    
+    public void escribirReclamacion(String reclamacion){
+        if (reclamacion.isBlank()){
+            Herramientas.aviso("La reclamacion esta vacia");
+        }
+        else{
+            LocalDate fecha=LocalDate.now();
+            LocalTime hora=LocalTime.now();
+            DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
+            File archivo=new File("Reclamaciones"+Main.getSupermercadoActivo().getLocalitat()+".txt");
+            try (BufferedWriter escritor = new BufferedWriter(new FileWriter(archivo,true))) {
+                escritor.write("-----------------RECLAMACION--------------------");
+                escritor.newLine();
+                escritor.newLine();
+                escritor.write("NIF Cliente: "+this.getNif());
+                escritor.newLine();
+                escritor.write("Fecha: "+fecha.format(formatoFecha)+"   Hora: "+hora.format(formatoHora));
+                escritor.newLine();
+                int inicio=0;
+                int fila=59;
+                boolean fin=false;
+                do{
+                    if(inicio+fila>=reclamacion.length()){
+                        fila=reclamacion.length()-inicio;
+                        fin=true;
+                        escritor.write(reclamacion, inicio, fila);
+                        escritor.newLine();
+                    }
+                    else{
+                        escritor.write(reclamacion, inicio, fila);
+                        escritor.newLine();
+                    }
+                    inicio+=59;
+                }
+                while(!fin);
+                escritor.newLine();
+                escritor.newLine();
+            } catch (IOException ex) {
+                Excepciones.pasarExcepcionLog("Ha ocurrido un problema al insertar su reclamacion", ex);
+                Herramientas.aviso("Ha ocurrido un problema al insertar su reclamacion");
+            }
         }
     }
     
