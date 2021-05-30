@@ -7,9 +7,14 @@ package Grafics;
 
 
 
-
+import Main.Classes.*;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.geom.RoundRectangle2D;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -17,40 +22,21 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author PC
+ * @author jaume
  */
 public class InicioSesion extends javax.swing.JFrame {
 
-    /**
-     * Creates new form inicioSesion
-     */
-    
-    //private Biblioteca biblioteca;
-    
-    /*public InicioSesion(){
-        initComponents();
-        this.setLocationRelativeTo(null);
-    }*/
     
     public InicioSesion() {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        //this.setBiblioteca(b);
     }
-
-   /* public Biblioteca getBiblioteca() {
-        return biblioteca;
-    }
-
-    public void setBiblioteca(Biblioteca biblioteca) {
-        this.biblioteca = biblioteca;
-    }*/
     
     
 
     public Image getIconImage(){
-        Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/2153422.png"));
+        Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/logo1.png"));
         return miIcono;
     }
     /**
@@ -62,22 +48,31 @@ public class InicioSesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         usuario = new javax.swing.JTextField();
         contraseña = new javax.swing.JPasswordField();
         botonSalir = new javax.swing.JButton();
         botonLogin = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         botonRegistro = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("GestBiblios");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("  METRADONA©");
         setIconImage(getIconImage());
+        setMaximumSize(new java.awt.Dimension(700, 376));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("METRADONA");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoSinFondo.png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -108,7 +103,7 @@ public class InicioSesion extends javax.swing.JFrame {
                 botonSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(botonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 80, -1));
+        getContentPane().add(botonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 80, -1));
 
         botonLogin.setBackground(new java.awt.Color(102, 102, 102));
         botonLogin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -120,14 +115,6 @@ public class InicioSesion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botonLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 320, 170, 30));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("GestBiblios");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 140, -1));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/2153422.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, -1));
 
         botonRegistro.setBackground(new java.awt.Color(102, 102, 102));
         botonRegistro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -147,7 +134,12 @@ public class InicioSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
          
     private void botonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLoginActionPerformed
-        
+        try {
+            this.inicioSesion();
+        } catch (SQLException ex) {
+            Herramientas.aviso("Algo ha fallado en el inicio de Sesion");
+            Excepciones.pasarExcepcionLog("Algo ha fallado en el inicio de Sesion", ex);
+        }
     }//GEN-LAST:event_botonLoginActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
@@ -155,8 +147,8 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistroActionPerformed
-        /*Registrador registro=new Registrador(this.getBiblioteca());
-        this.dispose();*/
+        Registrador registro=new Registrador();
+        this.dispose();
     }//GEN-LAST:event_botonRegistroActionPerformed
 
     public JButton getBotonLogin() {
@@ -175,22 +167,122 @@ public class InicioSesion extends javax.swing.JFrame {
         return usuario;
     }
     
-    public void aviso (String mensaje){
-        JOptionPane.showMessageDialog(null,mensaje); 
-    }
-    
     public void salir() {                                           
+        try {
+            Herramientas.cerrarConexion();
+        } catch (SQLException ex) {
+            Excepciones.pasarExcepcionLog("Problema al cerrar la conexion", ex);
+        }
         System.exit(0);
     }   
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Registrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Registrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Registrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Registrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InicioSesion().setVisible(true);
+                try {
+                    Herramientas.crearConexion();
+                } catch (SQLException ex) {
+                    Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                InicioSesion login=new InicioSesion();
             }
         });
+    }
+    //tengo que cambiar tipo columna contraseñas a string por ahora
+    public void inicioSesion() throws SQLException{
+        boolean clienteLogeado=this.inicioSesionCliente();
+        boolean empleadoLogeado=false;
+        if (!clienteLogeado){
+            empleadoLogeado=this.inicioSesionEmpleado();
+        }
+        if(!empleadoLogeado && !clienteLogeado){
+            Herramientas.aviso("El usuario o contraseña son incorrectos");
+        }
+        else if(empleadoLogeado){
+            //abrir frame principal empleados
+        }
+        else if(clienteLogeado){
+            if(Main.getClienteActivo().getCestaCompra().isEmpty()){
+                ElegirSupermercado eleccion=new ElegirSupermercado(this);
+            } else{
+                Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(Main.getClienteActivo().getSupermercadoCesta()));
+                InterfazUsuario3 programa=new InterfazUsuario3();
+                Herramientas.aviso("Se ha entrado directamente al supermercado de "+Main.getSupermercadoActivo().getLocalitat()+
+                "\nporque habia productos guardados en su carrito de ese supermercado. "
+                + "\nSi desea entrar a otro supermercado elimine todos los productos de su cesta, "
+                + "\ncierre el programa y vuelva a logearse");
+                this.dispose();
+            }
+        }
+    }
+    
+    //comentar
+    public boolean inicioSesionCliente() throws SQLException {        
+        String usuario=this.getUsuario().getText();
+        char[] aContrasena=this.getContraseña().getPassword();
+        String contrasena=String.valueOf(aContrasena);
+        Herramientas.hacerSelect("SELECT * FROM cliente ", true); 
+        ResultSet resultadoClientes=Herramientas.getResultado();
+        boolean encontrado=false;
+        boolean coincide=false;
+        while(resultadoClientes.next() && !encontrado){
+            if(resultadoClientes.getString("DNI_cliente").equals(usuario)){
+                encontrado=true;
+                if(resultadoClientes.getString("contraseña").equals(contrasena)){
+                    coincide=true;
+                    Cliente c1=Cliente.recogerCliente(Herramientas.getConexion(), usuario);
+                    Main.setClienteActivo(c1); 
+                }
+            }
+        }
+        return coincide;
+    }
+    //comentar
+    public boolean inicioSesionEmpleado() throws SQLException {        
+        String usuario=this.getUsuario().getText();
+        char[] aContrasena=this.getContraseña().getPassword();
+        String contrasena=String.valueOf(aContrasena);
+        Herramientas.hacerSelect("SELECT * FROM empleado ", true); 
+        ResultSet resultadoEmpleados=Herramientas.getResultado();
+        boolean encontrado=false;
+        boolean coincide=false;
+        while(resultadoEmpleados.next() && !encontrado){
+            if(Integer.toString(resultadoEmpleados.getInt("ID_empleado")).equals(usuario)){
+                encontrado=true;
+                if(resultadoEmpleados.getString("contraseña").equals(contrasena)){
+                    coincide=true;
+                    Empleado e1=Empleado.recogerEmpleado(Herramientas.getConexion(), resultadoEmpleados.getInt("ID_empleado"));
+                    Main.setEmpleadoActivo(e1);
+                }
+            }
+        } 
+        return coincide;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

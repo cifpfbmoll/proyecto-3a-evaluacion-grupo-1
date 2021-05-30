@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author PC
+ * @author jaume
  */
 public class Ticket {
     
@@ -23,6 +23,7 @@ public class Ticket {
     private LocalTime horaCompra;
     private double precioTotal;
     private ArrayList <LineaCompra> lineasTicket;
+    
     
     public Ticket() {
     }
@@ -81,11 +82,11 @@ public class Ticket {
      * @throws SQLException 
      */
     public void setCodigo() throws SQLException {
-        Herramientas.enviarComando("SELECT MAX(codigo_ticket) FROM ticket");
+        Herramientas.hacerSelect("SELECT MAX(codigo_ticket) FROM ticket",false);
         ResultSet resultado=Herramientas.getResultado();
         resultado.next();
         this.codigo = (resultado.getInt(1))+1;
-        Herramientas.cerrarConexion();
+        Herramientas.cerrarStatementResult();
     }
 
     public void setCodigo(int codigo) {
@@ -150,18 +151,82 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" + "codigo=" + codigo + ", codigoSupermercado=" + codigoSupermercado + ", fechaCompra=" + fechaCompra + ", horaCompra=" + horaCompra + ", PrecioTotal=" + precioTotal + '}';
+        return "Ticket{" + "codigo=" + codigo + ", codigoSupermercado=" + codigoSupermercado + ", fechaCompra=" + fechaCompra + ", horaCompra=" + horaCompra + ", precioTotal=" + precioTotal + ", lineasTicket=" + lineasTicket + '}';
     }
+
     
-    public static void crearTicket(int codigoSupermercado, double precioTotal, ArrayList <LineaCompra> lineasTicket, String nif ) throws SQLException{
-        //precio total se calculara de la lineasticket, for i sumar todos los precios productos.
-        //codigo supermercado y nif se coge del que se ha eligido al entrar.
+    //no probado
+    public static void crearTicket(int codigoSupermercado, ArrayList <LineaCompra> lineasTicket, String nif ) throws SQLException{
+        double precioTotal=0;
+        for(int i=0;i<lineasTicket.size();i++){
+            precioTotal+=lineasTicket.get(i).getPrecio_linea();
+        }
         Ticket t1=new Ticket(codigoSupermercado, precioTotal, lineasTicket);
         LocalDate fecha=t1.getFechaCompra();
         LocalTime hora=t1.getHoraCompra();
         DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
-        Herramientas.enviarComando("INSERT INTO ticket Values("+t1.getCodigo()+","+nif+","+t1.getCodigoSupermercado()+","+fecha.format(formatoFecha)+","+hora.format(formatoHora)+","+t1.getPrecioTotal()+")");
+        try(PreparedStatement query=Herramientas.getConexion().prepareStatement("INSERT INTO ticket VALUES(?,?,?,?,?,?)")){
+            query.setInt(1, t1.getCodigo());
+            query.setString(2, nif);
+            query.setInt(3, t1.getCodigoSupermercado());
+            query.setString(4, fecha.format(formatoFecha));
+            query.setString(5, hora.format(formatoHora));
+            query.setDouble(6, t1.getPrecioTotal());
+            query.executeUpdate();
+            for(int i=0;i<lineasTicket.size();i++){
+                try(PreparedStatement query2=Herramientas.getConexion().prepareStatement("INSERT INTO linea_ticket VALUES(?,?,?,?)")){
+                    query2.setInt(1, t1.getCodigo());
+                    query2.setInt(2, lineasTicket.get(i).getCodigo_producto());
+                    query2.setInt(3, lineasTicket.get(i).getCantidad());
+                    query2.setDouble(4, lineasTicket.get(i).getPrecio_linea());
+                    query2.executeUpdate();
+                }
+            }
+        }
+    }
+
+    //probado
+    public static ArrayList verTicket (String DNICliente) throws SQLException{
+        PreparedStatement query=null;
+        ResultSet resultado=null;
+        ArrayList <Ticket> listaTickets=new ArrayList();
+        try{
+            query=Herramientas.getConexion().prepareStatement("SELECT * FROM ticket WHERE DNI_cliente=?");
+            query.setString(1, DNICliente);
+            resultado=query.executeQuery();
+            while(resultado.next()){
+                DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
+                LocalDate fecha=LocalDate.parse(resultado.getString(4),formatoFecha);
+                LocalTime hora=LocalTime.parse(resultado.getString(5),formatoHora);
+                ArrayList <LineaCompra> lineasT1=new ArrayList();
+                Ticket t1=new Ticket(resultado.getInt(1),resultado.getInt(3),fecha,hora,resultado.getDouble(6),lineasT1);
+                t1.verLineaTicket();
+                listaTickets.add(t1);
+            }
+        } catch(SQLException ex){
+            Herramientas.aviso("Ha habido un error con al recuperar sus tickets");
+            Excepciones.pasarExcepcionLog("Ha habido un error con al recuperar sus tickets", ex);
+        } finally{
+            resultado.close();
+            query.close();
+        }
+        return listaTickets;
+    }
+    
+    public void verLineaTicket() throws SQLException{
+        Herramientas.hacerSelect("SELECT * FROM linea_ticket WHERE codigo_ticket="+this.getCodigo()+";", true);
+        ResultSet resultado=Herramientas.getResultado();
+        while(resultado.next()){
+            LineaCompra lineaT1=new LineaCompra(resultado.getInt(2),resultado.getInt(3),resultado.getDouble(4));
+            this.getLineasTicket().add(lineaT1);
+        }
+    }
+    
+    public static void main(String[] args) throws SQLException {
+        Herramientas.crearConexion();
+        verTicket("'55577788A'");
         Herramientas.cerrarConexion();
     }
 }

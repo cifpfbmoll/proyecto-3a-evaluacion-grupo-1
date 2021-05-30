@@ -1,13 +1,18 @@
 package Main.Classes;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
-
+import java.sql.* ;
 /**
  *
  * @author Tamara
  */
 public class Nomina {
-
+    
+    private int codigo_nomina;
     private int Id_empleado;
     private String Puesto_de_trabajo;
     private double Salario_base;
@@ -18,7 +23,11 @@ public class Nomina {
     private int Horas_noct;
     private double Salario_total;
 
-    public Nomina(int Id_empleado, String Puesto_de_trabajo, double Salario_base, double IRPF, Calendar Fecha_inicio, Calendar Fecha_fin, int Horas_extras, int Horas_noct, double Salario_total) {
+    public Nomina() {
+    }
+
+    public Nomina(int codigo_nomina,int Id_empleado, String Puesto_de_trabajo, double Salario_base, double IRPF, Calendar Fecha_inicio, Calendar Fecha_fin, int Horas_extras, int Horas_noct, double Salario_total) {
+        this.setCodigo_nomina(codigo_nomina);
         this.setId_empleado(Id_empleado);
         this.setPuesto_de_trabajo(Puesto_de_trabajo);
         this.setSalario_base(Salario_base);
@@ -30,6 +39,14 @@ public class Nomina {
         this.setSalario_total(Salario_total);
     }
 
+    public int getCodigo_nomina() {
+        return codigo_nomina;
+    }
+
+    public void setCodigo_nomina(int codigo_nomina) {
+        this.codigo_nomina = codigo_nomina;
+    }
+    
     public int getId_empleado() {
         return Id_empleado;
     }
@@ -106,7 +123,24 @@ public class Nomina {
         
     }
 
-    public static void consultarNomina() {
-        
-    }
+    public static void consultarNomina() {}
+  
+    public static Nomina consultarNomina(int id, Connection conexion) throws SQLException{
+         
+        PreparedStatement sentencia = conexion.prepareStatement("SELECT * FROM nomina WHERE ID_empleado = ?");
+        sentencia.setInt(1, id);
+        ResultSet resultado = sentencia.executeQuery();
+        resultado.next();
+        String Puesto_trabajo = resultado.getString("Puesto_trabajo");
+        String fecha_inicio = resultado.getString("Fecha_inicio");
+        String Fecha_fin = resultado.getString("Fecha_fin");
+        int Salario_base = resultado.getInt("Salario_base");
+        int IRPF = resultado.getInt("IRPF");
+        int Hora_extras = resultado.getInt("Horas_extras");
+        int Horas_nocturnas = resultado.getInt("Horas_nocturnas");
+        int Salario_total = resultado.getInt("Salario_total");
+        Nomina Nom = new Nomina();
+        return Nom;
+     }       
 }
+   

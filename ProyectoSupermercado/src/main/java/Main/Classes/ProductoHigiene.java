@@ -5,12 +5,16 @@
  */
 package Main.Classes;
 
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author josep
  */
+
 public class ProductoHigiene extends Producto {
     private TipoHigiene tipoHigiene;
     public enum TipoHigiene{
@@ -27,7 +31,7 @@ public class ProductoHigiene extends Producto {
         otros
     }
 
-    public ProductoHigiene(TipoHigiene tipoHigiene, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
+    public ProductoHigiene(TipoHigiene tipoHigiene, int codigoProd, String nombreProd, double precioProd, String descripcionProd) {
         super(codigoProd, nombreProd, precioProd, descripcionProd);
         this.tipoHigiene = tipoHigiene;
     }
@@ -38,43 +42,123 @@ public class ProductoHigiene extends Producto {
     
     public void setTipoCategoria(ProductoHigiene.TipoHigiene tipoHigiene) {
         switch(tipoHigiene){
-            case crema:
-                this.tipoHigiene = tipoHigiene;
-                break;
-            case serum:
-                this.tipoHigiene = tipoHigiene;
-                break;
-            case maquillaje:
-                this.tipoHigiene = tipoHigiene;
-                break;
-            case mascarilla:
-                this.tipoHigiene = tipoHigiene;
-                break;
-            case champu:
-                this.tipoHigiene = tipoHigiene;
-                break;
-            case gel:
-                this.tipoHigiene = tipoHigiene;
-                break;
-            case desorodante:
-                this.tipoHigiene = tipoHigiene;
-                break;
-            case jabon:
-                this.tipoHigiene = tipoHigiene;
-                break;
-            case mascarillas:
-                this.tipoHigiene = tipoHigiene;
-                break;
-            case toallitas:
-                this.tipoHigiene = tipoHigiene;
-                break;
-            case otros:
-                this.tipoHigiene = tipoHigiene;
-                break;
+            case crema -> this.tipoHigiene = tipoHigiene;
+            case serum -> this.tipoHigiene = tipoHigiene;
+            case maquillaje -> this.tipoHigiene = tipoHigiene;
+            case mascarilla -> this.tipoHigiene = tipoHigiene;
+            case champu -> this.tipoHigiene = tipoHigiene;
+            case gel -> this.tipoHigiene = tipoHigiene;
+            case desorodante -> this.tipoHigiene = tipoHigiene;
+            case jabon -> this.tipoHigiene = tipoHigiene;
+            case mascarillas -> this.tipoHigiene = tipoHigiene;
+            case toallitas -> this.tipoHigiene = tipoHigiene;
+            case otros -> this.tipoHigiene = tipoHigiene;
         }
     }
     
-    public static void CrearProductoHigiene(TipoHigiene tipoHigiene, int codigoProd, String nombreProd, float precioProd, String descripcionProd) {
-        ProductoHigiene ph1 = new ProductoHigiene(tipoHigiene, codigoProd, nombreProd, precioProd, descripcionProd);
+    public static ProductoHigiene crearProductoHigiene(TipoHigiene tipoHigiene, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
+        int ultimoCodigoProd = ProductoHigiene.UltimoNumero();
+        ProductoHigiene ph1 = new ProductoHigiene(tipoHigiene, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
+        return ph1;
     }
+    
+    public static void añadirHigiene(ProductoHigiene ph1) throws SQLException{
+        Connection conexion = Herramientas.getConexion();
+        try{
+            conexion.setAutoCommit(false);
+            PreparedStatement query = conexion.prepareStatement("INSERT INTO producto VALUES(?,?,?,?,?)");
+            query.setInt(1, ph1.getCodigoProd());
+            query.setString(2, ph1.getNombreProd());
+            query.setDouble(3, ph1.getPrecioProd());
+            query.setString(4, ph1.getDescripcionProd());
+            query.setString(5, "Higiene");
+            query.executeUpdate();
+            conexion.commit();
+            query = conexion.prepareStatement("INSERT INTO producto_higiene VALUES(?,?)");
+            query.setInt(1, ph1.getCodigoProd());
+            query.setString(2, String.valueOf(ph1.getTipoHigiene()));
+            query.executeUpdate();
+            conexion.commit();
+            conexion.setAutoCommit(true);
+            query.close();
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            conexion.rollback();
+            conexion.setAutoCommit(true);
+        }
+        
+//        Metodo antiguo con la clase Herramientas
+//        try{
+//            Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+ph1.getCodigoProd()+",'"+ph1.getNombreProd()+"',"+ph1.getPrecioProd()+",'"+ph1.getDescripcionProd()+"','Higiene')",false);
+//            Herramientas.modificarDatosTabla("INSERT INTO producto_higiene VALUES("+ph1.getCodigoProd()+",'"+ph1.getTipoHigiene()+"')",false);
+//            Herramientas.getConexion().commit();
+//            Herramientas.getConexion().setAutoCommit(true);
+//            Herramientas.cerrarStatementResult();
+//        } catch (SQLException error){
+//            Herramientas.getConexion().rollback();
+//            Herramientas.getConexion().setAutoCommit(true);
+//            Herramientas.aviso("Ha habido un error");
+//            //error.printStackTrace();
+//        }
+    }
+    
+    public static void eliminarHigiene(int codigoProd) throws SQLException{
+        Connection conexion = Herramientas.getConexion();
+        try{
+            conexion.setAutoCommit(false);
+            PreparedStatement query = conexion.prepareStatement("DELETE FROM producto_higiene WHERE Codigo_producto = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            conexion.commit();
+            query = conexion.prepareStatement("DELETE FROM producto WHERE Codigo_higiene = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            conexion.commit();
+            query.close();
+            conexion.setAutoCommit(true);
+        } catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            conexion.rollback();
+            conexion.setAutoCommit(true);
+        }
+
+//        Metodo Antiguo con clase Herramientas
+//        try{
+//            Herramientas.modificarDatosTabla("DELETE FROM producto_higiene WHERE Codigo_producto = "+codigoProd,false);
+//            Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,false);
+//            Herramientas.getConexion().commit();
+//            Herramientas.getConexion().setAutoCommit(true);
+//            Herramientas.cerrarStatementResult();
+//        } catch (SQLException error){
+//            Herramientas.getConexion().rollback();
+//            Herramientas.getConexion().setAutoCommit(true);
+//            Herramientas.aviso("Ha habido un error");
+//            //error.printStackTrace();
+//        }
+    }
+    
+    public static ProductoHigiene recogerHigiene(int buscar) throws SQLException{
+        Connection conexion = Herramientas.getConexion();
+        try{
+            PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto_higiene WHERE Codigo_producto = ?");
+            query.setInt(1, buscar);
+            ResultSet resultado = query.executeQuery();
+            resultado.next();
+            TipoHigiene tipo = TipoHigiene.valueOf(resultado.getString("Tipo_higiene"));
+            query = conexion.prepareStatement("SELECT * FROM producto WHERE Codigo_producto = ?");
+            query.setInt(1, buscar);
+            resultado = query.executeQuery();
+            resultado.next();
+            String name = resultado.getString("Nombre_producto");
+            double precio = resultado.getDouble("Precio_producto");
+            String descri = resultado.getString("descripcionProd");
+            ProductoHigiene ph1 = new ProductoHigiene(tipo, buscar, name, precio, descri);
+            query.close();
+            return ph1;
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            conexion.rollback();
+            return null;
+        }
+    } 
 }

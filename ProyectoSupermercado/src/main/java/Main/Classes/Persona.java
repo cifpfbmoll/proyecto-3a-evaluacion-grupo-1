@@ -1,9 +1,12 @@
 package Main.Classes;
+import java.sql.*;
+import Main.Classes.Excepciones;
 
 public abstract class Persona {
     private String nombre;
     private String apellido1;
     private String apellido2;
+    private int edad;
     private String nif;
     private String cAutonoma;
     private String localidad;
@@ -11,17 +14,20 @@ public abstract class Persona {
     private String direccion;
     private String email;
     private String contraseña;
-    private int telefono;
+    private String telefono;
+
+    public Exception contraseñasDiferentes;
 
     public Persona() {
 
     }
     
-    public Persona(String nombre, String apellido1, String apellido2, String nif, String cAutonoma, String localidad, String cPostal, String direccion,
-    String email, String contraseña, int telefono) {
+    public Persona(String nombre, String apellido1, String apellido2, int edad,String nif, String cAutonoma, String localidad, String cPostal, String direccion,
+    String email, String contraseña, String telefono) {
         setNombre(nombre);
         setApellido1(apellido1);
         setApellido2(apellido2);
+        setEdad(edad);
         setNif(nif);
         setCAutonoma(cAutonoma);
         setLocalidad(localidad);
@@ -32,7 +38,7 @@ public abstract class Persona {
         setTelefono(telefono);
     }
 
-
+    
 
     public String getNombre() {
         return this.nombre;
@@ -58,6 +64,14 @@ public abstract class Persona {
         this.apellido2 = apellido2;
     }
 
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+    
     public String getNif() {
         return this.nif;
     }
@@ -114,22 +128,26 @@ public abstract class Persona {
         this.contraseña = contraseña;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return this.telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public abstract void cambiarContraseña(String novaContraseña);
-
-    //En futuro añadir transacciones a BBDD
-    public void añadirPersona() {
-        //TO DO cuando transacciones
+    public void cambiarContraseña(String novaContraseña, String rContraseña) throws Excepciones{
+        if (!contraseña.equals(rContraseña)) {
+            Excepciones e = new Excepciones(6);
+            throw e;
+        }
+        setContraseña(novaContraseña);
     }
 
-    public void eliminarPersona() {
-        //TO DO cuando transacciones
+    @Override
+    public String toString() {
+        return "Persona{" + "nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", edad=" + edad + ", nif=" + nif + ", cAutonoma=" + cAutonoma + ", localidad=" + localidad + ", cPostal=" + cPostal + ", direccion=" + direccion + ", email=" + email + ", contrase\u00f1a=" + contraseña + ", telefono=" + telefono +  '}';
     }
+    
+    
 }

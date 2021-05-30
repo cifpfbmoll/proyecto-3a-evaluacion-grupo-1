@@ -4,10 +4,17 @@
  * and open the template in the editor.
  */
 package Main.Classes;
+
+import static Main.Classes.ProductoHigiene.TipoHigiene.mascarilla;
+import static Main.Classes.ProductoLimpieza.Superficie.cristal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
 * @author josep
 */
+
 abstract class Producto {
     private int codigoProd;
     private String nombreProd;
@@ -52,6 +59,43 @@ abstract class Producto {
     public void setDescripcionProd(String descripcionProd) {
         this.descripcionProd = descripcionProd;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" + "codigoProd=" + codigoProd + ", nombreProd=" + nombreProd + ", precioProd=" + precioProd + ", descripcionProd=" + descripcionProd + '}';
+    }
     
+    public static int UltimoNumero() throws SQLException{
+        Herramientas.hacerSelect("SELECT MAX(Codigo_producto) FROM producto",true);
+        ResultSet result=Herramientas.getResultado();
+        result.next();
+        int ultimo = result.getInt(1)+1;
+        return ultimo;
+    }
+    
+    
+    //test que he realizado en el main
+    
+    //    String entrada = "07-03-2018";
+    //        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+    //        Date fecha;
+    //        fecha = formato.parse(entrada);
+    //        float myNum = 5.1f;
+    //        ProductoAlimento pipas = new ProductoAlimento(fecha, Categoria.vegano, 2, "pipas" , myNum ,  "pipas saladas");
+    //        System.out.println(pipas.getCaducidad());
+    //        System.out.println(pipas.UltimoNumero);
+    public static void main(String[] args) throws SQLException {
+        Herramientas.crearConexion();
+//        ProductoLimpieza.Superficie superficie = cristal;
+//        ProductoLimpieza pl1=ProductoLimpieza.CrearProductoLimpieza(superficie, "Lejia", 3.9, "Chupito de lejia");
+//        System.out.println(pl1.toString());
+//        ProductoLimpieza.AñadirLimpieza(pl1);
+        ProductoLimpieza.eliminarLimpieza(24);
+        Herramientas.cerrarConexion();
+    }
+    
+//        ProductoAlimento.Categoria categoria = vegano;
+//        ProductoAlimento pa1=ProductoAlimento.CrearProductoAlimento(5, categoria, "patatas", 5.4f, "Patatas recogidas en los campos de Mallorca");
+//        ProductoAlimento.AñadirAlimento(pa1);
 }
 
