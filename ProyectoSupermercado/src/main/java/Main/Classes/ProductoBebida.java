@@ -68,7 +68,8 @@ public final class ProductoBebida extends Producto {
             conexion.setAutoCommit(true);
             query.close();
         }catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            Herramientas.aviso("Ha fallado la transacción de añadir Bebida");
+            Excepciones.pasarExcepcionLog("Ha fallado la transacción de añadir Bebida", sqlException);
             conexion.rollback();
             conexion.setAutoCommit(true);
         }
@@ -103,7 +104,8 @@ public final class ProductoBebida extends Producto {
             query.close();
             conexion.setAutoCommit(true);
         } catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            Herramientas.aviso("Ha fallado la transacción de eliminar Bebida");
+            Excepciones.pasarExcepcionLog("Ha fallado la transacción de eliminar Bebida", sqlException);
             conexion.rollback();
             conexion.setAutoCommit(true);
         }
@@ -143,7 +145,8 @@ public final class ProductoBebida extends Producto {
             query.close();
             return pb1;
         } catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            Herramientas.aviso("Ha fallado al intentar recoger la Bebida de la bbdd");
+            Excepciones.pasarExcepcionLog("Ha fallado al intentar recoger la Bebida de la bbdd", sqlException);
             return null;
         }
         

@@ -82,7 +82,8 @@ public class ProductoHigiene extends Producto {
             conexion.setAutoCommit(true);
             query.close();
         }catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            Herramientas.aviso("Ha fallado la transacción de añadir Higiene");
+            Excepciones.pasarExcepcionLog("Ha fallado la transacción de añadir Higiene", sqlException);
             conexion.rollback();
             conexion.setAutoCommit(true);
         }
@@ -117,7 +118,8 @@ public class ProductoHigiene extends Producto {
             query.close();
             conexion.setAutoCommit(true);
         } catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            Herramientas.aviso("Ha fallado la transacción de eliminar Higiene");
+            Excepciones.pasarExcepcionLog("Ha fallado la transacción de eliminar Higiene", sqlException);
             conexion.rollback();
             conexion.setAutoCommit(true);
         }
@@ -156,7 +158,8 @@ public class ProductoHigiene extends Producto {
             query.close();
             return ph1;
         }catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            Herramientas.aviso("Ha fallado al intentar recoger la Higiene de la bbdd");
+            Excepciones.pasarExcepcionLog("Ha fallado al intentar recoger la Higiene de la bbdd", sqlException);
             conexion.rollback();
             return null;
         }

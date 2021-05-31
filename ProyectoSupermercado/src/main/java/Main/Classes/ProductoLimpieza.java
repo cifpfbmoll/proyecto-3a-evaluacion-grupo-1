@@ -70,7 +70,8 @@ public class ProductoLimpieza extends Producto {
             conexion.setAutoCommit(true);
             query.close();
         }catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            Herramientas.aviso("Ha fallado la transacción de añadir Limpieza");
+            Excepciones.pasarExcepcionLog("Ha fallado la transacción de añadir Limpieza", sqlException);
             conexion.rollback();
             conexion.setAutoCommit(true);
         }
@@ -104,7 +105,8 @@ public class ProductoLimpieza extends Producto {
             query.close();
             conexion.setAutoCommit(true);
         } catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            Herramientas.aviso("Ha fallado la transacción de eliminar Limpieza");
+            Excepciones.pasarExcepcionLog("Ha fallado la transacción de eliminar Limpieza", sqlException);
             conexion.rollback();
             conexion.setAutoCommit(true);
         }
@@ -143,7 +145,8 @@ public class ProductoLimpieza extends Producto {
             query.close();
             return pl1;
         } catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            Herramientas.aviso("Ha fallado al intentar recoger la Limpieza de la bbdd");
+            Excepciones.pasarExcepcionLog("Ha fallado al intentar recoger la Limpieza de la bbdd", sqlException);
             return null;
         }
     }
