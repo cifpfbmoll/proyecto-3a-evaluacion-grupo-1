@@ -2,6 +2,7 @@ package Main.Classes;
 
 
 import java.sql.*;
+import java.util.ArrayList;
 /**
  *
  * @author Tamara
@@ -32,13 +33,9 @@ public class Nomina {
         this.setFecha_fin(Fecha_fin);
         this.setHoras_extras(Horas_extras);
         this.setHoras_noct(Horas_noct);
-        this.setSalario_total(Salario_total);
+        this.setSalario_total(Salario_total);    
     }
-
-    private Nomina(int codigo_nomina, int Id_empleado, String Puesto_trabajo, String Fecha_inicio, String Fecha_fin, double Salario_base, double IRPF, int Horas_extras, int Horas_nocturnas, double Salario_total) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+  
     public int getCodigo_nomina() {
         return codigo_nomina;
     }
@@ -141,11 +138,31 @@ public class Nomina {
         int Horas_extras = resultado.getInt("Horas_extras");
         int Horas_nocturnas = resultado.getInt("Horas_nocturnas");
         double Salario_total = resultado.getDouble("Salario_total");
-        Nomina Nom = new Nomina(codigo_nomina,Id_empleado,Puesto_trabajo,Fecha_inicio,Fecha_fin,Salario_base,IRPF,Horas_extras,Horas_nocturnas,Salario_total);
+        Nomina Nom = new Nomina(codigo_nomina,Id_empleado,Puesto_trabajo,Salario_base,IRPF,Fecha_inicio,Fecha_fin,Horas_extras,Horas_nocturnas,Salario_total);
         resultado.close();
         sentencia.close();
         return Nom;
-     }       
+     } 
+    
+    public static void eliminarNomina (int codigo_nomina)throws SQLException{
+            try (PreparedStatement query = Herramientas.getConexion().prepareStatement("DELETE FROM Nomina WHERE codigo_nomina = ?")) {
+            query.setInt(1, codigo_nomina);
+            query.executeUpdate();
+        }
+    }
+    
+    
+    public static ArrayList recogerNomina(int Id_empleado)throws SQLException{
+        PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT * FROM Nomina WHERE Id_empleado=?");
+        query.setInt(2, Id_empleado);
+        ResultSet resultado=query.executeQuery();
+        ArrayList <Nomina> listaNomina=new ArrayList();
+        while(resultado.next()){
+            Nomina Nom= new Nomina (resultado.getInt(1), resultado.getInt(2), resultado.getString(3), resultado.getDouble(4), resultado.getDouble(5), resultado.getString(6), resultado.getString(7), resultado.getInt(8), resultado.getInt(9),resultado.getDouble(10));
+            listaNomina.add(Nom);
+        }
+        return listaNomina;
+     }
 }
 
    
