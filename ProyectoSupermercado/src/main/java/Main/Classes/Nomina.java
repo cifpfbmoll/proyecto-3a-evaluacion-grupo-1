@@ -131,15 +131,19 @@ public class Nomina {
         sentencia.setInt(1, id);
         ResultSet resultado = sentencia.executeQuery();
         resultado.next();
+        int codigo_nomina = resultado.getInt("Codigo_nomina");
+        int Id_empleado = resultado.getInt("Id_empleado");
         String Puesto_trabajo = resultado.getString("Puesto_trabajo");
-        String fecha_inicio = resultado.getString("Fecha_inicio");
-        String Fecha_fin = resultado.getString("Fecha_fin");
-        int Salario_base = resultado.getInt("Salario_base");
-        int IRPF = resultado.getInt("IRPF");
-        int Hora_extras = resultado.getInt("Horas_extras");
+        double Salario_base = resultado.getDouble("Salario_base");
+        double IRPF = resultado.getDouble("IRPF");
+        Calendar Fecha_inicio = resultado.getCalendar("Fecha_inicio");
+        Calendar Fecha_fin = resultado.getCalendar("Fecha_fin");
+        int Horas_extras = resultado.getInt("Horas_extras");
         int Horas_nocturnas = resultado.getInt("Horas_nocturnas");
-        int Salario_total = resultado.getInt("Salario_total");
-        Nomina Nom = new Nomina();
+        double Salario_total = resultado.getDouble("Salario_total");
+        Nomina Nom = new Nomina(codigo_nomina,Id_empleado,Puesto_trabajo,Fecha_inicio,Fecha_fin,Salario_base,IRPF,Horas_extras,Horas_nocturnas,Salario_total);
+        resultado.close();
+        sentencia.close();
         return Nom;
      }       
 }
