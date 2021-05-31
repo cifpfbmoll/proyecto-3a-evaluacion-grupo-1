@@ -52,7 +52,8 @@ public class Cliente extends Persona {
         return super.toString()+"Cliente{" + "cestaCompra=" + cestaCompra + '}';
     }
     public static void eliminarPersona(Connection conexion, String nif) {
-        try (PreparedStatement borrar = conexion.prepareStatement("DELETE FROM cliente WHERE DNI_Cliente = ?")) {
+        try  {
+            PreparedStatement borrar = conexion.prepareStatement("DELETE FROM cliente WHERE DNI_Cliente = ?");
             borrar.setString(1, nif);
             borrar.executeUpdate();
         }
@@ -283,6 +284,26 @@ public class Cliente extends Persona {
                 Excepciones.pasarExcepcionLog("Ha ocurrido un problema al insertar su reclamacion", ex);
                 Herramientas.aviso("Ha ocurrido un problema al insertar su reclamacion");
             }
+        }
+    }
+    
+    
+    public static void eliminarClienteYInfo(Connection conexion, String nif) throws SQLException {
+        try {
+            conexion.setAutoCommit(false);
+            Cliente.eliminarPersona(conexion, nif);
+            PreparedStatement borrar = conexion.prepareStatement("DELETE FROM linea_carrito WHERE DNI_cliente = ?");
+            borrar.setString(1, nif);
+            borrar.executeUpdate();
+            borrar = conexion.prepareStatement("DELETE FROM tarjeta_cliente WHERE DNI_cliente = ?");
+            borrar.setString(1, nif);
+            borrar.executeUpdate();
+            conexion.commit();
+        } catch (SQLException ex) {
+            conexion.rollback();
+        }
+        finally {
+            conexion.setAutoCommit(true);
         }
     }
     
