@@ -1,11 +1,7 @@
 package Main.Classes;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.sql.* ;
+
+import java.sql.*;
 /**
  *
  * @author Tamara
@@ -17,8 +13,8 @@ public class Nomina {
     private String Puesto_de_trabajo;
     private double Salario_base;
     private double IRPF;
-    private Calendar Fecha_inicio;
-    private Calendar Fecha_fin;
+    private String Fecha_inicio;
+    private String Fecha_fin;
     private int Horas_extras;
     private int Horas_noct;
     private double Salario_total;
@@ -26,7 +22,7 @@ public class Nomina {
     public Nomina() {
     }
 
-    public Nomina(int codigo_nomina,int Id_empleado, String Puesto_de_trabajo, double Salario_base, double IRPF, Calendar Fecha_inicio, Calendar Fecha_fin, int Horas_extras, int Horas_noct, double Salario_total) {
+    public Nomina(int codigo_nomina,int Id_empleado, String Puesto_de_trabajo, double Salario_base, double IRPF, String Fecha_inicio, String Fecha_fin, int Horas_extras, int Horas_noct, double Salario_total) {
         this.setCodigo_nomina(codigo_nomina);
         this.setId_empleado(Id_empleado);
         this.setPuesto_de_trabajo(Puesto_de_trabajo);
@@ -39,7 +35,7 @@ public class Nomina {
         this.setSalario_total(Salario_total);
     }
 
-    private Nomina(int codigo_nomina, int Id_empleado, String Puesto_trabajo, Calendar Fecha_inicio, Calendar Fecha_fin, double Salario_base, double IRPF, int Horas_extras, int Horas_nocturnas, double Salario_total) {
+    private Nomina(int codigo_nomina, int Id_empleado, String Puesto_trabajo, String Fecha_inicio, String Fecha_fin, double Salario_base, double IRPF, int Horas_extras, int Horas_nocturnas, double Salario_total) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -83,19 +79,19 @@ public class Nomina {
         this.IRPF = IRPF;
     }
 
-    public Calendar getFecha_inicio() {
+    public String getFecha_inicio() {
         return Fecha_inicio;
     }
 
-    public void setFecha_inicio(Calendar Fecha_inicio) {
+    public void setFecha_inicio(String Fecha_inicio) {
         this.Fecha_inicio = Fecha_inicio;
     }
 
-    public Calendar getFecha_fin() {
+    public String getFecha_fin() {
         return Fecha_fin;
     }
 
-    public void setFecha_fin(Calendar Fecha_fin) {
+    public void setFecha_fin(String Fecha_fin) {
         this.Fecha_fin = Fecha_fin;
     }
 
@@ -140,8 +136,8 @@ public class Nomina {
         String Puesto_trabajo = resultado.getString("Puesto_trabajo");
         double Salario_base = resultado.getDouble("Salario_base");
         double IRPF = resultado.getDouble("IRPF");
-        Calendar Fecha_inicio = resultado.getCalendar("Fecha_inicio");
-        Calendar Fecha_fin = resultado.getCalendar("Fecha_fin");
+        String Fecha_inicio = resultado.getString("Fecha_inicio");
+        String Fecha_fin = resultado.getString("Fecha_fin");
         int Horas_extras = resultado.getInt("Horas_extras");
         int Horas_nocturnas = resultado.getInt("Horas_nocturnas");
         double Salario_total = resultado.getDouble("Salario_total");
@@ -151,4 +147,5 @@ public class Nomina {
         return Nom;
      }       
 }
+
    
