@@ -39,6 +39,10 @@ public class Nomina {
         this.setSalario_total(Salario_total);
     }
 
+    private Nomina(int codigo_nomina, int Id_empleado, String Puesto_trabajo, Calendar Fecha_inicio, Calendar Fecha_fin, double Salario_base, double IRPF, int Horas_extras, int Horas_nocturnas, double Salario_total) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getCodigo_nomina() {
         return codigo_nomina;
     }
