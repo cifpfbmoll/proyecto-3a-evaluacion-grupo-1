@@ -11,6 +11,7 @@ import Main.Classes.*;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.RoundRectangle2D;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -247,19 +248,21 @@ public class InicioSesion extends javax.swing.JFrame {
         String usuario=this.getUsuario().getText();
         char[] aContrasena=this.getContraseña().getPassword();
         String contrasena=String.valueOf(aContrasena);
-        Herramientas.hacerSelect("SELECT * FROM cliente ", true); 
-        ResultSet resultadoClientes=Herramientas.getResultado();
-        boolean encontrado=false;
-        boolean coincide=false;
-        while(resultadoClientes.next() && !encontrado){
-            if(resultadoClientes.getString("DNI_cliente").equals(usuario)){
-                encontrado=true;
-                if(resultadoClientes.getString("contraseña").equals(contrasena)){
-                    coincide=true;
-                    Cliente c1=Cliente.recogerCliente(Herramientas.getConexion(), usuario);
-                    Main.setClienteActivo(c1); 
+        boolean coincide;
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT * FROM cliente "); 
+        ResultSet resultadoClientes = query.executeQuery()) {
+            boolean encontrado=false;
+            coincide = false;
+            while(resultadoClientes.next() && !encontrado){
+                if(resultadoClientes.getString("DNI_cliente").equals(usuario)){
+                    encontrado=true;
+                    if(resultadoClientes.getString("contraseña").equals(contrasena)){
+                        coincide=true;
+                        Cliente c1=Cliente.recogerCliente(Herramientas.getConexion(), usuario); 
+                        Main.setClienteActivo(c1);
+                    }
                 }
-            }
+            }          
         }
         return coincide;
     }
@@ -268,20 +271,21 @@ public class InicioSesion extends javax.swing.JFrame {
         String usuario=this.getUsuario().getText();
         char[] aContrasena=this.getContraseña().getPassword();
         String contrasena=String.valueOf(aContrasena);
-        Herramientas.hacerSelect("SELECT * FROM empleado ", true); 
-        ResultSet resultadoEmpleados=Herramientas.getResultado();
-        boolean encontrado=false;
-        boolean coincide=false;
-        while(resultadoEmpleados.next() && !encontrado){
-            if(Integer.toString(resultadoEmpleados.getInt("ID_empleado")).equals(usuario)){
-                encontrado=true;
-                if(resultadoEmpleados.getString("contraseña").equals(contrasena)){
-                    coincide=true;
-                    Empleado e1=Empleado.recogerEmpleado(Herramientas.getConexion(), resultadoEmpleados.getInt("ID_empleado"));
-                    Main.setEmpleadoActivo(e1);
+        boolean coincide;
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT * FROM empleado "); 
+        ResultSet resultadoEmpleados = query.executeQuery()) {
+            boolean encontrado=false;
+            coincide = false;
+            while(resultadoEmpleados.next() && !encontrado){
+                if(Integer.toString(resultadoEmpleados.getInt("ID_empleado")).equals(usuario)){
+                    encontrado=true;
+                    if(resultadoEmpleados.getString("contraseña").equals(contrasena)){
+                        coincide=true;
+                        Empleado e1=Empleado.recogerEmpleado(Herramientas.getConexion(), resultadoEmpleados.getInt("ID_empleado"));
+                        Main.setEmpleadoActivo(e1);
+                    }
                 }
-            }
-        } 
+            }          }
         return coincide;
     }
 

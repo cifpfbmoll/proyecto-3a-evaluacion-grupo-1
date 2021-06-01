@@ -94,7 +94,11 @@ public class LineaCompra {
     public String toString() {
         return "LineaCompra{" + "codigo_producto=" + codigo_producto + ", cantidad=" + cantidad + ", precio_linea=" + precio_linea + '}';
     }
-    
+    /**
+     * Metodo de instancia en el cual se inserta toda la informacio de una LineaCompra
+     * en la tabla linea carrito de la base de datos.
+     * @throws SQLException puede tirar una SQLException ya que trata con la base de datos
+     */
     public void insertLineaCarrito() throws SQLException{
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("INSERT INTO linea_carrito VALUES (?,?,?,?,?)")) {
             query.setString(1, Main.getClienteActivo().getNif());
@@ -106,6 +110,14 @@ public class LineaCompra {
         }
     }
     
+    /**
+     * Metodo que sirve para borrar una fila de la tabla linea_carrito. A este
+     * metodo se le pasa por parametro el codigo producto para identificar la linea
+     * del carrito, la cual tambien necesita el nif del cliente, que lo coje del
+     * main clienteActivo.
+     * @param codigoProducto codigoproducto para identificar la linea del carrito
+     * @throws SQLException puede tirar una SQLException ya que trata con la base de datos
+     */
     public static void borarLineaCarrito(int codigoProducto) throws SQLException{
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("DELETE FROM linea_carrito WHERE dni_cliente=? AND codigo_producto=?")) {
             query.setString(1, Main.getClienteActivo().getNif());
@@ -114,6 +126,14 @@ public class LineaCompra {
         }
     }
     
+    /**
+     * Modifica la cantidad, y por tanto el precio de la linea, de una linea carrito
+     * de la base de datos. Se le pasa el nuevo precio por parametro ya que se calcula
+     * fuera de este metodo, los otros atributos se cogen de la instancia en la que se
+     * llama a este metodo y del clienteActivo.
+     * @param precio double es el nuevo precio de la linea carrito
+     * @throws SQLException puede tirar una SQLException ya que trata con la base de datos
+     */
     public void modificarLineaCarrito( double precio) throws SQLException{
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("UPDATE linea_carrito SET cantidad=?, precio=? WHERE dni_cliente=? AND codigo_producto=?")) {
             query.setInt(1, this.getCantidad());

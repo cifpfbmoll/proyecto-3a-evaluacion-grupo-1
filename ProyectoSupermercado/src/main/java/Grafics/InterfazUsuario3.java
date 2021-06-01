@@ -1096,8 +1096,9 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
             for (int i=0; i<cesta.size();i++){
                 int codigoProducto=cesta.get(i).getCodigo_producto();
                 int cantidadProd=cesta.get(i).getCantidad();
-                Herramientas.hacerSelect("SELECT nombre_producto FROM producto WHERE codigo_producto="+codigoProducto+"", true);
-                ResultSet resultado=Herramientas.getResultado();
+                PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT nombre_producto FROM producto WHERE codigo_producto=?");
+                query.setInt(1, codigoProducto);
+                ResultSet resultado=query.executeQuery();
                 resultado.next();
                 javax.swing.JPanel lineaCesta=new javax.swing.JPanel();
                 

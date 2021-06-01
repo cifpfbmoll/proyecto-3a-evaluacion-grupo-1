@@ -23,8 +23,6 @@ import java.util.Scanner;
 public class Excepciones extends Exception {
     
     private int codigoError;
-    
-    static Scanner sc=new Scanner(System.in);
 
     public Excepciones() {
         super();
@@ -43,7 +41,12 @@ public class Excepciones extends Exception {
         this.codigoError = codigoError;
     }
 
-    //Se tienen qeu definir nuevos mensajes, codigo copiado de otro programa
+    /**
+     * Metodo de la clase padre Exception el qual es sobreescrito para poder asignar
+     * nuevos mensajes a las excepciones que nosotros creamos. Estos mensajes dependen
+     * del int que asignamos a la excepcion cuando la lanzamos.
+     * @return mensaje String que es el mensaje de error de la excepcion lanzada
+     */
     @Override
     public String getMessage() {
         String mensaje="";
@@ -73,6 +76,16 @@ public class Excepciones extends Exception {
         return mensaje;
     }
     
+    /**
+     * Metodo que escribe informacion sobre una excepcion que ha sido cazada (catch) en el
+     * programa. Este metodo recibe por parametro un mensaje, que es el que se ha enseñado 
+     * por pantalla al usuario y una excepcion y escribe en un fichero conocido com logErrores 
+     * la fecha y hora en la que ha ocurrido la excepcion, el mensaje enseñado al usuario,
+     * el mensaje de error de la excepcion(puede coincidir con el enseñado al usuario) y el 
+     * StackTrace de la excepcion. Si ocurre alguna excepcion en este mismo metodo es cazada en el.
+     * @param mensaje String que es el mensaje que se enseña al usuario por pantalla
+     * @param ex Exception que es cazada en algun catch 
+     */
     public static void pasarExcepcionLog(String mensaje, Exception ex){
         LocalDate fecha=LocalDate.now();
         LocalTime hora=LocalTime.now();

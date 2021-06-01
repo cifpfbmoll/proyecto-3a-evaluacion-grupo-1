@@ -20,8 +20,22 @@ import java.util.logging.Logger;
 
 public class Main {
     
+    /**
+     * Objeto Cliente estatico en el que se guarda toda la informacion del cliente
+     * que se ha logeado en la aplicacion.
+     */
     private static Cliente clienteActivo;
+    
+    /**
+     * Objeto Empleado estatico en el que se guarda toda la informacion del empleado
+     * que se ha logeado en la aplicacion.
+     */
     private static Empleado empleadoActivo;
+    
+    /**
+     * Objeto Supermercado estatico en el que se guarda toda la informacion del Supermercado
+     * que se ha elegido al logearse.
+     */
     private static Supermercado supermercadoActivo;
 
     public static Cliente getClienteActivo() {
