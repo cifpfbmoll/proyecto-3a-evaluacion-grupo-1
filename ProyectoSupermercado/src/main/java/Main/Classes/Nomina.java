@@ -154,7 +154,7 @@ public class Nomina {
     
     public static ArrayList recogerNomina(int Id_empleado)throws SQLException{
         PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT * FROM Nomina WHERE Id_empleado=?");
-        query.setInt(2, Id_empleado);
+        query.setInt(1, Id_empleado);
         ResultSet resultado=query.executeQuery();
         ArrayList <Nomina> listaNomina=new ArrayList();
         while(resultado.next()){
