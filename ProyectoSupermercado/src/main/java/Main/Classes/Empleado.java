@@ -4,7 +4,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Empleado extends Persona {
     private int id;
@@ -170,6 +173,45 @@ public class Empleado extends Persona {
 
     public void consultarNominas(int id) {
         // TODO Cuando BBDD
+    }
+    
+    public static void escribirIdea(String texto){
+        LocalDate fecha=LocalDate.now();
+        LocalTime hora=LocalTime.now();
+        DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
+        try{
+            BufferedWriter escribir = new BufferedWriter(new FileWriter("Idea_"+Main.getSupermercadoActivo().getLocalitat()+".txt",true));
+            escribir.write("ID Empleado: "+Main.getEmpleadoActivo().getId());
+            escribir.newLine();
+            escribir.write("Fecha: "+fecha.format(formatoFecha)+"   Hora: "+hora.format(formatoHora));
+            escribir.newLine();
+            escribir.newLine();
+            escribir.write("--------------------------------------------");
+            escribir.newLine();
+            int inicio=0;
+            int fila=40;
+            boolean fin=false;
+            do{
+                if(inicio+fila>=texto.length()){
+                    fila=texto.length()-inicio;
+                    fin=true;
+                    escribir.write("Idea: "+texto, inicio, fila);
+                    escribir.newLine();
+                }
+                else{
+                    escribir.write("Idea: "+texto, inicio, fila);
+                    escribir.newLine();
+                }
+                inicio+=40;
+            }
+            while(!fin);
+            escribir.newLine();
+            escribir.newLine();
+            escribir.close(); 
+        } catch (IOException error){
+            error.printStackTrace();
+        }   
     }
     
     public static void escribirIncidencia(String texto){
