@@ -145,7 +145,7 @@ public class Nomina {
      } 
     
     public static void eliminarNomina (int codigo_nomina)throws SQLException{
-            try (PreparedStatement query = Herramientas.getConexion().prepareStatement("DELETE FROM Nomina WHERE codigo_nomina = ?")) {
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("DELETE FROM Nomina WHERE codigo_nomina = ?")) {
             query.setInt(1, codigo_nomina);
             query.executeUpdate();
         }
@@ -153,13 +153,16 @@ public class Nomina {
     
     
     public static ArrayList recogerNomina(int Id_empleado)throws SQLException{
-        PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT * FROM Nomina WHERE Id_empleado=?");
-        query.setInt(2, Id_empleado);
-        ResultSet resultado=query.executeQuery();
-        ArrayList <Nomina> listaNomina=new ArrayList();
-        while(resultado.next()){
-            Nomina Nom= new Nomina (resultado.getInt(1), resultado.getInt(2), resultado.getString(3), resultado.getDouble(4), resultado.getDouble(5), resultado.getString(6), resultado.getString(7), resultado.getInt(8), resultado.getInt(9),resultado.getDouble(10));
-            listaNomina.add(Nom);
+        ArrayList <Nomina> listaNomina;
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT * FROM Nomina WHERE Id_empleado=?")) {
+            query.setInt(2, Id_empleado);
+            try (ResultSet resultado = query.executeQuery()) {
+                listaNomina = new ArrayList();
+                while(resultado.next()){
+                    Nomina Nom= new Nomina (resultado.getInt(1), resultado.getInt(2), resultado.getString(3), resultado.getDouble(4), resultado.getDouble(5), resultado.getString(6), resultado.getString(7), resultado.getInt(8), resultado.getInt(9),resultado.getDouble(10));
+                    listaNomina.add(Nom);
+                }
+            }
         }
         return listaNomina;
      }
