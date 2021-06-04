@@ -39,8 +39,8 @@ public class ElegirOpcionProducto extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        añadirProducto = new javax.swing.JButton();
-        eliminarProducto = new javax.swing.JButton();
+        añadirTarjeta = new javax.swing.JButton();
+        EliminarTarjeta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("  METRADONA©");
@@ -51,21 +51,21 @@ public class ElegirOpcionProducto extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("QUIERES ELIMINAR O AÑADIR UN PRODUCTO?");
 
-        añadirProducto.setBackground(new java.awt.Color(102, 102, 102));
-        añadirProducto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        añadirProducto.setText("AÑADIR");
-        añadirProducto.addActionListener(new java.awt.event.ActionListener() {
+        añadirTarjeta.setBackground(new java.awt.Color(102, 102, 102));
+        añadirTarjeta.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        añadirTarjeta.setText("AÑADIR");
+        añadirTarjeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 añadirProductoActionPerformed(evt);
             }
         });
 
-        eliminarProducto.setBackground(new java.awt.Color(102, 102, 102));
-        eliminarProducto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        eliminarProducto.setText("ELIMINAR");
-        eliminarProducto.addActionListener(new java.awt.event.ActionListener() {
+        EliminarTarjeta.setBackground(new java.awt.Color(102, 102, 102));
+        EliminarTarjeta.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        EliminarTarjeta.setText("ELIMINAR");
+        EliminarTarjeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarProductoActionPerformed(evt);
+                EliminarProductoActionPerformed(evt);
             }
         });
 
@@ -75,12 +75,12 @@ public class ElegirOpcionProducto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addComponent(añadirProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(añadirTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(eliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(EliminarTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(23, 23, 23))
         );
@@ -91,23 +91,23 @@ public class ElegirOpcionProducto extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(añadirProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(eliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(añadirTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EliminarTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void añadirProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirProductoActionPerformed
-        // añadir PRODUCTO
+        ElegirTipoAñadirProducto frame=new ElegirTipoAñadirProducto();
         this.dispose();
     }//GEN-LAST:event_añadirProductoActionPerformed
 
-    private void eliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarProductoActionPerformed
-        // eliminar producto
+    private void EliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarProductoActionPerformed
+        EliminarProducto frame=new EliminarProducto();
         this.dispose();
-    }//GEN-LAST:event_eliminarProductoActionPerformed
+    }//GEN-LAST:event_EliminarProductoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,8 +136,6 @@ public class ElegirOpcionProducto extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -148,8 +146,8 @@ public class ElegirOpcionProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton añadirProducto;
-    private javax.swing.JButton eliminarProducto;
+    private javax.swing.JButton EliminarTarjeta;
+    private javax.swing.JButton añadirTarjeta;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

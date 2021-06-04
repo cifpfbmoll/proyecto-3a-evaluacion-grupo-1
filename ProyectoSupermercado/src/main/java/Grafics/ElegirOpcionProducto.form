@@ -33,13 +33,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-              <Component id="añadirProducto" min="-2" pref="205" max="-2" attributes="0"/>
+              <Component id="añadirTarjeta" min="-2" pref="205" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="eliminarProducto" min="-2" pref="208" max="-2" attributes="0"/>
+              <Component id="EliminarTarjeta" min="-2" pref="208" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="11" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
           </Group>
@@ -52,10 +52,10 @@
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="añadirProducto" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
-                  <Component id="eliminarProducto" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="añadirTarjeta" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                  <Component id="EliminarTarjeta" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -69,7 +69,7 @@
         <Property name="text" type="java.lang.String" value="QUIERES ELIMINAR O A&#xd1;ADIR UN PRODUCTO?"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="a&#xf1;adirProducto">
+    <Component class="javax.swing.JButton" name="a&#xf1;adirTarjeta">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="66" type="rgb"/>
@@ -83,7 +83,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a&#xf1;adirProductoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="eliminarProducto">
+    <Component class="javax.swing.JButton" name="EliminarTarjeta">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="66" type="rgb"/>
@@ -94,7 +94,7 @@
         <Property name="text" type="java.lang.String" value="ELIMINAR"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminarProductoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarProductoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

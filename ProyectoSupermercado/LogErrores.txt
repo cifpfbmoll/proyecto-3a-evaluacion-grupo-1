@@ -489,7 +489,7 @@ com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
 com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
 com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
 com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:1003)
-Main.Classes.Tarjeta.añadirTarjeta(Tarjeta.java:95)
+Main.Classes.Tarjeta.aï¿½adirTarjeta(Tarjeta.java:95)
 Grafics.CrearTarjeta.botonGuardarActionPerformed(CrearTarjeta.java:215)
 Grafics.CrearTarjeta$2.actionPerformed(CrearTarjeta.java:179)
 java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1967)
@@ -537,7 +537,7 @@ com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
 com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
 com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
 com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:1003)
-Main.Classes.Tarjeta.añadirTarjeta(Tarjeta.java:95)
+Main.Classes.Tarjeta.aï¿½adirTarjeta(Tarjeta.java:95)
 Grafics.CrearTarjeta.botonGuardarActionPerformed(CrearTarjeta.java:215)
 Grafics.CrearTarjeta$2.actionPerformed(CrearTarjeta.java:179)
 java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1967)
@@ -587,7 +587,7 @@ com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
 com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
 com.mysql.cj.jdbc.StatementImpl.checkForDml(StatementImpl.java:365)
 com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:962)
-Main.Classes.Tarjeta.añadirTarjeta(Tarjeta.java:94)
+Main.Classes.Tarjeta.aï¿½adirTarjeta(Tarjeta.java:94)
 Grafics.CrearTarjeta.botonGuardarActionPerformed(CrearTarjeta.java:215)
 Grafics.CrearTarjeta$2.actionPerformed(CrearTarjeta.java:179)
 java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1967)
@@ -628,7 +628,7 @@ java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
 
 ------------------EXEPCION------------------
 
-Mensaje: ERROR 6: Las contraseñas no coinciden
+Mensaje: ERROR 6: Las contraseï¿½as no coinciden
 Fecha: 28/05/2021   Hora: 22:24
 STACKTRACE:
 Grafics.ElegirTarjeta.realizarCompraActionPerformed(ElegirTarjeta.java:200)
@@ -671,7 +671,7 @@ java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
 
 ------------------EXEPCION------------------
 
-Mensaje: ERROR 6: Las contraseñas no coinciden
+Mensaje: ERROR 6: Las contraseï¿½as no coinciden
 Fecha: 28/05/2021   Hora: 22:24
 STACKTRACE:
 Grafics.ElegirTarjeta.realizarCompraActionPerformed(ElegirTarjeta.java:200)
@@ -714,7 +714,7 @@ java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
 
 ------------------EXEPCION------------------
 
-Mensaje: ERROR 6: Las contraseñas no coinciden
+Mensaje: ERROR 6: Las contraseï¿½as no coinciden
 Fecha: 28/05/2021   Hora: 22:24
 STACKTRACE:
 Grafics.ElegirTarjeta.realizarCompraActionPerformed(ElegirTarjeta.java:200)
@@ -1133,7 +1133,7 @@ com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedSt
 com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1040)
 com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1347)
 com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1025)
-Main.Classes.Cliente.añadirPersona(Cliente.java:82)
+Main.Classes.Cliente.aï¿½adirPersona(Cliente.java:82)
 Grafics.Registrador.botonRegistroActionPerformed(Registrador.java:324)
 Grafics.Registrador$1.actionPerformed(Registrador.java:280)
 java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1967)
@@ -1184,7 +1184,7 @@ com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedSt
 com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1040)
 com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1347)
 com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1025)
-Main.Classes.Cliente.añadirPersona(Cliente.java:82)
+Main.Classes.Cliente.aï¿½adirPersona(Cliente.java:82)
 Grafics.Registrador.botonRegistroActionPerformed(Registrador.java:324)
 Grafics.Registrador$1.actionPerformed(Registrador.java:280)
 java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1967)
@@ -1584,12 +1584,12 @@ java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
 
 ------------------EXEPCION------------------
 
-Problema: ERROR 2: No es posible añadir esa cantidad ya que el stock es menor a la cantidad demandada
-Mensaje: ERROR 2: No es posible añadir esa cantidad ya que el stock es menor a la cantidad demandada
+Problema: ERROR 2: No es posible aï¿½adir esa cantidad ya que el stock es menor a la cantidad demandada
+Mensaje: ERROR 2: No es posible aï¿½adir esa cantidad ya que el stock es menor a la cantidad demandada
 Fecha: 30/05/2021   Hora: 17:45
 STACKTRACE:
 Main.Classes.Supermercado.restarStock(Supermercado.java:234)
-Main.Classes.Cliente.añadirProductoCarrito(Cliente.java:159)
+Main.Classes.Cliente.aï¿½adirProductoCarrito(Cliente.java:159)
 Grafics.InterfazUsuario3$16.actionPerformed(InterfazUsuario3.java:1309)
 java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1967)
 java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2308)
@@ -1641,7 +1641,7 @@ com.mysql.cj.jdbc.ClientPreparedStatement.checkBounds(ClientPreparedStatement.ja
 com.mysql.cj.jdbc.ClientPreparedStatement.getCoreParameterIndex(ClientPreparedStatement.java:1385)
 com.mysql.cj.jdbc.ClientPreparedStatement.setInt(ClientPreparedStatement.java:1573)
 Main.Classes.Nomina.recogerNomina(Nomina.java:158)
-Grafics.EliminarNomina.añadirNominas(EliminarNomina.java:42)
+Grafics.EliminarNomina.aï¿½adirNominas(EliminarNomina.java:42)
 Grafics.EliminarNomina.<init>(EliminarNomina.java:35)
 Grafics.ElegirOpcionNominaRRHH.eliminarNominaActionPerformed(ElegirOpcionNominaRRHH.java:121)
 Grafics.ElegirOpcionNominaRRHH$2.actionPerformed(ElegirOpcionNominaRRHH.java:69)
