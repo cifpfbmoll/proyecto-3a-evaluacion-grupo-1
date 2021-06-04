@@ -7,9 +7,15 @@ package Grafics;
 
 
 //import codigo.Excepciones;
+import Main.Classes.Empleado;
+import Main.Classes.Excepciones;
+import Main.Classes.Herramientas;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -235,11 +241,6 @@ public class RegistradoEmpleados extends javax.swing.JFrame {
         comunidadAutonoma.setForeground(new java.awt.Color(255, 255, 255));
         comunidadAutonoma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Andalucía", "Aragón", "Canarias", "Cantabria", "Castilla-LM", "Castilla y León", "Cataluña", "Ceuta", "Madrid", "C.Valenciana", "Extremadura", "Galicia", "Baleares", "La Rioja", "Melilla", "Navarra", "País Vasco", "Asturias", "Murcia" }));
         comunidadAutonoma.setToolTipText("");
-        comunidadAutonoma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comunidadAutonomaActionPerformed(evt);
-            }
-        });
         getContentPane().add(comunidadAutonoma, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 130, 30));
 
         NIF.setBackground(new java.awt.Color(0, 51, 0));
@@ -360,27 +361,27 @@ public class RegistradoEmpleados extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAtrasActionPerformed
 
     private void botonRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistroActionPerformed
-        /*try{
-            MainGrafic.crearBibliotecario(this.getBiblioteca(), this);
-            this.aviso("HAS SIDO REGISTRADO");
-            InicioSesion login=new InicioSesion(this.getBiblioteca());
-            this.dispose();
+        try {
+            int id=Empleado.añadirPersona(this.getNombre().getText(), this.getApellido1().getText(),
+            this.getApellido2().getText(), Integer.parseInt(this.getEdad().getText()),
+            this.getNIF().getText(), this.getComunidadAutonoma().getSelectedItem().toString(),
+            this.getLocalidad().getText(), this.getCodigoPostal().getText(),
+            this.getDireccion().getText(), this.getEmail().getText(), this.getContrasena().getText(),
+            this.getRepetirContrasena().getText(), this.getTelefono().getText(),
+            Integer.parseInt(this.getCodigoSupermercado().getText()), this.getPuestoTrabajo().getSelectedItem().toString(),
+            Empleado.privilegiosPuestoTrabajo(this.getPuestoTrabajo().getSelectedItem().toString()),
+            Herramientas.getConexion());
+            Herramientas.aviso("Empleado registrado con exito\nSu ID es: "+id);
+        } catch(Excepciones ex){
+            Herramientas.aviso(ex.getMessage());
+            Excepciones.pasarExcepcionLog(ex.getMessage(), ex);
+        } catch (SQLException ex) {
+            Herramientas.aviso("Ha habido un error al registrar el empleado en la base de datos");
+            Excepciones.pasarExcepcionLog("Ha habido un error al registrar el empleado en la base de datos", ex);
         }
-        catch(Excepciones e){
-            this.aviso(e.getMessage());
-        }
-        catch(NumberFormatException excepcion){
-            this.aviso("La edad tiene que ser un numero");
-        }*/
+        this.dispose();
     }//GEN-LAST:event_botonRegistroActionPerformed
 
-    private void comunidadAutonomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comunidadAutonomaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comunidadAutonomaActionPerformed
-
-    public void aviso (String mensaje){
-        JOptionPane.showMessageDialog(null,mensaje); 
-    }
     /**
      * @param args the command line arguments
      */

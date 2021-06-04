@@ -1,0 +1,18 @@
+ID Empleado: 1
+Fecha: 02/06/2021   Hora: 23:23
+
+-------------------INCIDENCIA-------------------------
+El otro dia cuando entraba de turno habia un descontrol to-
+tal en la caja 2, eran las 15:30 del 24/02
+
+
+ID Empleado: 23
+Fecha: 02/06/2021   Hora: 23:28
+
+-------------------INCIDENCIA-------------------------
+El otro dia vino un empleado del supermercado, con id de e-
+mpleado 4, a quejarse de su sueldo, de muy malas maneras y
+ medio amenazando. Creo que se le deberia interponer una sa
+-ncion o incluso despedirlo.
+
+

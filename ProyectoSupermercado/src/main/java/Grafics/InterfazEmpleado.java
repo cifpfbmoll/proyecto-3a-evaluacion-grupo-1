@@ -489,7 +489,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jLabel17.setText("MENU GESTION STOCK");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel18.setText("Menu para poder añadir stock a un supermercado");
+        jLabel18.setText("Para consultar o añadir stock a su supermercado");
 
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/stock.jpg"))); // NOI18N
 
@@ -642,7 +642,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    //fer interfici eliminar empleado, añadir stock, consultar nomina y arreglar añadir nomina.
+    // añadir stock, consultar nomina y arreglar añadir nomina.millorar eliminar empleado,(afegi 2 combobox per filtra per supermercat)
     
     private void botonMejoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMejoraActionPerformed
         EscribirMejora frame=new EscribirMejora();
@@ -670,7 +670,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_botonProductosActionPerformed
 
     private void botonStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonStockActionPerformed
-        // frame añadir stock
+        AñadirStock frame=new AñadirStock();
     }//GEN-LAST:event_botonStockActionPerformed
 
     private void botonSupermercadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSupermercadosActionPerformed

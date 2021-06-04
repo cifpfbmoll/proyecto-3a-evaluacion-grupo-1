@@ -129,7 +129,7 @@ public class StockProducto {
      * @throws IOException puede tirar una excepcion ja que trabaja con ficheros
      */
     public static void ficheroGestionStock(String nProducto, String cantidad, String nSupermercado) throws IOException{
-        File archivoGestion = new File("supermercado"+nSupermercado+".txt");
+        File archivoGestion = new File("reposicionStock"+nSupermercado+".txt");
         BufferedWriter buffer = new BufferedWriter (new FileWriter(archivoGestion, true));
         buffer.append("Producto: " + nProducto + " cantidad: " + cantidad);
         buffer.newLine();
@@ -143,14 +143,16 @@ public class StockProducto {
      * @throws IOException puede tirar una excepcion ja que trabaja con ficheros
      */
     public static void ficheroGestionFecha(String nSupermercado) throws IOException {
-        File archivoGestion = new File("supermercado"+nSupermercado+".txt");
+        File archivoGestion = new File("reposicionStock"+nSupermercado+".txt");
         BufferedWriter buffer = new BufferedWriter (new FileWriter(archivoGestion, true));
         java.util.Date fecha=new java.util.Date();
+        buffer.newLine();
         buffer.newLine();
         buffer.newLine();
         buffer.append("-------------------------ACTUALIZACION-----------------------");
         buffer.newLine();
         buffer.append("Fecha: " + fecha.toString());
+        buffer.newLine();
         buffer.newLine();
         buffer.close();
     }

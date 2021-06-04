@@ -845,7 +845,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Menu para poder a&#xf1;adir stock a un supermercado"/>
+                    <Property name="text" type="java.lang.String" value="Para consultar o a&#xf1;adir stock a su supermercado"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel23">

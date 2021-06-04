@@ -248,6 +248,7 @@ public class CrearNomina extends javax.swing.JFrame {
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         System.out.println(idEmpleado.getText() + irpf.getText() + hExtras.getText() + hNocturnas.getText() + fInicio.getText() + fFinal.getText());
+        this.dispose();
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void fFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fFinalActionPerformed

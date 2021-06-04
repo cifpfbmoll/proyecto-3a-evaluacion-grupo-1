@@ -332,7 +332,7 @@ public class Registrador extends javax.swing.JFrame {
                     Integer.parseInt(this.getEdad().getText()), this.getNIF().getText(), this.getComunidadAutonoma().getSelectedItem().toString(), this.getLocalidad().getText(),
                     this.getCodigoPostal().getText(), this.getDireccion().getText(), this.getEmail().getText(), this.getContrasena().getText(),
                     this.getRepetirContrasena().getText(), this.getTelefono().getText(),Herramientas.getConexion());
-            this.aviso("HAS SIDO REGISTRADO");
+            Herramientas.aviso("HAS SIDO REGISTRADO");
             InicioSesion login=new InicioSesion();
             this.dispose();
         } catch (Excepciones ex) {
@@ -344,9 +344,6 @@ public class Registrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonRegistroActionPerformed
 
-    public void aviso (String mensaje){
-        JOptionPane.showMessageDialog(null,mensaje); 
-    }
     /**
      * @param args the command line arguments
      */

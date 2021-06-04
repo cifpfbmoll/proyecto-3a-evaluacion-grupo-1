@@ -5,11 +5,7 @@
  */
 package Grafics;
 
-import Main.Classes.Empleado;
-import Main.Classes.Excepciones;
-import Main.Classes.Herramientas;
-import Main.Classes.Main;
-import Main.Classes.Nomina;
+import Main.Classes.*;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.RoundRectangle2D;
@@ -17,47 +13,31 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 /**
  *
  * @author PC
  */
-public class EliminarNomina extends javax.swing.JFrame {
+public class EliminarEmpleado extends javax.swing.JFrame {
 
     /**
-     * Creates new form EliminarNom
+     * Creates new form EliminarTarjeta
      */
-    ArrayList <Nomina> listaNoms;
+    ArrayList <Empleado> listaEmpleados;
     
-    public EliminarNomina() {
+    public EliminarEmpleado() {
         initComponents();
-        añadirNominas();
+        añadirEmpleados();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-    
-    public void añadirNominas() {
-        try {
-            this.setListaNomina(Nomina.recogerNomina(Main.getEmpleadoActivo().getId()));
-            Nomina[] listaNumerosNomina=new Nomina[this.getListaNomina().size()];
-            for(int i=0;i<this.getListaNomina().size();i++){
-            numeroTarjeta.addItem(String.valueOf(this.getListaNomina().get(i).getCodigo_nomina()) + ". " + this.getListaNomina().get(i).getFecha_inicio() + " - " + this.getListaNomina().get(i).getFecha_fin());
-        }
-        } catch (SQLException ex) {
-            Herramientas.aviso("Ha ocurrido un error al cargar sus nominas");
-            Excepciones.pasarExcepcionLog("Ha ocurrido un error al cargar sus nominas", ex);
-            this.dispose();
-        }
+
+    public ArrayList<Empleado> getListaEmpleados() {
+        return listaEmpleados;
     }
 
-    public ArrayList<Nomina> getListaNomina() {
-        return listaNoms;
-    }
-    
-
-    public void setListaNomina(ArrayList<Nomina> listaNomina) {
-        this.listaNoms = listaNomina;
+    public void setListaEmpleados(ArrayList<Empleado> listaEmpleados) {
+        this.listaEmpleados = listaEmpleados;
     }
     
     public Image getIconImage(){
@@ -74,7 +54,7 @@ public class EliminarNomina extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        numeroTarjeta = new javax.swing.JComboBox<>();
+        codigoEmpleado = new javax.swing.JComboBox<>();
         botonCancelar = new javax.swing.JButton();
         botonConfirmar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -89,8 +69,8 @@ public class EliminarNomina extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        numeroTarjeta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
-        getContentPane().add(numeroTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 270, 40));
+        codigoEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        getContentPane().add(codigoEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 430, 40));
 
         botonCancelar.setBackground(new java.awt.Color(102, 102, 102));
         botonCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -101,7 +81,7 @@ public class EliminarNomina extends javax.swing.JFrame {
                 botonCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 150, 40));
+        getContentPane().add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 210, 40));
 
         botonConfirmar.setBackground(new java.awt.Color(102, 102, 102));
         botonConfirmar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -112,29 +92,27 @@ public class EliminarNomina extends javax.swing.JFrame {
                 botonConfirmarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 150, 40));
+        getContentPane().add(botonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 210, 40));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ELIGE LA TARJETA A ELIMINAR");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        jLabel2.setText("ELIGE EL EMPLEADO A ELIMINAR");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green-Wallpaper-5.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 220));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 220));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
         try {
-            String separador = Pattern.quote(".");
-            String[] parts = this.numeroTarjeta.getSelectedItem().toString().split(separador);
-            int cod = Integer.parseInt(parts[0]);
-            System.out.println(String.valueOf(cod));
-            Nomina.eliminarNomina(cod);
+            String id=this.codigoEmpleado.getSelectedItem().toString().split("-")[0];
+            Empleado.eliminarPersona(Herramientas.getConexion(),Integer.parseInt(id));
+            Herramientas.aviso("Empleado borrado de la base datos");
         } catch (SQLException ex) {
-            Herramientas.aviso("Ha ocurrido un error al eliminar su nomina");
-            Excepciones.pasarExcepcionLog("Ha ocurrido un error al eliminar su nomina", ex);
+            Herramientas.aviso("Ha ocurrido un error al borrar el empleado");
+            Excepciones.pasarExcepcionLog("Ha ocurrido un error al borrar el empleado", ex);
         }
         this.dispose();
     }//GEN-LAST:event_botonConfirmarActionPerformed
@@ -143,6 +121,24 @@ public class EliminarNomina extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
     
+    public void añadirEmpleados(){
+        try {
+            this.setListaEmpleados(Empleado.recogerTodosEmpleados(Herramientas.getConexion()));
+            String[] listaInfoEmpleado=new String[this.getListaEmpleados().size()];
+            for(int i=0;i<this.getListaEmpleados().size();i++){
+                String info=""+this.getListaEmpleados().get(i).getId()+"-"+
+                this.getListaEmpleados().get(i).getNombre()+" "+
+                this.getListaEmpleados().get(i).getApellido1()+" "+
+                this.getListaEmpleados().get(i).getApellido2();
+                listaInfoEmpleado[i]=info;
+            }
+            codigoEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(listaInfoEmpleado));
+        } catch (SQLException ex) {
+            Herramientas.aviso("Ha ocurrido un error al cargar a los empleados");
+            Excepciones.pasarExcepcionLog("Ha ocurrido un error al cargar a los empleados", ex);
+            this.dispose();
+        }
+    }
     
     /**
      * @param args the command line arguments
@@ -161,25 +157,21 @@ public class EliminarNomina extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EliminarNomina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EliminarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EliminarNomina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EliminarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EliminarNomina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EliminarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EliminarNomina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EliminarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()  {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new EliminarNomina().setVisible(true);
-                } catch (Exception ex) {
-                    Logger.getLogger(EliminarNomina.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new EliminarEmpleado().setVisible(true);
             }
         });
     }
@@ -187,8 +179,8 @@ public class EliminarNomina extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonConfirmar;
+    private javax.swing.JComboBox<String> codigoEmpleado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JComboBox<String> numeroTarjeta;
     // End of variables declaration//GEN-END:variables
 }

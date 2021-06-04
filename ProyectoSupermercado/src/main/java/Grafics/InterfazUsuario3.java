@@ -1401,7 +1401,7 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
         }
         catch(SQLException ex){
             Herramientas.aviso("Se ha producido un error al cargar el stock");
-            ex.printStackTrace();
+            Excepciones.pasarExcepcionLog("Se ha producido un error al cargar el stock", ex);
         }
         finally{
             resultado.close();

@@ -113,12 +113,12 @@ public class ElegirOpcionNominaRRHH extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void añadirNominaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirNominaActionPerformed
-        // añadir nomina
+        CrearNomina frame=new CrearNomina();
         this.dispose();
     }//GEN-LAST:event_añadirNominaActionPerformed
 
     private void eliminarNominaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarNominaActionPerformed
-        // eliminar nomina
+        EliminarNomina frame=new EliminarNomina();
         this.dispose();
     }//GEN-LAST:event_eliminarNominaActionPerformed
 

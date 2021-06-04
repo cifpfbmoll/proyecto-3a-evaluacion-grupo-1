@@ -248,7 +248,7 @@ public class Supermercado {
 
     }
 
-    public void devolverStock(int codigoProducto, int cantidad) throws SQLException {
+    public void añadirStock(int codigoProducto, int cantidad) throws SQLException {
 
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("UPDATE stock_supermercado SET cantidad=? "
                 + "WHERE codigo_supermercado=? AND codigo_producto=?")) {

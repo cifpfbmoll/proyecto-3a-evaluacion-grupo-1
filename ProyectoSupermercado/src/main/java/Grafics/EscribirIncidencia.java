@@ -114,7 +114,7 @@ public class EscribirIncidencia extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarActionPerformed
-        //metodo(this.jTextArea1.getText());
+        Empleado.escribirIncidencia(this.jTextArea1.getText());
         this.dispose();
     }//GEN-LAST:event_botonEnviarActionPerformed
 

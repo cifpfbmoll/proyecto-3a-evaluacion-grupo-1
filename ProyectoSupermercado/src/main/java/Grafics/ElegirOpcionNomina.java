@@ -105,7 +105,7 @@ public class ElegirOpcionNomina extends javax.swing.JFrame {
     }//GEN-LAST:event_consutlarNominaActionPerformed
 
     private void eliminarNominaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarNominaActionPerformed
-        // eliminar nomina
+        EliminarNomina frame=new EliminarNomina();
         this.dispose();
     }//GEN-LAST:event_eliminarNominaActionPerformed
 

@@ -114,7 +114,7 @@ public class EscribirMejora extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarActionPerformed
-        //metodod(this.jTextArea1.getText());
+        Empleado.escribirIdea(this.jTextArea1.getText());
         this.dispose();
     }//GEN-LAST:event_botonEnviarActionPerformed
 

@@ -100,12 +100,12 @@ public class ElegirOpcionEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void añadirEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirEmpleadoActionPerformed
-        // añadir empleado
+        RegistradoEmpleados frame=new RegistradoEmpleados();
         this.dispose();
     }//GEN-LAST:event_añadirEmpleadoActionPerformed
 
     private void eliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarEmpleadoActionPerformed
-        // eliminar empleado
+        EliminarEmpleado frame=new EliminarEmpleado();
         this.dispose();
     }//GEN-LAST:event_eliminarEmpleadoActionPerformed
 

@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Empleado extends Persona {
     private int id;
@@ -70,9 +71,32 @@ public class Empleado extends Persona {
             return super.toString() + "Empleado{" + "id=" + id + ", codigoSupermercado=" + codigoSupermercado + ", puestoTrabajo=" + puestoTrabajo + ", privilegios=" + privilegios + '}';
         }
 
+    public static int privilegiosPuestoTrabajo (String puestoTrabajo) throws Excepciones{
+        int privilegios=0;
+        switch (puestoTrabajo){
+            case "Dependiente":
+                privilegios=1;
+                break;
 
+            case "Supervisor":
+                privilegios=2;
+                break;
+
+            case "RRHH":
+                privilegios=3;
+                break;
+
+            case "Director":
+                privilegios=4;
+                break;
+
+            default:
+                throw new Excepciones(3);
+        }    
+        return privilegios;
+    }
         
-    public static void añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
+    public static int añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
     String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, 
     int codigoSupermercado, String puestoTrabajo, int privilegios, Connection conexion) throws Excepciones, SQLException{
         if (!contraseña.equals(rContraseña)) {
@@ -105,6 +129,8 @@ public class Empleado extends Persona {
         sentencia.setInt(15, privilegios);
         sentencia.setString(16, contraseña);
         sentencia.executeUpdate();
+        
+        return id;
     }
 
     public static Empleado recogerEmpleado(Connection conexion, int id) throws SQLException {
@@ -132,6 +158,36 @@ public class Empleado extends Persona {
         resultado.close();
         sentencia.close();
         return per;
+    }
+    
+    public static ArrayList recogerTodosEmpleados(Connection conexion) throws SQLException {
+        ArrayList <Empleado> listaEmpleados=new ArrayList();
+        PreparedStatement sentencia = conexion.prepareStatement("SELECT * FROM empleado");
+        ResultSet resultado = sentencia.executeQuery();
+        while (resultado.next()){
+            int id=resultado.getInt("id_empleado");
+            String nombre = resultado.getString("Nombre_empleado");
+            String apellido1 = resultado.getString("Apellido_empleado_1");
+            String apellido2 = resultado.getString("Apellido_empleado_2");
+            int edad = resultado.getInt("Edad");
+            String nif = resultado.getString("DNI_empleado");
+            String cAutonoma = resultado.getString("Comunidad_autonoma");
+            String localidad = resultado.getString("Localidad");
+            String cPostal = resultado.getString("Codigo_postal");
+            String direccion = resultado.getString("Direccion");
+            String email = resultado.getString("Email");
+            String contraseña = resultado.getString("Contraseña");
+            String telefono = resultado.getString("Telefono");
+            int codigoSupermercado = resultado.getInt("Codigo_supermercado");
+            String puestoTrabajo = resultado.getString("Puesto_trabajo");
+            int privilegios = resultado.getInt("Privilegios");
+            Empleado per = new Empleado(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono, 
+            id, codigoSupermercado, puestoTrabajo, privilegios);
+            listaEmpleados.add(per);
+        }
+        resultado.close();
+        sentencia.close();
+        return listaEmpleados;
     }
 
     public static void eliminarPersona(Connection conexion, int id) throws SQLException {
@@ -187,46 +243,72 @@ public class Empleado extends Persona {
             escribir.write("Fecha: "+fecha.format(formatoFecha)+"   Hora: "+hora.format(formatoHora));
             escribir.newLine();
             escribir.newLine();
-            escribir.write("--------------------------------------------");
+            escribir.write("-------------------IDEA DE MEJORA-------------------------");
             escribir.newLine();
             int inicio=0;
-            int fila=40;
+            int fila=59;
             boolean fin=false;
             do{
                 if(inicio+fila>=texto.length()){
                     fila=texto.length()-inicio;
                     fin=true;
-                    escribir.write("Idea: "+texto, inicio, fila);
+                    escribir.write(texto, inicio, fila);
                     escribir.newLine();
                 }
                 else{
-                    escribir.write("Idea: "+texto, inicio, fila);
+                    escribir.write(texto, inicio, fila);
                     escribir.newLine();
                 }
-                inicio+=40;
+                inicio+=59;
             }
             while(!fin);
             escribir.newLine();
             escribir.newLine();
             escribir.close(); 
         } catch (IOException error){
-            error.printStackTrace();
+            Herramientas.aviso("Ha ocurrido un error al mandar su idea de mejora");
+            Excepciones.pasarExcepcionLog("Ha ocurrido un error al mandar su idea de mejora", error);
         }   
     }
     
     public static void escribirIncidencia(String texto){
         int idEmpleado = Main.getEmpleadoActivo().getId();
-        LocalDateTime actual = LocalDateTime.now();
+        LocalDate fecha=LocalDate.now();
+        LocalTime hora=LocalTime.now();
+        DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
         try{
             BufferedWriter escribir = new BufferedWriter(new FileWriter("Incidencias"+Main.getSupermercadoActivo().getLocalitat()+".txt",true));
             escribir.write("ID Empleado: "+String.valueOf(idEmpleado));
             escribir.newLine();
-            escribir.write("Incidencia: "+texto);
+            escribir.write("Fecha: "+fecha.format(formatoFecha)+"   Hora: "+hora.format(formatoHora));
+            escribir.newLine();
+            escribir.newLine();
+            escribir.write("-------------------INCIDENCIA-------------------------");
+            escribir.newLine();
+            int inicio=0;
+            int fila=59;
+            boolean fin=false;
+            do{
+                if(inicio+fila>=texto.length()){
+                    fila=texto.length()-inicio;
+                    fin=true;
+                    escribir.write(texto, inicio, fila);
+                    escribir.newLine();
+                }
+                else{
+                    escribir.write(texto, inicio, fila);
+                    escribir.newLine();
+                }
+                inicio+=59;
+            }
+            while(!fin);
             escribir.newLine();
             escribir.newLine();
             escribir.close(); 
         } catch (IOException error){
-            error.printStackTrace();
+            Herramientas.aviso("Ha ocurrido un error al mandar su incidencia");
+            Excepciones.pasarExcepcionLog("Ha ocurrido un error al mandar su incidencia", error);
         }   
     }
     

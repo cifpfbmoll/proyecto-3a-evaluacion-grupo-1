@@ -1,0 +1,19 @@
+
+
+
+-------------------------ACTUALIZACION-----------------------
+Fecha: Fri Jun 04 23:32:30 CEST 2021
+
+Producto:  Barra pan  cantidad: 2
+Producto:  Gel aloevera Farmuni  cantidad: 5
+Producto:  Don limpio madera  cantidad: 24
+Producto:  Don limpio  cantidad: 4
+Producto:  Lejia  cantidad: 9
+Producto:  Cristasol cristalino  cantidad: 3
+
+
+
+-------------------------ACTUALIZACION-----------------------
+Fecha: Fri Jun 04 23:34:22 CEST 2021
+
+Producto:  Pizza jamon york  cantidad: 3

@@ -202,7 +202,7 @@ public class Cliente extends Persona {
     public void eliminarProductoCarrito(int codigo_producto, int cantidad) throws SQLException{
         try {
             Herramientas.getConexion().setAutoCommit(false);
-            Main.getSupermercadoActivo().devolverStock(codigo_producto,cantidad);
+            Main.getSupermercadoActivo().añadirStock(codigo_producto,cantidad);
             LineaCompra.borarLineaCarrito(codigo_producto);
             int i=0;
             boolean encontrado=false;

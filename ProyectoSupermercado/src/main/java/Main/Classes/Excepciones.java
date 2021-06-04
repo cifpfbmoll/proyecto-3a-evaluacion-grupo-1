@@ -58,7 +58,7 @@ public class Excepciones extends Exception {
                 mensaje="ERROR 2: No es posible añadir esa cantidad ya que el stock es menor a la cantidad demandada";
                 break;
             case 3:
-                mensaje="ERROR 3: No existe ningun usuario de la biblioteca que tenga ese telefono y ese correo electronico";
+                mensaje="ERROR 3: No existe ese puesto de trabajo en nuestra cadena de supermercados";
                 break;
             case 4:
                 mensaje="ERROR 4: Inserte un cvv correcto";

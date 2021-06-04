@@ -221,12 +221,14 @@ public class InicioSesion extends javax.swing.JFrame {
         boolean empleadoLogeado=false;
         if (!clienteLogeado){
             empleadoLogeado=this.inicioSesionEmpleado();
+            Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(Main.getEmpleadoActivo().getCodigoSupermercado()));
         }
         if(!empleadoLogeado && !clienteLogeado){
             Herramientas.aviso("El usuario o contraseña son incorrectos");
         }
         else if(empleadoLogeado){
-            //abrir frame principal empleados
+            InterfazEmpleado frame=new InterfazEmpleado();
+            this.dispose();
         }
         else if(clienteLogeado){
             if(Main.getClienteActivo().getCestaCompra().isEmpty()){
@@ -283,6 +285,7 @@ public class InicioSesion extends javax.swing.JFrame {
                         coincide=true;
                         Empleado e1=Empleado.recogerEmpleado(Herramientas.getConexion(), resultadoEmpleados.getInt("ID_empleado"));
                         Main.setEmpleadoActivo(e1);
+                        Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(e1.getCodigoSupermercado()));
                     }
                 }
             }          }
