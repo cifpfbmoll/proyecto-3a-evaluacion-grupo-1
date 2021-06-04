@@ -23,10 +23,10 @@ abstract class Producto {
     private String descripcionProd;
 
     public Producto(int codigoProd, String nombreProd, double precioProd, String descripcionProd) {
-        this.codigoProd = codigoProd;
-        this.nombreProd = nombreProd;
-        this.precioProd = precioProd;
-        this.descripcionProd = descripcionProd;
+        this.setCodigoProd(codigoProd);
+        this.setNombreProd(nombreProd);
+        this.setPrecioProd (precioProd);
+        this.setDescripcionProd(descripcionProd);
     }
 
     public int getCodigoProd() {
@@ -93,8 +93,8 @@ abstract class Producto {
 //        ProductoLimpieza pl1=ProductoLimpieza.CrearProductoLimpieza(superficie, "Lejia", 3.9, "Chupito de lejia");
 //        System.out.println(pl1.toString());
 //        ProductoLimpieza.AñadirLimpieza(pl1);
-        ProductoLimpieza.eliminarLimpieza(24);
-        Herramientas.cerrarConexion();
+//        ProductoLimpieza.eliminarLimpieza(24);
+//        Herramientas.cerrarConexion();
     }
     
 //        ProductoAlimento.Categoria categoria = vegano;

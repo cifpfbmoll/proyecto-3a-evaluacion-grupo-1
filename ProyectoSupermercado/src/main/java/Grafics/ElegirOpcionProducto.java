@@ -13,12 +13,12 @@ import java.awt.geom.RoundRectangle2D;
  *
  * @author PC
  */
-public class ElegirOpcionTarjeta extends javax.swing.JFrame {
+public class ElegirOpcionProducto extends javax.swing.JFrame {
 
     /**
      * Creates new form ElegirOpcionTarjeta
      */
-    public ElegirOpcionTarjeta() {
+    public ElegirOpcionProducto() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -45,20 +45,18 @@ public class ElegirOpcionTarjeta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("  METRADONA©");
         setIconImage(getIconImage());
-        setMaximumSize(new java.awt.Dimension(640, 202));
         setMinimumSize(new java.awt.Dimension(640, 202));
-        setPreferredSize(new java.awt.Dimension(640, 202));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("QUIERES ELIMINAR O AÑADIR UNA TARJETA?");
+        jLabel1.setText("QUIERES ELIMINAR O AÑADIR UN PRODUCTO?");
 
         añadirTarjeta.setBackground(new java.awt.Color(102, 102, 102));
         añadirTarjeta.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         añadirTarjeta.setText("AÑADIR");
         añadirTarjeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                añadirTarjetaActionPerformed(evt);
+                añadirProductoActionPerformed(evt);
             }
         });
 
@@ -67,7 +65,7 @@ public class ElegirOpcionTarjeta extends javax.swing.JFrame {
         EliminarTarjeta.setText("ELIMINAR");
         EliminarTarjeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EliminarTarjetaActionPerformed(evt);
+                EliminarProductoActionPerformed(evt);
             }
         });
 
@@ -82,7 +80,7 @@ public class ElegirOpcionTarjeta extends javax.swing.JFrame {
                 .addComponent(EliminarTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(23, 23, 23))
         );
@@ -101,15 +99,15 @@ public class ElegirOpcionTarjeta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void añadirTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirTarjetaActionPerformed
-        CrearTarjeta frame=new CrearTarjeta();
+    private void añadirProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirProductoActionPerformed
+        ElegirTipoAñadirProducto frame=new ElegirTipoAñadirProducto();
         this.dispose();
-    }//GEN-LAST:event_añadirTarjetaActionPerformed
+    }//GEN-LAST:event_añadirProductoActionPerformed
 
-    private void EliminarTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTarjetaActionPerformed
-        EliminarTarjeta frame=new EliminarTarjeta();
+    private void EliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarProductoActionPerformed
+        EliminarProducto frame=new EliminarProducto();
         this.dispose();
-    }//GEN-LAST:event_EliminarTarjetaActionPerformed
+    }//GEN-LAST:event_EliminarProductoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,20 +126,21 @@ public class ElegirOpcionTarjeta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ElegirOpcionTarjeta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ElegirOpcionProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ElegirOpcionTarjeta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ElegirOpcionProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ElegirOpcionTarjeta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ElegirOpcionProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ElegirOpcionTarjeta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ElegirOpcionProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ElegirOpcionTarjeta().setVisible(true);
+                new ElegirOpcionProducto().setVisible(true);
             }
         });
     }

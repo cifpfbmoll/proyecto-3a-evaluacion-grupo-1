@@ -230,15 +230,6 @@ public class Empleado extends Persona {
         }   
     }
     
-    public static void main(String[] args) {
-        Empleado josep = new Empleado();
-        josep.setId(7);
-        Supermercado si = Supermercado.Builder.newInstance().localitat("Palma").build();
-        Main.setSupermercadoActivo(si);
-        Main.setEmpleadoActivo(josep);
-        Empleado.escribirIncidencia("me quejo hehe");
-    }
-    
 //    public static void main(String[] args) throws SQLException {
 //        Herramientas.crearConexion();
 //        Empleado.borrarEmpleadoYNominas(Herramientas.getConexion(), 2, true);
