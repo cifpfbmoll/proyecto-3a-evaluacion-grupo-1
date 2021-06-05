@@ -181,7 +181,7 @@ public class Nomina {
                 resultado.next();
                 this.setSalario_base(resultado.getDouble("salario_base"));
                 double horasExtras=resultado.getDouble("hora_extra")*this.getHoras_extras();
-                double horasNocturnas=resultado.getDouble("nocturnidad")*this.getHoras_extras();
+                double horasNocturnas=resultado.getDouble("nocturnidad")*this.getHoras_noct();
                 double salrioSinIRPF=this.getSalario_base()+horasExtras+horasNocturnas;
                 double retencionIRPF=(salrioSinIRPF*this.getIRPF())/100;
                 this.setSalario_total(salrioSinIRPF-retencionIRPF);

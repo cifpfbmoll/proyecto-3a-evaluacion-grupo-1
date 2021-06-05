@@ -100,7 +100,7 @@ public class ElegirOpcionNomina extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void consutlarNominaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consutlarNominaActionPerformed
-        // consultar nomina
+        VerNominas frame=new VerNominas();
         this.dispose();
     }//GEN-LAST:event_consutlarNominaActionPerformed
 
