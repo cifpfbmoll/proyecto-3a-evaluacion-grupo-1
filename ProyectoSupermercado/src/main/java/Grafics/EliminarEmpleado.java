@@ -126,11 +126,11 @@ public class EliminarEmpleado extends javax.swing.JFrame {
             this.setListaEmpleados(Empleado.recogerTodosEmpleados(Herramientas.getConexion()));
             String[] listaInfoEmpleado=new String[this.getListaEmpleados().size()];
             for(int i=0;i<this.getListaEmpleados().size();i++){
-                String info=""+this.getListaEmpleados().get(i).getId()+"-"+
-                this.getListaEmpleados().get(i).getNombre()+" "+
-                this.getListaEmpleados().get(i).getApellido1()+" "+
-                this.getListaEmpleados().get(i).getApellido2();
-                listaInfoEmpleado[i]=info;
+                    String info=""+this.getListaEmpleados().get(i).getId()+"-"+
+                    this.getListaEmpleados().get(i).getNombre()+" "+
+                    this.getListaEmpleados().get(i).getApellido1()+" "+
+                    this.getListaEmpleados().get(i).getApellido2();
+                    listaInfoEmpleado[i]=info;
             }
             codigoEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(listaInfoEmpleado));
         } catch (SQLException ex) {

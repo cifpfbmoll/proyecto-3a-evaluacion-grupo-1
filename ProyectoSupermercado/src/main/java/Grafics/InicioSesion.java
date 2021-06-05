@@ -221,7 +221,6 @@ public class InicioSesion extends javax.swing.JFrame {
         boolean empleadoLogeado=false;
         if (!clienteLogeado){
             empleadoLogeado=this.inicioSesionEmpleado();
-            Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(Main.getEmpleadoActivo().getCodigoSupermercado()));
         }
         if(!empleadoLogeado && !clienteLogeado){
             Herramientas.aviso("El usuario o contraseña son incorrectos");

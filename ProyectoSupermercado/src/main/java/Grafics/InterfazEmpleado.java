@@ -642,7 +642,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    // añadir stock, consultar nomina y arreglar añadir nomina.millorar eliminar empleado,(afegi 2 combobox per filtra per supermercat)
+    //consultar nomina
     
     private void botonMejoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMejoraActionPerformed
         EscribirMejora frame=new EscribirMejora();

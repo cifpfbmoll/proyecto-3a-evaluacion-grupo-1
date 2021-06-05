@@ -300,7 +300,7 @@ public class RegistradoEmpleados extends javax.swing.JFrame {
         puestoTrabajo.setBackground(new java.awt.Color(0, 51, 0));
         puestoTrabajo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         puestoTrabajo.setForeground(new java.awt.Color(255, 255, 255));
-        puestoTrabajo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dependiente", "Supervisor", "RRHH", "Director" }));
+        puestoTrabajo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dependiente", "Supervisor", "Recursos Humanos", "Director" }));
         getContentPane().add(puestoTrabajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 130, 30));
 
         botonRegistro.setBackground(new java.awt.Color(102, 102, 102));
