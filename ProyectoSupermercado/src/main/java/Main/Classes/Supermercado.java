@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Supermercado {
     private int code;
@@ -190,7 +192,59 @@ public class Supermercado {
         }
 
     }
+    
+    public static void insertSupermarketIntoDB(JTextField NIFTextField, JTextField CCAATextField, JTextField localitatTextField, JTextField zipCodeTextField,
+            JTextField addressTextField, JTextField phoneNumberTextField, JTextField emailTextField, JTextField areaTextField ) throws SQLException {
 
+        
+            Supermercado supermercado = Builder.newInstance()
+                    .code(getLastCode() + 1)
+                    .NIF(NIFTextField.getText())
+                    .CCAA(CCAATextField.getText())
+                    .localitat(localitatTextField.getText())
+                    .zipCode(zipCodeTextField.getText())
+                    .address(addressTextField.getText())
+                    .phoneNumber(phoneNumberTextField.getText())
+                    .email(emailTextField.getText())
+                    .area(Integer.parseInt(areaTextField.getText()))
+                    .build();
+
+            Connection connection = Herramientas.getConexion();
+            PreparedStatement insertSupermarketPreparedStatement = connection.prepareStatement("INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            insertSupermarketPreparedStatement.setInt(1, supermercado.code);
+            insertSupermarketPreparedStatement.setString(2, supermercado.NIF);
+            insertSupermarketPreparedStatement.setString(3, supermercado.CCAA);
+            insertSupermarketPreparedStatement.setString(4, supermercado.localitat);
+            insertSupermarketPreparedStatement.setString(5, supermercado.zipCode);
+            insertSupermarketPreparedStatement.setString(6, supermercado.address);
+            insertSupermarketPreparedStatement.setString(7, supermercado.phoneNumber);
+            insertSupermarketPreparedStatement.setString(8, supermercado.email);
+            insertSupermarketPreparedStatement.setInt(9, supermercado.area);
+
+
+            insertSupermarketPreparedStatement.executeUpdate();
+            insertSupermarketPreparedStatement.close();
+
+        }
+    
+     private static int getLastCode() throws SQLException {
+            Connection connection = Herramientas.getConexion();
+
+            PreparedStatement getCodePreparedStatement = connection.prepareStatement("SELECT MAX(Codigo_supermercado) FROM SUPERMERCADO");
+            ResultSet lastCodeValue = getCodePreparedStatement.executeQuery();
+
+            if (lastCodeValue.next()) {
+                int codeValue = lastCodeValue.getInt(1);
+                getCodePreparedStatement.close();
+                lastCodeValue.close();
+
+                return codeValue;
+            } else {
+                throw new SQLException("Query error, code not found.");
+            }
+
+        }
 
     public static Supermercado instantiateSupermarketFromDB(int supermarketCode) throws SQLException {
         Connection connection = Herramientas.getConexion();
@@ -269,124 +323,14 @@ public class Supermercado {
         }
 
     }
-
-    public static class addSupermarket {
-
-        private static JTextField NIFTextField;
-        private static JTextField CCAATextField;
-        private static JTextField localitatTextField;
-        private static JTextField zipCodeTextField;
-        private static JTextField addressTextField;
-        private static JTextField phoneNumberTextField;
-        private static JTextField emailTextField;
-
-        private static JTextField areaTextField;
-
-        private JButton addSupermarketButton;
-
-
-        public static JTextField getNIFTextField() {
-            return NIFTextField;
-        }
-
-        public static JTextField getCCAATextField() {
-            return CCAATextField;
-        }
-
-        public static JTextField getLocalitatTextField() {
-            return localitatTextField;
-        }
-
-        public static JTextField getZipCodeTextField() {
-            return zipCodeTextField;
-        }
-
-        public static JTextField getAddressTextField() {
-            return addressTextField;
-        }
-
-        public static JTextField getPhoneNumberTextField() {
-            return phoneNumberTextField;
-        }
-
-        public static JTextField getEmailTextField() {
-            return emailTextField;
-        }
-
-        public static JTextField getAreaTextField() {
-            return areaTextField;
-        }
-
-        public addSupermarket() {
-            addSupermarketButton.addActionListener(e -> {
-                try {
-                    insertSupermarketIntoDB();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            });
-        }
-
-        private static void insertSupermarketIntoDB() throws SQLException {
-            Supermercado supermercado = Builder.newInstance()
-                    .code(getLastCode() + 1)
-                    .NIF(getNIFTextField().getText())
-                    .CCAA(getCCAATextField().getText())
-                    .localitat(getLocalitatTextField().getText())
-                    .zipCode(getZipCodeTextField().getText())
-                    .address(getAddressTextField().getText())
-                    .phoneNumber(getPhoneNumberTextField().getText())
-                    .email(getEmailTextField().getText())
-                    .area(Integer.parseInt(getAreaTextField().getText()))
-                    .build();
-
-            Connection connection = Herramientas.getConexion();
-            PreparedStatement insertSupermarketPreparedStatement = connection.prepareStatement("INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?, ?, ?. ?)");
-
-            insertSupermarketPreparedStatement.setInt(1, supermercado.code);
-            insertSupermarketPreparedStatement.setString(2, supermercado.NIF);
-            insertSupermarketPreparedStatement.setString(3, supermercado.CCAA);
-            insertSupermarketPreparedStatement.setString(4, supermercado.localitat);
-            insertSupermarketPreparedStatement.setString(5, supermercado.zipCode);
-            insertSupermarketPreparedStatement.setString(6, supermercado.address);
-            insertSupermarketPreparedStatement.setString(7, supermercado.phoneNumber);
-            insertSupermarketPreparedStatement.setString(8, supermercado.email);
-            insertSupermarketPreparedStatement.setInt(9, supermercado.area);
-
-
-            insertSupermarketPreparedStatement.executeUpdate();
-            insertSupermarketPreparedStatement.close();
-
-        }
-
-        private static int getLastCode() throws SQLException {
-            Connection connection = Herramientas.getConexion();
-
-            PreparedStatement getCodePreparedStatement = connection.prepareStatement("SELECT MAX(Codigo_supermercado) FROM SUPERMERCADO");
-            ResultSet lastCodeValue = getCodePreparedStatement.executeQuery();
-
-            if (lastCodeValue.next()) {
-                int codeValue = lastCodeValue.getInt(1);
-                getCodePreparedStatement.close();
-                lastCodeValue.close();
-
-                return codeValue;
-            } else {
-                throw new SQLException("Query error, code not found.");
-            }
-
-        }
-
-    }
-
-    public static class removeSupermarket {
-
-        public static void removeSupermarketFromDB(int supermarketCode) {
+    
+    public static void removeSupermarketFromDB(int supermarketCode) {
             Connection connection = Herramientas.getConexion();
             Boolean autoCommitValue = null;
             Savepoint savepoint = null;
 
-            try (PreparedStatement removeSupermarketPreparedStatement = connection.prepareStatement("DELETE FROM SUPERMERCADO WHERE Codigo_supermercado = ?"); PreparedStatement getEmployeesList = connection.prepareStatement("SELECT  ID_EMPLEADO FROM EMPLEADO WHERE Codigo_supermercado = ?")) {
+            try (PreparedStatement removeSupermarketPreparedStatement = connection.prepareStatement("DELETE FROM SUPERMERCADO WHERE Codigo_supermercado = ?"); 
+                PreparedStatement getEmployeesList = connection.prepareStatement("SELECT  ID_EMPLEADO FROM EMPLEADO WHERE Codigo_supermercado = ?")) {
                 autoCommitValue = connection.getAutoCommit();
                 connection.setAutoCommit(false);
                 savepoint = connection.setSavepoint("Start Removing");
@@ -432,5 +376,30 @@ public class Supermercado {
 
             }
         }
+
+    
+       public static ArrayList getSupermarketsFromDatabase() {
+        ArrayList<String> supermarketInfo = new ArrayList();
+        
+        try (PreparedStatement getSupermarketsPs = Herramientas.getConexion().prepareStatement("SELECT Codigo_supermercado, localidad FROM SUPERMERCADO")) {
+                
+                ResultSet getSupermarketsResultSet = getSupermarketsPs.executeQuery();
+
+                
+                while(getSupermarketsResultSet.next()) {
+                    String value = String.valueOf(getSupermarketsResultSet.getInt(1)) + "- " + getSupermarketsResultSet.getString(2);
+                    supermarketInfo.add(value);
+                    
+                }
+                
+            } catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+            
+            }
+
+        return supermarketInfo;
+
     }
+    
+    
 }

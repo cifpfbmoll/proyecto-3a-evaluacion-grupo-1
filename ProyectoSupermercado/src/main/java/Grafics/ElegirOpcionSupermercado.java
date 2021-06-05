@@ -100,12 +100,12 @@ public class ElegirOpcionSupermercado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void añadirSupermercadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirSupermercadoActionPerformed
-        // añadir supermercado
+        CreateSupermarket frame = new CreateSupermarket();
         this.dispose();
     }//GEN-LAST:event_añadirSupermercadoActionPerformed
 
     private void eliminarSupermercadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarSupermercadoActionPerformed
-        // eliminar supermercado
+        DeleteSupermarket frame = new DeleteSupermarket();
         this.dispose();
     }//GEN-LAST:event_eliminarSupermercadoActionPerformed
 
