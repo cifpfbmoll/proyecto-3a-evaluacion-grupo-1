@@ -210,7 +210,7 @@ public class Supermercado {
                     .build();
 
             Connection connection = Herramientas.getConexion();
-            PreparedStatement insertSupermarketPreparedStatement = connection.prepareStatement("INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?, ?, ?. ?)");
+            PreparedStatement insertSupermarketPreparedStatement = connection.prepareStatement("INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             insertSupermarketPreparedStatement.setInt(1, supermercado.code);
             insertSupermarketPreparedStatement.setString(2, supermercado.NIF);
