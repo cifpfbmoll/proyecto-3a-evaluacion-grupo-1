@@ -8,14 +8,23 @@ package Grafics;
 import Main.Classes.Excepciones;
 import Main.Classes.Herramientas;
 import Main.Classes.Main;
+import Main.Classes.Producto;
+import Main.Classes.ProductoAlimento;
+import Main.Classes.ProductoBebida;
+import Main.Classes.ProductoHigiene;
+import Main.Classes.ProductoLimpieza;
 import Main.Classes.Tarjeta;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.RoundRectangle2D;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -26,26 +35,69 @@ public class EliminarProducto extends javax.swing.JFrame {
     /**
      * Creates new form EliminarTarjeta
      */
-    ArrayList <Tarjeta> listaTarjetas;
-    
+    ArrayList <Producto> listaProductos;
+        
     public EliminarProducto() {
         initComponents();
-        añadirTarjetas();
+        añadirProductos();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
-    public ArrayList<Tarjeta> getListaTarjetas() {
-        return listaTarjetas;
+    public ArrayList<Producto> getListaProductos() {
+        return listaProductos;
     }
 
-    public void setListaTarjetas(ArrayList<Tarjeta> listaTarjeta) {
-        this.listaTarjetas = listaTarjeta;
+    public void setListaProductos(ArrayList<Producto> listaProductos) {
+        this.listaProductos = listaProductos;
     }
     
     public Image getIconImage(){
         Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/logo1.png"));
         return miIcono;
+    }
+    
+    public void borrarSeleccion() throws SQLException{
+        Connection conexion = Herramientas.getConexion();
+        try{
+            String texto = String.valueOf(this.ProductoComboBox.getSelectedItem()).split(" ")[0];
+            int codigo = Integer.parseInt(texto);
+            PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto WHERE Codigo_producto = ?");
+            query.setInt(1, codigo);
+            ResultSet resultado = query.executeQuery();
+            resultado.next();
+            String tipoProducto = resultado.getString(5);
+            switch(tipoProducto){
+                case "Alimento":
+                    ProductoAlimento.eliminarAlimento(codigo);
+                    this.dispose();
+                    Herramientas.aviso("Producto borrado de la base datos");
+                    break;
+                case "Bebida":
+                    ProductoBebida.eliminarBebida(codigo);
+                    this.dispose();
+                    Herramientas.aviso("Producto borrado de la base datos");
+                    break;
+                case "Higiene":
+                    ProductoHigiene.eliminarHigiene(codigo);
+                    this.dispose();
+                    Herramientas.aviso("Producto borrado de la base datos");
+                    break;
+                case "Limpieza":
+                    ProductoLimpieza.eliminarLimpieza(codigo);
+                    this.dispose();
+                    Herramientas.aviso("Producto borrado de la base datos");
+                    break;
+                default:
+                    System.out.println("No hemos podido encontrar el producto seleccionado");
+                    this.dispose();
+                    break;
+            }
+            query.close();
+        } catch (SQLException sqlException){
+            Herramientas.aviso("No se ha podido borrar el producto seleccionado");
+            Excepciones.pasarExcepcionLog("No se ha podido borrar el producto seleccionado", sqlException);
+        }
     }
     
     /**
@@ -57,7 +109,7 @@ public class EliminarProducto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        numeroTarjeta = new javax.swing.JComboBox<>();
+        ProductoComboBox = new javax.swing.JComboBox<>();
         botonCancelar = new javax.swing.JButton();
         botonConfirmar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -72,8 +124,8 @@ public class EliminarProducto extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        numeroTarjeta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
-        getContentPane().add(numeroTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 270, 40));
+        ProductoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        getContentPane().add(ProductoComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 270, 40));
 
         botonCancelar.setBackground(new java.awt.Color(102, 102, 102));
         botonCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -99,8 +151,8 @@ public class EliminarProducto extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ELIGE LA TARJETA A ELIMINAR");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        jLabel2.setText("ELIGE El PRODUCTO A ELIMINAR");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green-Wallpaper-5.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 220));
@@ -110,11 +162,9 @@ public class EliminarProducto extends javax.swing.JFrame {
 
     private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
         try {
-            Tarjeta.eliminarTarjeta(this.numeroTarjeta.getSelectedItem().toString());
-            Herramientas.aviso("Tarjeta borrada de la base datos");
+            borrarSeleccion();
         } catch (SQLException ex) {
-            Herramientas.aviso("Ha ocurrido un error al borrar su tarjeta");
-            Excepciones.pasarExcepcionLog("Ha ocurrido un error al borrar su tarjeta", ex);
+            Excepciones.pasarExcepcionLog("No se ha podido borrar el producto seleccionado", ex);
         }
         this.dispose();
     }//GEN-LAST:event_botonConfirmarActionPerformed
@@ -123,19 +173,13 @@ public class EliminarProducto extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
     
-    public void añadirTarjetas(){
-        try {
-            this.setListaTarjetas(Tarjeta.recogerTarjeta(Main.getClienteActivo().getNif()));
-            String[] listaNumerosTarjeta=new String[this.getListaTarjetas().size()];
-            for(int i=0;i<this.getListaTarjetas().size();i++){
-                listaNumerosTarjeta[i]=this.getListaTarjetas().get(i).getNumero();
-            }
-            numeroTarjeta.setModel(new javax.swing.DefaultComboBoxModel<>(listaNumerosTarjeta));
-        } catch (SQLException ex) {
-            Herramientas.aviso("Ha ocurrido un error al cargar su tarjetas");
-            Excepciones.pasarExcepcionLog("Ha ocurrido un error al cargar su tarjetas", ex);
-            this.dispose();
+    public void añadirProductos(){
+        this.setListaProductos(Producto.recogerProducto());
+        String[] listaProductos=new String[this.getListaProductos().size()];
+        for(int i=0;i<this.getListaProductos().size();i++){
+            listaProductos[i]=String.valueOf(this.getListaProductos().get(i).getCodigoProd()) + " " + this.getListaProductos().get(i).getNombreProd();
         }
+        ProductoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(listaProductos));
     }
     
     /**
@@ -175,10 +219,10 @@ public class EliminarProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ProductoComboBox;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonConfirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JComboBox<String> numeroTarjeta;
     // End of variables declaration//GEN-END:variables
 }

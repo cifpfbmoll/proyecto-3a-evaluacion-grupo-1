@@ -57,7 +57,7 @@ public final class ProductoAlimento extends Producto {
     }
     
     public static ProductoAlimento crearProductoAlimento(int caducidad, Categoria categoria, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
-        int ultimoCodigoProd = ProductoAlimento.UltimoNumero();
+        int ultimoCodigoProd = ProductoAlimento.ultimoNumero();
         ProductoAlimento pa1 = new ProductoAlimento(caducidad, categoria, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
         return pa1;
     }
@@ -113,7 +113,6 @@ public final class ProductoAlimento extends Producto {
             PreparedStatement query = conexion.prepareStatement("DELETE FROM producto_alimento WHERE Codigo_producto = ?");
             query.setInt(1, codigoProd);
             query.executeUpdate();
-            conexion.commit();
             query = conexion.prepareStatement("DELETE FROM producto WHERE Codigo_producto = ?");
             query.setInt(1, codigoProd);
             query.executeUpdate();
