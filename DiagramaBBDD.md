@@ -1,1 +1,1 @@
-![Diagrama Base de datos](Supermercados.png)
+![Diagrama Base de datos](Documentacion BBDD\Supermercados.png)
