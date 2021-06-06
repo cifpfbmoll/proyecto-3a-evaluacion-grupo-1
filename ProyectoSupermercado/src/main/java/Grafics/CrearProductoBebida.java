@@ -242,55 +242,18 @@ public class CrearProductoBebida extends javax.swing.JFrame {
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         boolean alcohol;
-        if (this.getAlcoholica().toString().equals("si")){
-            alcohol = true;
-        } else {
-            alcohol = false;
-        }
+        alcohol = this.getAlcoholica().getSelectedItem().toString().equals("si");
         try{
             ProductoBebida pb = ProductoBebida.crearProductoBebida(Integer.parseInt((this.getDiasProducto().getText())), alcohol, this.getNombreBebida().getText(), Double.parseDouble(this.getPrecioBebida().getText()), this.getDescripcionBebida().getText());
             ProductoBebida.añadirBebida(pb);
-            this.aviso("Se ha registrado correctamente");
+            Herramientas.aviso("Se ha registrado correctamente");
         } catch (Exception error) {
             Herramientas.aviso("Ha habido algun error, porfavor inserta los datos correctos");
             Excepciones.pasarExcepcionLog("Ha habido algun error, porfavor inserta los datos correctos", error);
         }
-        
-        try {
-            Herramientas.cerrarConexion();
-        } catch (SQLException ex) {
-            Logger.getLogger(CrearProductoBebida.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.dispose();
+       
     }//GEN-LAST:event_botonGuardarActionPerformed
-
-    public void aviso (String mensaje){
-        JOptionPane.showMessageDialog(null,mensaje); 
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Herramientas.crearConexion();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CrearProductoBebida.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                   new CrearProductoBebida();  
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox alcoholica;

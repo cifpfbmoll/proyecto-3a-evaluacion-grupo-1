@@ -175,7 +175,7 @@ public class CrearProductoLimpieza extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Tipo tarjeta");
+        jLabel4.setText("Tipo superficie");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
         tipoLimpieza.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "madera", "marmol", "cristal", "metal", "varios" }));
@@ -231,37 +231,13 @@ public class CrearProductoLimpieza extends javax.swing.JFrame {
             ProductoLimpieza.Superficie superficie = Superficie.valueOf(this.getTipoLimpieza().getSelectedItem().toString());
             ProductoLimpieza pl = ProductoLimpieza.crearProductoLimpieza(superficie, this.getNombreLimpieza().getText(), Double.parseDouble(this.getPrecioLimpieza().getText()), this.getDescripcionLimpieza().getText());
             ProductoLimpieza.añadirLimpieza(pl);
-            this.aviso("Se ha registrado correctamente");
+            Herramientas.aviso("Se ha registrado correctamente");
         } catch (Exception error) {
             Herramientas.aviso("Ha habido algun error, porfavor inserta los datos correctos");
             Excepciones.pasarExcepcionLog("Ha habido algun error, porfavor inserta los datos correctos", error);
         }
-        
+        this.dispose();
     }//GEN-LAST:event_botonGuardarActionPerformed
-
-    public void aviso (String mensaje){
-        JOptionPane.showMessageDialog(null,mensaje); 
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                   new CrearProductoLimpieza();         
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
