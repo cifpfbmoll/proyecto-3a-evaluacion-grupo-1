@@ -1681,3 +1681,574 @@ java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:10
 java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
 java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
 
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Before start of result set
+Fecha: 05/06/2021   Hora: 23:01
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.checkRowPos(ResultSetImpl.java:511)
+com.mysql.cj.jdbc.result.ResultSetImpl.getString(ResultSetImpl.java:864)
+Main.Classes.Producto.recogerProducto(Producto.java:89)
+Grafics.EliminarProducto.añadirProductos(EliminarProducto.java:129)
+Grafics.EliminarProducto.<init>(EliminarProducto.java:35)
+Grafics.EliminarProducto$3.run(EliminarProducto.java:173)
+java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:316)
+java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:740)
+java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Before start of result set
+Fecha: 05/06/2021   Hora: 23:02
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.checkRowPos(ResultSetImpl.java:511)
+com.mysql.cj.jdbc.result.ResultSetImpl.getString(ResultSetImpl.java:864)
+Main.Classes.Producto.recogerProducto(Producto.java:89)
+Grafics.EliminarProducto.añadirProductos(EliminarProducto.java:129)
+Grafics.EliminarProducto.<init>(EliminarProducto.java:35)
+Grafics.EliminarProducto$3.run(EliminarProducto.java:173)
+java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:316)
+java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:740)
+java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Before start of result set
+Fecha: 05/06/2021   Hora: 23:04
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.checkRowPos(ResultSetImpl.java:511)
+com.mysql.cj.jdbc.result.ResultSetImpl.getString(ResultSetImpl.java:864)
+Main.Classes.Producto.recogerProducto(Producto.java:89)
+Main.Classes.Producto.main(Producto.java:103)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Before start of result set
+Fecha: 05/06/2021   Hora: 23:08
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.checkRowPos(ResultSetImpl.java:511)
+com.mysql.cj.jdbc.result.ResultSetImpl.getString(ResultSetImpl.java:864)
+Main.Classes.Producto.recogerProducto(Producto.java:89)
+Main.Classes.Producto.main(Producto.java:107)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Before start of result set
+Fecha: 05/06/2021   Hora: 23:25
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.checkRowPos(ResultSetImpl.java:511)
+com.mysql.cj.jdbc.result.ResultSetImpl.getString(ResultSetImpl.java:864)
+Main.Classes.Producto.recogerProducto(Producto.java:90)
+Main.Classes.Producto.main(Producto.java:108)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Before start of result set
+Fecha: 05/06/2021   Hora: 23:30
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.checkRowPos(ResultSetImpl.java:511)
+com.mysql.cj.jdbc.result.ResultSetImpl.getObject(ResultSetImpl.java:1308)
+com.mysql.cj.jdbc.result.ResultSetImpl.getInt(ResultSetImpl.java:816)
+Main.Classes.Producto.recogerProducto(Producto.java:90)
+Main.Classes.Producto.main(Producto.java:108)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Before start of result set
+Fecha: 05/06/2021   Hora: 23:35
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.checkRowPos(ResultSetImpl.java:511)
+com.mysql.cj.jdbc.result.ResultSetImpl.getObject(ResultSetImpl.java:1308)
+com.mysql.cj.jdbc.result.ResultSetImpl.getInt(ResultSetImpl.java:816)
+com.mysql.cj.jdbc.result.ResultSetImpl.getInt(ResultSetImpl.java:837)
+Main.Classes.Producto.recogerProducto(Producto.java:89)
+Main.Classes.Producto.main(Producto.java:106)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Before start of result set
+Fecha: 05/06/2021   Hora: 23:39
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.checkRowPos(ResultSetImpl.java:511)
+com.mysql.cj.jdbc.result.ResultSetImpl.getObject(ResultSetImpl.java:1308)
+com.mysql.cj.jdbc.result.ResultSetImpl.getInt(ResultSetImpl.java:816)
+com.mysql.cj.jdbc.result.ResultSetImpl.getInt(ResultSetImpl.java:837)
+Main.Classes.Producto.recogerProducto(Producto.java:90)
+Main.Classes.Producto.main(Producto.java:110)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Before start of result set
+Fecha: 05/06/2021   Hora: 23:40
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.checkRowPos(ResultSetImpl.java:511)
+com.mysql.cj.jdbc.result.ResultSetImpl.getObject(ResultSetImpl.java:1308)
+com.mysql.cj.jdbc.result.ResultSetImpl.getInt(ResultSetImpl.java:816)
+com.mysql.cj.jdbc.result.ResultSetImpl.getInt(ResultSetImpl.java:837)
+Main.Classes.Producto.recogerProducto(Producto.java:91)
+Main.Classes.Producto.main(Producto.java:111)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Column 'descripcionProducto' not found.
+Fecha: 05/06/2021   Hora: 23:40
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.findColumn(ResultSetImpl.java:575)
+com.mysql.cj.jdbc.result.ResultSetImpl.getString(ResultSetImpl.java:882)
+Main.Classes.Producto.recogerProducto(Producto.java:94)
+Main.Classes.Producto.main(Producto.java:111)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Column 'descripcionProducto' not found.
+Fecha: 05/06/2021   Hora: 23:42
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.findColumn(ResultSetImpl.java:575)
+com.mysql.cj.jdbc.result.ResultSetImpl.getString(ResultSetImpl.java:882)
+Main.Classes.Producto.recogerProducto(Producto.java:94)
+Main.Classes.Producto.main(Producto.java:111)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Column 'descripcionProducto' not found.
+Fecha: 05/06/2021   Hora: 23:43
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.findColumn(ResultSetImpl.java:575)
+com.mysql.cj.jdbc.result.ResultSetImpl.getString(ResultSetImpl.java:882)
+Main.Classes.Producto.recogerProducto(Producto.java:94)
+Main.Classes.Producto.main(Producto.java:112)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Column 'descripcionProducto' not found.
+Fecha: 05/06/2021   Hora: 23:44
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.findColumn(ResultSetImpl.java:575)
+com.mysql.cj.jdbc.result.ResultSetImpl.getString(ResultSetImpl.java:882)
+Main.Classes.Producto.recogerProducto(Producto.java:94)
+Main.Classes.Producto.main(Producto.java:112)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Column 'descripcionProducto' not found.
+Fecha: 05/06/2021   Hora: 23:45
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.result.ResultSetImpl.findColumn(ResultSetImpl.java:575)
+com.mysql.cj.jdbc.result.ResultSetImpl.getString(ResultSetImpl.java:882)
+Main.Classes.Producto.recogerProducto(Producto.java:94)
+Main.Classes.Producto.main(Producto.java:112)
+
+------------------EXEPCION------------------
+
+Problema: Ha fallado al intentar recoger los productos de la bbdd
+Mensaje: Can't call commit when autocommit=true
+Fecha: 05/06/2021   Hora: 23:49
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:67)
+com.mysql.cj.jdbc.ConnectionImpl.commit(ConnectionImpl.java:791)
+Main.Classes.Producto.recogerProducto(Producto.java:97)
+Main.Classes.Producto.main(Producto.java:111)
+
+------------------EXEPCION------------------
+
+Problema: No se ha podido borrar el producto seleccionado
+Mensaje: No operations allowed after connection closed.
+Fecha: 06/06/2021   Hora: 11:25
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73)
+com.mysql.cj.jdbc.ConnectionImpl.setAutoCommit(ConnectionImpl.java:2061)
+Grafics.EliminarProducto.borrarSeleccion(EliminarProducto.java:63)
+Grafics.EliminarProducto.botonConfirmarActionPerformed(EliminarProducto.java:178)
+Grafics.EliminarProducto$2.actionPerformed(EliminarProducto.java:160)
+java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1967)
+java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2308)
+java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:405)
+java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+java.desktop/java.awt.Component.processMouseEvent(Component.java:6614)
+java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3342)
+java.desktop/java.awt.Component.processEvent(Component.java:6379)
+java.desktop/java.awt.Container.processEvent(Container.java:2263)
+java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4990)
+java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2321)
+java.desktop/java.awt.Component.dispatchEvent(Component.java:4822)
+java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4919)
+java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4548)
+java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4489)
+java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2307)
+java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2769)
+java.desktop/java.awt.Component.dispatchEvent(Component.java:4822)
+java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:772)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:95)
+java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+java.desktop/java.awt.EventQueue$5.run(EventQueue.java:743)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+------------------EXEPCION------------------
+
+Problema: No se ha podido borrar el producto seleccionado
+Mensaje: No operations allowed after connection closed.
+Fecha: 06/06/2021   Hora: 11:25
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73)
+com.mysql.cj.jdbc.ConnectionImpl.rollback(ConnectionImpl.java:1862)
+Grafics.EliminarProducto.borrarSeleccion(EliminarProducto.java:98)
+Grafics.EliminarProducto.botonConfirmarActionPerformed(EliminarProducto.java:178)
+Grafics.EliminarProducto$2.actionPerformed(EliminarProducto.java:160)
+java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1967)
+java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2308)
+java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:405)
+java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+java.desktop/java.awt.Component.processMouseEvent(Component.java:6614)
+java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3342)
+java.desktop/java.awt.Component.processEvent(Component.java:6379)
+java.desktop/java.awt.Container.processEvent(Container.java:2263)
+java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4990)
+java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2321)
+java.desktop/java.awt.Component.dispatchEvent(Component.java:4822)
+java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4919)
+java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4548)
+java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4489)
+java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2307)
+java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2769)
+java.desktop/java.awt.Component.dispatchEvent(Component.java:4822)
+java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:772)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:95)
+java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+java.desktop/java.awt.EventQueue$5.run(EventQueue.java:743)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+------------------EXEPCION------------------
+
+Problema: No se ha podido borrar el producto seleccionado
+Mensaje: No operations allowed after connection closed.
+Fecha: 06/06/2021   Hora: 11:27
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73)
+com.mysql.cj.jdbc.ConnectionImpl.setAutoCommit(ConnectionImpl.java:2061)
+Grafics.EliminarProducto.borrarSeleccion(EliminarProducto.java:63)
+Grafics.EliminarProducto.botonConfirmarActionPerformed(EliminarProducto.java:179)
+Grafics.EliminarProducto$2.actionPerformed(EliminarProducto.java:161)
+java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1967)
+java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2308)
+java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:405)
+java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+java.desktop/java.awt.Component.processMouseEvent(Component.java:6614)
+java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3342)
+java.desktop/java.awt.Component.processEvent(Component.java:6379)
+java.desktop/java.awt.Container.processEvent(Container.java:2263)
+java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4990)
+java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2321)
+java.desktop/java.awt.Component.dispatchEvent(Component.java:4822)
+java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4919)
+java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4548)
+java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4489)
+java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2307)
+java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2769)
+java.desktop/java.awt.Component.dispatchEvent(Component.java:4822)
+java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:772)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:95)
+java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+java.desktop/java.awt.EventQueue$5.run(EventQueue.java:743)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+------------------EXEPCION------------------
+
+Problema: No se ha podido borrar el producto seleccionado
+Mensaje: No operations allowed after connection closed.
+Fecha: 06/06/2021   Hora: 11:27
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73)
+com.mysql.cj.jdbc.ConnectionImpl.rollback(ConnectionImpl.java:1862)
+Grafics.EliminarProducto.borrarSeleccion(EliminarProducto.java:99)
+Grafics.EliminarProducto.botonConfirmarActionPerformed(EliminarProducto.java:179)
+Grafics.EliminarProducto$2.actionPerformed(EliminarProducto.java:161)
+java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1967)
+java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2308)
+java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:405)
+java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+java.desktop/java.awt.Component.processMouseEvent(Component.java:6614)
+java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3342)
+java.desktop/java.awt.Component.processEvent(Component.java:6379)
+java.desktop/java.awt.Container.processEvent(Container.java:2263)
+java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4990)
+java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2321)
+java.desktop/java.awt.Component.dispatchEvent(Component.java:4822)
+java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4919)
+java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4548)
+java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4489)
+java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2307)
+java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2769)
+java.desktop/java.awt.Component.dispatchEvent(Component.java:4822)
+java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:772)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:95)
+java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+java.desktop/java.awt.EventQueue$5.run(EventQueue.java:743)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+------------------EXEPCION------------------
+
+Problema: No se ha podido borrar el producto seleccionado
+Mensaje: No operations allowed after connection closed.
+Fecha: 06/06/2021   Hora: 11:28
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73)
+com.mysql.cj.jdbc.ConnectionImpl.setAutoCommit(ConnectionImpl.java:2061)
+Grafics.EliminarProducto.borrarSeleccion(EliminarProducto.java:63)
+Grafics.EliminarProducto.botonConfirmarActionPerformed(EliminarProducto.java:179)
+Grafics.EliminarProducto$2.actionPerformed(EliminarProducto.java:161)
+java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1967)
+java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2308)
+java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:405)
+java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+java.desktop/java.awt.Component.processMouseEvent(Component.java:6614)
+java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3342)
+java.desktop/java.awt.Component.processEvent(Component.java:6379)
+java.desktop/java.awt.Container.processEvent(Container.java:2263)
+java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4990)
+java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2321)
+java.desktop/java.awt.Component.dispatchEvent(Component.java:4822)
+java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4919)
+java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4548)
+java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4489)
+java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2307)
+java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2769)
+java.desktop/java.awt.Component.dispatchEvent(Component.java:4822)
+java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:772)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:95)
+java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+java.desktop/java.awt.EventQueue$5.run(EventQueue.java:743)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+------------------EXEPCION------------------
+
+Problema: No se ha podido borrar el producto seleccionado
+Mensaje: No operations allowed after connection closed.
+Fecha: 06/06/2021   Hora: 11:31
+STACKTRACE:
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73)
+com.mysql.cj.jdbc.ConnectionImpl.prepareStatement(ConnectionImpl.java:1664)
+com.mysql.cj.jdbc.ConnectionImpl.prepareStatement(ConnectionImpl.java:1580)
+Grafics.EliminarProducto.borrarSeleccion(EliminarProducto.java:65)
+Grafics.EliminarProducto.botonConfirmarActionPerformed(EliminarProducto.java:175)
+Grafics.EliminarProducto$2.actionPerformed(EliminarProducto.java:157)
+java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1967)
+java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2308)
+java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:405)
+java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+java.desktop/java.awt.Component.processMouseEvent(Component.java:6614)
+java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3342)
+java.desktop/java.awt.Component.processEvent(Component.java:6379)
+java.desktop/java.awt.Container.processEvent(Container.java:2263)
+java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4990)
+java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2321)
+java.desktop/java.awt.Component.dispatchEvent(Component.java:4822)
+java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4919)
+java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4548)
+java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4489)
+java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2307)
+java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2769)
+java.desktop/java.awt.Component.dispatchEvent(Component.java:4822)
+java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:772)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:95)
+java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+java.desktop/java.awt.EventQueue$5.run(EventQueue.java:743)
+java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+

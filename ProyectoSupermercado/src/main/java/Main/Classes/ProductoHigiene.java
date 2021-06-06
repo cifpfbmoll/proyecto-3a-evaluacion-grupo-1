@@ -57,7 +57,7 @@ public class ProductoHigiene extends Producto {
     }
     
     public static ProductoHigiene crearProductoHigiene(TipoHigiene tipoHigiene, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
-        int ultimoCodigoProd = ProductoHigiene.UltimoNumero();
+        int ultimoCodigoProd = ProductoHigiene.ultimoNumero();
         ProductoHigiene ph1 = new ProductoHigiene(tipoHigiene, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
         return ph1;
     }

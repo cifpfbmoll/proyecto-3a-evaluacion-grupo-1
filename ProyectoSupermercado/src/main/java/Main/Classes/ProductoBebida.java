@@ -42,7 +42,7 @@ public final class ProductoBebida extends Producto {
     } 
     
     public static ProductoBebida crearProductoBebida(int caducidad, Boolean alcoholica, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
-        int ultimoCodigoProd = ProductoBebida.UltimoNumero();
+        int ultimoCodigoProd = ProductoBebida.ultimoNumero();
         ProductoBebida pb1 = new ProductoBebida(caducidad, alcoholica, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
         return pb1;
     }
