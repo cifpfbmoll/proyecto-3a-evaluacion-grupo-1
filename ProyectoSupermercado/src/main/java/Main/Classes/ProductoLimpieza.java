@@ -61,7 +61,6 @@ public class ProductoLimpieza extends Producto {
             query.setString(4, pl1.getDescripcionProd());
             query.setString(5, "Limpieza");
             query.executeUpdate();
-            conexion.commit();
             query = conexion.prepareStatement("INSERT INTO producto_limpieza VALUES(?,?)");
             query.setInt(1, pl1.getCodigoProd());
             query.setString(2, String.valueOf(pl1.getSuperficie()));
@@ -97,8 +96,10 @@ public class ProductoLimpieza extends Producto {
             PreparedStatement query = conexion.prepareStatement("DELETE FROM producto_limpieza WHERE Codigo_producto = ?");
             query.setInt(1, codigoProd);
             query.executeUpdate();
-            conexion.commit();
             query = conexion.prepareStatement("DELETE FROM producto WHERE Codigo_producto = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            query= conexion.prepareStatement("DELETE FROM stock_supermercado WHERE Codigo_producto = ?");
             query.setInt(1, codigoProd);
             query.executeUpdate();
             conexion.commit();

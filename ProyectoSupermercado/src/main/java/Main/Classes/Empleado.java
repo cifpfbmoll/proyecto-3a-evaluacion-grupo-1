@@ -85,7 +85,7 @@ public class Empleado extends Persona {
                 privilegios=2;
                 break;
 
-            case "RRHH":
+            case "Recursos Humanos":
                 privilegios=3;
                 break;
 

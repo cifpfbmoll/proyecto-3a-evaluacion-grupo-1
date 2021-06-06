@@ -73,7 +73,6 @@ public class ProductoHigiene extends Producto {
             query.setString(4, ph1.getDescripcionProd());
             query.setString(5, "Higiene");
             query.executeUpdate();
-            conexion.commit();
             query = conexion.prepareStatement("INSERT INTO producto_higiene VALUES(?,?)");
             query.setInt(1, ph1.getCodigoProd());
             query.setString(2, String.valueOf(ph1.getTipoHigiene()));
@@ -110,8 +109,10 @@ public class ProductoHigiene extends Producto {
             PreparedStatement query = conexion.prepareStatement("DELETE FROM producto_higiene WHERE Codigo_producto = ?");
             query.setInt(1, codigoProd);
             query.executeUpdate();
-            conexion.commit();
-            query = conexion.prepareStatement("DELETE FROM producto WHERE Codigo_higiene = ?");
+            query = conexion.prepareStatement("DELETE FROM producto WHERE Codigo_producto = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            query= conexion.prepareStatement("DELETE FROM stock_supermercado WHERE Codigo_producto = ?");
             query.setInt(1, codigoProd);
             query.executeUpdate();
             conexion.commit();

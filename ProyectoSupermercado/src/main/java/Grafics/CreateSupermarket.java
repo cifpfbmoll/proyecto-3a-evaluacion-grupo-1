@@ -241,8 +241,10 @@ public class CreateSupermarket extends javax.swing.JFrame {
     private void botonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAñadirActionPerformed
         try {
             Supermercado.insertSupermarketIntoDB(getNifTextField(), getCcaaTextField(), getLocalidadTextField(), getZipCodeTextField(), getAddressTextField(), getPhoneNumTextField(), getEmailTextField(), getAreaTextField());
+            Herramientas.aviso("El supermercado ha sido creado con exito");
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            Herramientas.aviso("Ha ocurrido un problema al insertar el supermercado");
+            Excepciones.pasarExcepcionLog("Ha ocurrido un problema al insertar el supermercado", throwables);
         }
         this.dispose();
     }//GEN-LAST:event_botonAñadirActionPerformed
@@ -251,19 +253,6 @@ public class CreateSupermarket extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
-    public void aviso (String mensaje){
-        JOptionPane.showMessageDialog(null,mensaje); 
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                   new CreateSupermarket();         
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressTextField;

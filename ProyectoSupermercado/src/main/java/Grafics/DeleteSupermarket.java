@@ -5,6 +5,7 @@
  */
 package Grafics;
 
+import Main.Classes.Herramientas;
 import Main.Classes.Supermercado;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -108,6 +109,7 @@ public class DeleteSupermarket extends javax.swing.JFrame {
     private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
         int superId = Integer.parseInt((supermarketComboBox.getSelectedItem()).toString().split("-")[0]);
         Supermercado.removeSupermarketFromDB(superId);
+        Herramientas.aviso("El supermercado a sido eliminado con exito");
         this.dispose();
     }//GEN-LAST:event_botonConfirmarActionPerformed
 

@@ -17,3 +17,11 @@ Producto:  Cristasol cristalino  cantidad: 3
 Fecha: Fri Jun 04 23:34:22 CEST 2021
 
 Producto:  Pizza jamon york  cantidad: 3
+
+
+
+-------------------------ACTUALIZACION-----------------------
+Fecha: Sat Jun 05 23:25:19 CEST 2021
+
+Producto:  Barra pan  cantidad: 2
+Producto:  Ensalada  cantidad: 3

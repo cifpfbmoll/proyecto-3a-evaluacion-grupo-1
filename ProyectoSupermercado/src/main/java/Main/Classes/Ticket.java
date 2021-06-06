@@ -226,8 +226,8 @@ public class Ticket {
                 listaTickets.add(t1);
             }
         } catch(SQLException ex){
-            Herramientas.aviso("Ha habido un error con al recuperar sus tickets");
-            Excepciones.pasarExcepcionLog("Ha habido un error con al recuperar sus tickets", ex);
+            Herramientas.aviso("Ha habido un error al recuperar sus tickets");
+            Excepciones.pasarExcepcionLog("Ha habido un error al recuperar sus tickets", ex);
         } finally{
             resultado.close();
             query.close();

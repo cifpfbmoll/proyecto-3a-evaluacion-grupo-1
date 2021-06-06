@@ -73,7 +73,6 @@ public final class ProductoAlimento extends Producto {
             query.setString(4, pa1.getDescripcionProd());
             query.setString(5, "Alimento");
             query.executeUpdate();
-            conexion.commit();
             query = conexion.prepareStatement("INSERT INTO producto_alimento VALUES(?,?,?)");
             query.setInt(1, pa1.getCodigoProd());
             query.setInt(2, pa1.getCaducidad());
@@ -114,6 +113,9 @@ public final class ProductoAlimento extends Producto {
             query.setInt(1, codigoProd);
             query.executeUpdate();
             query = conexion.prepareStatement("DELETE FROM producto WHERE Codigo_producto = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            query= conexion.prepareStatement("DELETE FROM stock_supermercado WHERE Codigo_producto = ?");
             query.setInt(1, codigoProd);
             query.executeUpdate();
             conexion.commit();

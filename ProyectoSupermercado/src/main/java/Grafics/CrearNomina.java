@@ -28,56 +28,40 @@ public class CrearNomina extends javax.swing.JFrame {
      * Creates new form CrearTarjeta
      */
     
-    public InterfazUsuario3 frameLlamando2;
-    
     public CrearNomina() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-    
-    public CrearNomina(InterfazUsuario3 frame) {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-        this.setFrameLlamando2(frame);
-    }
 
-    public InterfazUsuario3 getFrameLlamando2() {
-        return frameLlamando2;
-    }
-
-    public void setFrameLlamando2(InterfazUsuario3 frameLlamando2) {
-        this.frameLlamando2 = frameLlamando2;
-    }
-    
-    
-    
-    public JTextField getFechaCaducidad() {
+    public JTextField getfFinal() {
         return fFinal;
     }
 
-    public void setFechaCaducidad(JTextField fechaCaducidad) {
-        this.fFinal = fechaCaducidad;
+    public JTextField getfInicio() {
+        return fInicio;
     }
 
-    public JTextField getNumeroTarjeta() {
-        return idEmpleado;
+    public JTextField gethExtras() {
+        return hExtras;
     }
 
-    public void setNumeroTarjeta(JTextField numeroTarjeta) {
-        this.idEmpleado = numeroTarjeta;
-    }
-
-
-    public JTextField getTitularTarjeta() {
+    public JTextField gethNocturnas() {
         return hNocturnas;
     }
 
-    public void setTitularTarjeta(JTextField titularTarjeta) {
-        this.hNocturnas = titularTarjeta;
+    public JTextField getIdEmpleado() {
+        return idEmpleado;
     }
-    
+
+    public JTextField getIrpf() {
+        return irpf;
+    }
+
+    public JComboBox<String> getPuestoTrabajo() {
+        return puestoTrabajo;
+    }
+
     public Image getIconImage(){
         Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/logo1.png"));
         return miIcono;
@@ -98,6 +82,7 @@ public class CrearNomina extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         botonCancelar = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         idEmpleado = new javax.swing.JTextField();
         fFinal = new javax.swing.JTextField();
         hNocturnas = new javax.swing.JTextField();
@@ -112,6 +97,7 @@ public class CrearNomina extends javax.swing.JFrame {
         hExtras = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        puestoTrabajo = new javax.swing.JComboBox<>();
         fondo1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -159,33 +145,27 @@ public class CrearNomina extends javax.swing.JFrame {
                 botonCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 110, 40));
+        getContentPane().add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, 110, 40));
 
-        idEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idEmpleadoActionPerformed(evt);
-            }
-        });
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Puesto de trabajo");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
         getContentPane().add(idEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 120, -1));
 
-        fFinal.setText("MM/YY");
-        fFinal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fFinalActionPerformed(evt);
-            }
-        });
-        getContentPane().add(fFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 70, -1));
-        getContentPane().add(hNocturnas, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 120, -1));
+        fFinal.setText("DD/MM/YYYY");
+        getContentPane().add(fFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 90, -1));
+        getContentPane().add(hNocturnas, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 120, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("ID Empleado");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Horas extras");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -194,7 +174,7 @@ public class CrearNomina extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Crear nomina");
+        jLabel6.setText("CREAR NOMINA");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 300, 40));
 
         botonGuardar.setBackground(new java.awt.Color(102, 102, 102));
@@ -209,22 +189,17 @@ public class CrearNomina extends javax.swing.JFrame {
                 botonGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 110, 40));
+        getContentPane().add(botonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 110, 40));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Fecha inicio");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
-        fInicio.setText("MM/YY");
-        fInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fInicioActionPerformed(evt);
-            }
-        });
-        getContentPane().add(fInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 70, -1));
-        getContentPane().add(irpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 120, -1));
-        getContentPane().add(hExtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 120, -1));
+        fInicio.setText("DD/MM/YYYY");
+        getContentPane().add(fInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 90, -1));
+        getContentPane().add(irpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 120, -1));
+        getContentPane().add(hExtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 120, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -234,10 +209,13 @@ public class CrearNomina extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("IRPF");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+
+        puestoTrabajo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dependiente", "Supervisor", "Recursos Humanos", "Director" }));
+        getContentPane().add(puestoTrabajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 120, -1));
 
         fondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green-Wallpaper-5.jpg"))); // NOI18N
-        getContentPane().add(fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 330));
+        getContentPane().add(fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 340));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -247,21 +225,25 @@ public class CrearNomina extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-        System.out.println(idEmpleado.getText() + irpf.getText() + hExtras.getText() + hNocturnas.getText() + fInicio.getText() + fFinal.getText());
+        try {
+            Nomina n1=new Nomina(Integer.parseInt(this.getIdEmpleado().getText()),
+            this.getPuestoTrabajo().getSelectedItem().toString(),
+            Double.parseDouble(this.getIrpf().getText()),this.getfInicio().getText(),
+            this.getfFinal().getText(),Integer.parseInt(this.gethExtras().getText()),
+            Integer.parseInt(this.gethNocturnas().getText()));
+            n1.añadirNominaBBDD(Herramientas.getConexion());
+            Herramientas.aviso("La nomina ha sido insertada."
+            + "\nSalario Base:"+n1.getSalario_base()+
+            "\nSalario total:"+n1.getSalario_total());
+        } catch (SQLException ex) {
+            Herramientas.aviso("Algo ha fallado al insertar la nominaven la base de datos");
+            Excepciones.pasarExcepcionLog("Algo ha fallado al insertar la nominaven la base de datos", ex);
+        } catch(Exception ex){
+            Herramientas.aviso("Algo ha fallado al añadir la nomina");
+            Excepciones.pasarExcepcionLog("Algo ha fallado al añadir la nomina", ex);
+        }
         this.dispose();
     }//GEN-LAST:event_botonGuardarActionPerformed
-
-    private void fFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fFinalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fFinalActionPerformed
-
-    private void fInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fInicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fInicioActionPerformed
-
-    private void idEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idEmpleadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idEmpleadoActionPerformed
     
     /**
      * @param args the command line arguments
@@ -316,6 +298,7 @@ public class CrearNomina extends javax.swing.JFrame {
     private javax.swing.JTextField idEmpleado;
     private javax.swing.JTextField irpf;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -327,6 +310,7 @@ public class CrearNomina extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JComboBox<String> puestoTrabajo;
     // End of variables declaration//GEN-END:variables
 
 

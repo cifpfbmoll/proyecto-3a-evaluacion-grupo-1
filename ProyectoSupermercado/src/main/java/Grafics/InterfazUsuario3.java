@@ -1174,7 +1174,6 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
                 );
                 this.getCestaCompra().add(lineaCesta);
             }
-            Herramientas.cerrarStatementResult();
         }
         if (!vacia){
             javax.swing.JButton botonComprar=new javax.swing.JButton();

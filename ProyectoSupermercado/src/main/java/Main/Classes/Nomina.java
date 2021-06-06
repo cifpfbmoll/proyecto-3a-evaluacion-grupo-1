@@ -22,7 +22,46 @@ public class Nomina {
 
     public Nomina() {
     }
-
+    
+    /**
+     * Constructor para crear una nomina desde 0. Las peculiaridades de este constructor
+     * son que asigna el codigo_nomina (seleccionanado de la BBDD la nomina con la id mas alta
+     * y sumandole uno), el salario_total y el salario_base(calculandolo a traves de los datos ya asignados
+     * y de una tabla en la BBDD que contiene infromacion sobre a cuanto se pagan las
+     * horas de cierto puesto de trabajo) de forma automatica.
+     * @param Id_empleado int
+     * @param Puesto_de_trabajo String
+     * @param IRPF double
+     * @param Fecha_inicio String
+     * @param Fecha_fin String
+     * @param Horas_extras int
+     * @param Horas_noct int
+     * @throws SQLException Puede genrar una excepcion ya que se comunica con las BBDD.
+     */
+    public Nomina(int Id_empleado, String Puesto_de_trabajo, double IRPF, String Fecha_inicio, String Fecha_fin, int Horas_extras, int Horas_noct) throws SQLException {
+        this.setCodigo_nomina();
+        this.setId_empleado(Id_empleado);
+        this.setPuesto_de_trabajo(Puesto_de_trabajo);
+        this.setIRPF(IRPF);
+        this.setFecha_inicio(Fecha_inicio);
+        this.setFecha_fin(Fecha_fin);
+        this.setHoras_extras(Horas_extras);
+        this.setHoras_noct(Horas_noct);
+        this.setSalarios();    
+    }
+    /**
+     * Constructor para coger una nomina de la BBDD y copiarla en el programa.
+     * @param codigo_nomina
+     * @param Id_empleado int
+     * @param Puesto_de_trabajo String
+     * @param Salario_base double
+     * @param IRPF double
+     * @param Fecha_inicio String
+     * @param Fecha_fin String
+     * @param Horas_extras int
+     * @param Horas_noct int
+     * @param Salario_total double
+     */
     public Nomina(int codigo_nomina,int Id_empleado, String Puesto_de_trabajo, double Salario_base, double IRPF, String Fecha_inicio, String Fecha_fin, int Horas_extras, int Horas_noct, double Salario_total) {
         this.setCodigo_nomina(codigo_nomina);
         this.setId_empleado(Id_empleado);
@@ -42,6 +81,17 @@ public class Nomina {
 
     public void setCodigo_nomina(int codigo_nomina) {
         this.codigo_nomina = codigo_nomina;
+    }
+    /**
+     * Selecc
+     * @throws SQLException Puede tirar excepcion ya que se comunica con la base de datos
+     */
+    public void setCodigo_nomina() throws SQLException {
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT MAX(codigo_nomina) FROM nomina"); 
+        ResultSet resultado = query.executeQuery()) {
+            resultado.next();
+            this.codigo_nomina=(resultado.getInt(1))+1;
+        }
     }
     
     public int getId_empleado() {
@@ -115,33 +165,44 @@ public class Nomina {
     public void setSalario_total(double Salario_total) {
         this.Salario_total = Salario_total;
     }
+    
+    public void setSalarios() throws SQLException {
+        this.calcularSalarios();
+    }
 
     public static void certificadoIRPFanual() {
         
     }
-
-    public static void consultarNomina() {}
-  
-    public static Nomina consultarNomina(int id, Connection conexion) throws SQLException{
-         
-        PreparedStatement sentencia = conexion.prepareStatement("SELECT * FROM nomina WHERE ID_empleado = ?");
-        sentencia.setInt(1, id);
-        ResultSet resultado = sentencia.executeQuery();
-        resultado.next();
-        int codigo_nomina = resultado.getInt("Codigo_nomina");
-        int Id_empleado = resultado.getInt("Id_empleado");
-        String Puesto_trabajo = resultado.getString("Puesto_trabajo");
-        double Salario_base = resultado.getDouble("Salario_base");
-        double IRPF = resultado.getDouble("IRPF");
-        String Fecha_inicio = resultado.getString("Fecha_inicio");
-        String Fecha_fin = resultado.getString("Fecha_fin");
-        int Horas_extras = resultado.getInt("Horas_extras");
-        int Horas_nocturnas = resultado.getInt("Horas_nocturnas");
-        double Salario_total = resultado.getDouble("Salario_total");
-        Nomina Nom = new Nomina(codigo_nomina,Id_empleado,Puesto_trabajo,Salario_base,IRPF,Fecha_inicio,Fecha_fin,Horas_extras,Horas_nocturnas,Salario_total);
-        resultado.close();
-        sentencia.close();
-        return Nom;
+    
+    public void calcularSalarios() throws SQLException{
+        try (PreparedStatement query=Herramientas.getConexion().prepareStatement("SELECT * FROM plantilla_nomina WHERE puesto_trabajo=?")){
+            query.setString(1, this.getPuesto_de_trabajo());
+            try (ResultSet resultado = query.executeQuery()) {
+                resultado.next();
+                this.setSalario_base(resultado.getDouble("salario_base"));
+                double horasExtras=resultado.getDouble("hora_extra")*this.getHoras_extras();
+                double horasNocturnas=resultado.getDouble("nocturnidad")*this.getHoras_noct();
+                double salrioSinIRPF=this.getSalario_base()+horasExtras+horasNocturnas;
+                double retencionIRPF=(salrioSinIRPF*this.getIRPF())/100;
+                this.setSalario_total(salrioSinIRPF-retencionIRPF);
+            }
+        }
+    }
+    
+    public void añadirNominaBBDD(Connection conexion) throws SQLException{ 
+        try (PreparedStatement query = conexion.prepareStatement("INSERT INTO nomina VALUES (?,?,?,?,?,?,?,?,?,?)")) {
+            query.setInt(1, this.getCodigo_nomina());
+            query.setInt(2, this.getId_empleado());
+            query.setString(3, this.getPuesto_de_trabajo());
+            query.setDouble(4, this.getSalario_base());
+            query.setDouble(5, this.getIRPF());
+            query.setString(6, this.getFecha_inicio());
+            query.setString(7, this.getFecha_fin());
+            query.setDouble(8, this.getHoras_extras());
+            query.setDouble(9, this.getHoras_noct());
+            query.setDouble(10, this.getSalario_total());
+            query.executeUpdate();
+        }
      } 
     
     public static void eliminarNomina (int codigo_nomina)throws SQLException{
@@ -159,7 +220,10 @@ public class Nomina {
             try (ResultSet resultado = query.executeQuery()) {
                 listaNomina = new ArrayList();
                 while(resultado.next()){
-                    Nomina Nom= new Nomina (resultado.getInt(1), resultado.getInt(2), resultado.getString(3), resultado.getDouble(4), resultado.getDouble(5), resultado.getString(6), resultado.getString(7), resultado.getInt(8), resultado.getInt(9),resultado.getDouble(10));
+                    Nomina Nom=new Nomina (resultado.getInt(1), resultado.getInt(2), 
+                    resultado.getString(3), resultado.getDouble(4), resultado.getDouble(5), 
+                    resultado.getString(6), resultado.getString(7), resultado.getInt(8), 
+                    resultado.getInt(9),resultado.getDouble(10));
                     listaNomina.add(Nom);
                 }
             }

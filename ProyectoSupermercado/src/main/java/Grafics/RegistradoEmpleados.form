@@ -520,7 +520,7 @@
           <StringArray count="4">
             <StringItem index="0" value="Dependiente"/>
             <StringItem index="1" value="Supervisor"/>
-            <StringItem index="2" value="RRHH"/>
+            <StringItem index="2" value="Recursos Humanos"/>
             <StringItem index="3" value="Director"/>
           </StringArray>
         </Property>

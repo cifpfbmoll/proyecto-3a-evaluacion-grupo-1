@@ -123,7 +123,7 @@ public class ElegirOpcionNominaRRHH extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarNominaActionPerformed
 
     private void consultarNominaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarNominaActionPerformed
-        // consultar nomina
+        VerNominas frame=new VerNominas();
         this.dispose();
     }//GEN-LAST:event_consultarNominaActionPerformed
 
