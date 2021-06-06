@@ -63,6 +63,10 @@ public final class ProductoBebida extends Producto {
             query.setInt(2, pb1.getCaducidad());
             query.setBoolean(3, pb1.getAlcoholica());
             query.executeUpdate();
+            query=conexion.prepareStatement("INSERT INTO stock_supermercado "+
+            "SELECT DISTINCT(Codigo_supermercado),?,0 FROM stock_supermercado;");
+            query.setInt(1, pb1.getCodigoProd());
+            query.executeUpdate();
             conexion.commit();
             conexion.setAutoCommit(true);
             query.close();

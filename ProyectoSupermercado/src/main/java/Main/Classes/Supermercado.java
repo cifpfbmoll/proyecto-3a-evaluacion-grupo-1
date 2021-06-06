@@ -225,7 +225,8 @@ public class Supermercado {
 
             insertSupermarketPreparedStatement.executeUpdate();
             insertSupermarketPreparedStatement.close();
-
+            
+            StockProducto.inicializarStock(supermercado.code, connection);
         }
     
      private static int getLastCode() throws SQLException {

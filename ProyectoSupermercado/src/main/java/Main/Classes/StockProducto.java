@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author PC
+ * @author jaume
  */
 public class StockProducto {
     
@@ -52,6 +52,22 @@ public class StockProducto {
     @Override
     public String toString() {
         return "StockProducto{" + "codigoProducto=" + codigoProducto + ", cantidad=" + cantidad + '}';
+    }
+    
+    /**
+     * Metodo que es llamado cuando se crea un nuevo supermercado. Inserta en la base de datos
+     * una fila con el codigo del nuevo supermercado, el codigo del producto y una cantidad
+     * que siempre sera 0 por cada producto en la base de datos dentro de la tabla stock_supermercado.
+     * @param codigoSupermercado int que identifica al supermercado
+     * @param conexion Connection con la base de datos
+     * @throws SQLException Puede lanazar una SQLException ya que se comunica con la base de datos
+     */
+    public static void inicializarStock(int codigoSupermercado, Connection conexion) throws SQLException{
+        try (PreparedStatement query = conexion.prepareStatement("INSERT INTO stock_supermercado"+
+        " SELECT ?,codigo_producto,0 FROM stock_supermercado GROUP BY codigo_producto")) {
+            query.setInt(1, codigoSupermercado);
+            query.executeUpdate();
+        }
     }
     
     /**

@@ -77,6 +77,10 @@ public class ProductoHigiene extends Producto {
             query.setInt(1, ph1.getCodigoProd());
             query.setString(2, String.valueOf(ph1.getTipoHigiene()));
             query.executeUpdate();
+            query=conexion.prepareStatement("INSERT INTO stock_supermercado "+
+            "SELECT DISTINCT(Codigo_supermercado),?,0 FROM stock_supermercado;");
+            query.setInt(1, ph1.getCodigoProd());
+            query.executeUpdate();
             conexion.commit();
             conexion.setAutoCommit(true);
             query.close();

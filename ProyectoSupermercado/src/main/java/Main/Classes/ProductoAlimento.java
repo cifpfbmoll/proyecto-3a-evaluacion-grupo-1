@@ -78,6 +78,10 @@ public final class ProductoAlimento extends Producto {
             query.setInt(2, pa1.getCaducidad());
             query.setString(3, String.valueOf(pa1.getCategoria()));
             query.executeUpdate();
+            query=conexion.prepareStatement("INSERT INTO stock_supermercado "+
+            "SELECT DISTINCT(Codigo_supermercado),?,0 FROM stock_supermercado;");
+            query.setInt(1, pa1.getCodigoProd());
+            query.executeUpdate();
             conexion.commit();
             conexion.setAutoCommit(true);
             query.close();

@@ -12,6 +12,7 @@ import Main.Classes.*;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,12 +26,14 @@ public class ElegirSupermercado extends javax.swing.JFrame {
      */
     public ElegirSupermercado() {
         initComponents();
+        this.añadirSupermercados();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
     }
     
     public ElegirSupermercado(InicioSesion login) {
         initComponents();
+        this.añadirSupermercados();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.login=login;
@@ -124,47 +127,11 @@ public class ElegirSupermercado extends javax.swing.JFrame {
                 Herramientas.aviso("Elige un supermercado primero");
             }
             else{
-                switch (supermercado){
-                    case "Metradona Barcelona":
-                        System.out.println(supermercado);
-                        Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(3));
-                        InterfazUsuario3 programa=new InterfazUsuario3();
-                        login.dispose();
-                        this.dispose();
-                        break;
-
-                    case "Metradona Las Plamas de Gran Canaria":
-                        System.out.println(5);
-                        Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(5));
-                        programa=new InterfazUsuario3();
-                        login.dispose();
-                        this.dispose();
-                        break;
-
-                    case "Metradona Madrid":
-                        System.out.println(supermercado);
-                        Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(2));
-                        programa=new InterfazUsuario3();
-                        login.dispose();
-                        this.dispose();
-                        break;
-
-                    case "Metradona Mallorca":
-                        System.out.println(supermercado);
-                        Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(1));
-                        programa=new InterfazUsuario3();
-                        login.dispose();
-                        this.dispose();
-                        break;
-
-                    case "Metradona Sevilla":
-                        System.out.println(supermercado);
-                        Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(4));
-                        programa=new InterfazUsuario3();
-                        login.dispose();
-                        this.dispose();
-                        break;
-                }
+                int codigoSupermercado=Integer.parseInt(supermercado.split("-")[0]);
+                Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(codigoSupermercado));
+                InterfazUsuario3 programa=new InterfazUsuario3();
+                login.dispose();
+                this.dispose();
             }
         }
         catch(SQLException ex){
@@ -172,6 +139,20 @@ public class ElegirSupermercado extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_ElegirActionPerformed
+    
+    public void añadirSupermercados(){
+        ArrayList <String> listaSupers=Supermercado.getSupermarketsFromDatabase();
+        String[] supermercados=new String[listaSupers.size()];
+        for (int i=0; i<listaSupers.size();i++){
+            supermercados[i]=listaSupers.get(i)+" METRADONA";
+        }
+        listaSupermercados.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] arraysSupermercados=supermercados;
+            public int getSize() { return arraysSupermercados.length; }
+            public String getElementAt(int i) { return arraysSupermercados[i]; }
+        });
+    }
+    
     
     
     /**
