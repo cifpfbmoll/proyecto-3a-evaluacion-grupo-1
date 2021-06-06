@@ -25,3 +25,10 @@ Fecha: Sat Jun 05 23:25:19 CEST 2021
 
 Producto:  Barra pan  cantidad: 2
 Producto:  Ensalada  cantidad: 3
+
+
+
+-------------------------ACTUALIZACION-----------------------
+Fecha: Sun Jun 06 17:06:56 CEST 2021
+
+Producto:  Canelones Buitoni  cantidad: 50

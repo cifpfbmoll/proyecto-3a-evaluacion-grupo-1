@@ -320,6 +320,7 @@ public class Empleado extends Persona {
             escribir.newLine();
             escribir.newLine();
             escribir.close(); 
+            Herramientas.aviso("Su propuesta ha sido enviada");
         } catch (IOException error){
             Herramientas.aviso("Ha ocurrido un error al mandar su idea de mejora");
             Excepciones.pasarExcepcionLog("Ha ocurrido un error al mandar su idea de mejora", error);
@@ -364,6 +365,7 @@ public class Empleado extends Persona {
             escribir.newLine();
             escribir.newLine();
             escribir.close(); 
+            Herramientas.aviso("El reporte de la incidencia ha sido mandado");
         } catch (IOException error){
             Herramientas.aviso("Ha ocurrido un error al mandar su incidencia");
             Excepciones.pasarExcepcionLog("Ha ocurrido un error al mandar su incidencia", error);

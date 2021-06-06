@@ -170,8 +170,17 @@ public class Nomina {
         this.calcularSalarios();
     }
 
-    public static void certificadoIRPFanual() {
-        
+    public static double certificadoIRPFanual(Empleado empleado, String year, Connection conexion) throws SQLException {
+        PreparedStatement query=conexion.prepareStatement("SELECT * FROM nomina WHERE id_empleado=? AND fecha_inicio LIKE ?");
+        query.setInt(1, empleado.getId());
+        query.setString(2, "%"+year);
+        ResultSet resultado=query.executeQuery();
+        double retencionAnualIRPF=0;
+        while (resultado.next()){
+            double rentcionMensualIRPF=(resultado.getDouble("IRPF")*resultado.getDouble("salario_total"))/(100-resultado.getDouble("IRPF"));
+            retencionAnualIRPF+=rentcionMensualIRPF;
+        }
+        return retencionAnualIRPF;
     }
     
     public void calcularSalarios() throws SQLException{

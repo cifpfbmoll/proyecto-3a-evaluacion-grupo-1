@@ -92,13 +92,11 @@ public class Main {
                 try {
                     Herramientas.crearConexion();
                 } catch (SQLException ex) {
-                    Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+                    Herramientas.aviso("Error al conectar con la base de datos");
+                    Excepciones.pasarExcepcionLog("Error al conectar con la base de datos", ex);
                 }
                 InicioSesion login=new InicioSesion();
             }
         });
-//        Herramientas.crearConexion();
-//        
-//        Herramientas.cerrarConexion();
     }
 }

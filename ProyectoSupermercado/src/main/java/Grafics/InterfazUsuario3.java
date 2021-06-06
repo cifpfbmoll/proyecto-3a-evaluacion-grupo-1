@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author PC
+ * @author jaume
  */
 public class InterfazUsuario3 extends javax.swing.JFrame {
     
@@ -38,6 +38,7 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
             this.escribirListaCompra(new ArrayList());
         } catch (SQLException ex) {
             Herramientas.aviso("Ha habido un error con la base de datos, no se ha podido cargar su lista de compra");
+            Excepciones.pasarExcepcionLog("Ha habido un error con la base de datos, no se ha podido cargar su lista de compra", ex);
         }
         this.getCestaCompra().setVisible(false);
         this.getjScrollPane1().setVisible(false);
@@ -981,7 +982,7 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
             this.cambiarPanel(scrollBebida, cabezeraBebida);
         } catch (SQLException ex) {
             Herramientas.aviso("Hay un problema con el stock en la base de datos, lo sentimos");
-            ex.printStackTrace();
+            Excepciones.pasarExcepcionLog("Hay un problema con el stock en la base de datos, lo sentimos", ex);
         }
     }//GEN-LAST:event_bebidaActionPerformed
 
@@ -992,7 +993,7 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
             this.cambiarPanel(scrollAlimento, cabezeraAlimento);
         } catch (SQLException ex) {
             Herramientas.aviso("Hay un problema con el stock en la base de datos, lo sentimos");
-            ex.printStackTrace();
+            Excepciones.pasarExcepcionLog("Hay un problema con el stock en la base de datos, lo sentimos", ex);
         } 
     }//GEN-LAST:event_alimentoActionPerformed
 
@@ -1007,7 +1008,7 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
             this.cambiarPanel(scrollHigiene, cabezeraHigiene);
         } catch (SQLException ex) {
             Herramientas.aviso("Hay un problema con el stock en la base de datos, lo sentimos");
-            ex.printStackTrace();
+            Excepciones.pasarExcepcionLog("Hay un problema con el stock en la base de datos, lo sentimos", ex);
         } 
     }//GEN-LAST:event_higieneActionPerformed
 
@@ -1030,7 +1031,7 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
         try {
             Herramientas.getConexion().close();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Excepciones.pasarExcepcionLog("Problema al cerrar la conexion", ex);
         }
     }//GEN-LAST:event_formWindowClosing
 
@@ -1310,7 +1311,7 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
                     frame.escribirListaCompra(Main.getClienteActivo().getCestaCompra());
                 } catch (SQLException ex) {
                     Herramientas.aviso("Error con la cesta en la base de datos");
-                    ex.printStackTrace();
+                    Excepciones.pasarExcepcionLog("Error con la cesta en la base de datos", ex);
                 }
             }
         });
@@ -1408,49 +1409,6 @@ public class InterfazUsuario3 extends javax.swing.JFrame {
         }
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfazUsuario3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfazUsuario3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfazUsuario3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfazUsuario3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InterfazUsuario3().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alimento;
     private javax.swing.JButton bebida;
