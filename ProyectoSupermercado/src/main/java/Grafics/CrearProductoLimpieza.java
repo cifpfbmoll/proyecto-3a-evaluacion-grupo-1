@@ -108,7 +108,6 @@ public class CrearProductoLimpieza extends javax.swing.JFrame {
         tipoLimpieza = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         botonGuardar = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         descripcionLimpieza = new javax.swing.JTextArea();
@@ -166,12 +165,12 @@ public class CrearProductoLimpieza extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nombre");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Precio");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -184,7 +183,7 @@ public class CrearProductoLimpieza extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("LIMPIEZA");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 300, 40));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 190, 40));
 
         botonGuardar.setBackground(new java.awt.Color(102, 102, 102));
         botonGuardar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -200,17 +199,13 @@ public class CrearProductoLimpieza extends javax.swing.JFrame {
         });
         getContentPane().add(botonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 110, 40));
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Precio");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
-
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Descripción");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
         descripcionLimpieza.setColumns(20);
+        descripcionLimpieza.setLineWrap(true);
         descripcionLimpieza.setRows(5);
         jScrollPane3.setViewportView(descripcionLimpieza);
 
@@ -249,7 +244,6 @@ public class CrearProductoLimpieza extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

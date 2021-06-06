@@ -79,61 +79,30 @@ public class Producto {
     }
     
     public static ArrayList recogerProducto(){
-            ArrayList <Producto> listaProductos = new ArrayList();
-            try{
-                Connection conexion = Herramientas.getConexion();
-                conexion.setAutoCommit(false);
-                PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto");
-                ResultSet resultado = query.executeQuery();
-                resultado = query.executeQuery();
-                while(resultado.next()){
-                    System.out.println(resultado.toString());
-                    int codigo = resultado.getInt("Codigo_producto");
-                    String nombre = resultado.getString("Nombre_producto");
-                    Double precio = resultado.getDouble("Precio_producto");
-                    String descri = resultado.getString("descripcionProd");
-                    Producto producto = new Producto(codigo,nombre,precio,descri);
-                    listaProductos.add(producto);
-                }
-                conexion.commit();
-                conexion.setAutoCommit(true);
-                query.close();
-            } catch (SQLException sqlException){
-                Herramientas.aviso("Ha fallado al intentar recoger los productos de la bbdd");
-                Excepciones.pasarExcepcionLog("Ha fallado al intentar recoger los productos de la bbdd", sqlException);
-            } 
-            return listaProductos;
-        }
-    
-    
-    public static void main(String[] args) throws SQLException {
-        Herramientas.crearConexion();
-        ArrayList listaProductos = Producto.recogerProducto();
-        System.out.println(listaProductos);
-        Herramientas.cerrarConexion();
+        ArrayList <Producto> listaProductos = new ArrayList();
+        try{
+            Connection conexion = Herramientas.getConexion();
+            conexion.setAutoCommit(false);
+            PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto");
+            ResultSet resultado = query.executeQuery();
+            resultado = query.executeQuery();
+            while(resultado.next()){
+                System.out.println(resultado.toString());
+                int codigo = resultado.getInt("Codigo_producto");
+                String nombre = resultado.getString("Nombre_producto");
+                Double precio = resultado.getDouble("Precio_producto");
+                String descri = resultado.getString("descripcionProd");
+                Producto producto = new Producto(codigo,nombre,precio,descri);
+                listaProductos.add(producto);
+            }
+            conexion.commit();
+            conexion.setAutoCommit(true);
+            query.close();
+        } catch (SQLException sqlException){
+            Herramientas.aviso("Ha fallado al intentar recoger los productos de la bbdd");
+            Excepciones.pasarExcepcionLog("Ha fallado al intentar recoger los productos de la bbdd", sqlException);
+        } 
+        return listaProductos;
     }
-    //test que he realizado en el main
-    
-    //    String entrada = "07-03-2018";
-    //        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-    //        Date fecha;
-    //        fecha = formato.parse(entrada);
-    //        float myNum = 5.1f;
-    //        ProductoAlimento pipas = new ProductoAlimento(fecha, Categoria.vegano, 2, "pipas" , myNum ,  "pipas saladas");
-    //        System.out.println(pipas.getCaducidad());
-    //        System.out.println(pipas.UltimoNumero);
-//    public static void main(String[] args) throws SQLException {
-//        Herramientas.crearConexion();
-//        ProductoLimpieza.Superficie superficie = cristal;
-//        ProductoLimpieza pl1=ProductoLimpieza.CrearProductoLimpieza(superficie, "Lejia", 3.9, "Chupito de lejia");
-//        System.out.println(pl1.toString());
-//        ProductoLimpieza.AñadirLimpieza(pl1);
-//        ProductoLimpieza.eliminarLimpieza(24);
-//        Herramientas.cerrarConexion();
-//    }
-    
-//        ProductoAlimento.Categoria categoria = vegano;
-//        ProductoAlimento pa1=ProductoAlimento.CrearProductoAlimento(5, categoria, "patatas", 5.4f, "Patatas recogidas en los campos de Mallorca");
-//        ProductoAlimento.AñadirAlimento(pa1);
 }
 

@@ -21,7 +21,7 @@ import javax.swing.JComboBox;
 
 /**
  *
- * @author PC
+ * @author josep
  */
 public class ElegirTipoAñadirProducto extends javax.swing.JFrame {
 
@@ -32,7 +32,7 @@ public class ElegirTipoAñadirProducto extends javax.swing.JFrame {
     
     public ElegirTipoAñadirProducto() {
         initComponents();
-        añadirTarjetas();
+        añadirTipoProducto();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -140,57 +140,8 @@ public class ElegirTipoAñadirProducto extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
     
-    public void añadirTarjetas(){
+    public void añadirTipoProducto(){
         tipoProducto.setModel(new javax.swing.DefaultComboBoxModel<>(arrayListTipoProducto));
-//        try {
-//            this.setListaTarjetas(Tarjeta.recogerTarjeta(Main.getClienteActivo().getNif()));
-//            String[] listaNumerosTarjeta=new String[this.getListaTarjetas().size()];
-//            for(int i=0;i<this.getListaTarjetas().size();i++){
-//                listaNumerosTarjeta[i]=this.getListaTarjetas().get(i).getNumero();
-//            }
-//            tipoProducto.setModel(new javax.swing.DefaultComboBoxModel<>(listaNumerosTarjeta));
-//        } catch (SQLException ex) {
-//            Herramientas.aviso("Ha ocurrido un error al cargar su tarjetas");
-//            Excepciones.pasarExcepcionLog("Ha ocurrido un error al cargar su tarjetas", ex);
-//            this.dispose();
-//        }
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ElegirTipoAñadirProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ElegirTipoAñadirProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ElegirTipoAñadirProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ElegirTipoAñadirProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ElegirTipoAñadirProducto().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

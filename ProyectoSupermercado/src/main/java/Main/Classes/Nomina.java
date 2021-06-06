@@ -83,7 +83,8 @@ public class Nomina {
         this.codigo_nomina = codigo_nomina;
     }
     /**
-     * Selecc
+     * Selecciona el ultimo codigo de las nominas guardadas en la base de datos y
+     * le suma 1.
      * @throws SQLException Puede tirar excepcion ya que se comunica con la base de datos
      */
     public void setCodigo_nomina() throws SQLException {
@@ -165,11 +166,28 @@ public class Nomina {
     public void setSalario_total(double Salario_total) {
         this.Salario_total = Salario_total;
     }
-    
+    /**
+     * Setter especial que llama a el metodo calcularSalarios para asignar los
+     * valores de Salario_base y Salario_total. Este setter se utiliza cuando
+     * se crea una nomina nueva.
+     * @throws SQLException Puede lanzar una excepcion ya que se comunica con
+     * la base de datos.
+     */
     public void setSalarios() throws SQLException {
         this.calcularSalarios();
     }
-
+    
+    /**
+     * Metodo que busca en la base de datos todas las nominas del año que se le pasa
+     * por parametro y guarda la suma de la retenciones de IRPF en una variable. Luego
+     * devuelve la suma de esas retenciones.
+     * @param empleado Empleado del que se selecciona su id.
+     * @param year String que contiene el año del que buscar las nominas.
+     * @param conexion Connection para conectarse con la BBDD.
+     * @return double que es la retencion de IRPF lo que llevamos de año de ese usuario.
+     * @throws SQLException Puede lanzar una excepcion ya que se comunica con
+     * la base de datos.
+     */
     public static double certificadoIRPFanual(Empleado empleado, String year, Connection conexion) throws SQLException {
         PreparedStatement query=conexion.prepareStatement("SELECT * FROM nomina WHERE id_empleado=? AND fecha_inicio LIKE ?");
         query.setInt(1, empleado.getId());
@@ -183,6 +201,16 @@ public class Nomina {
         return retencionAnualIRPF;
     }
     
+    /**
+     * Metodo para usado para obtener el salario base y calcular el salario total
+     * de un Empleado. Este metodo hace una query en la base de datos para obtener la informacion 
+     * referente al salario base(el cual añade a la nomina)y a cuanto se pagana los pluses
+     * del empleado dependiendo del puesto de trabajo que este haya ejercido. Despues
+     * con todo esto y los datos ya insertados en la nomina sobre la que se instancia
+     * calcula el salario total de este empleado y lo añade a la nomina
+     * @throws SQLException Puede lanzar una excepcion ya que se comunica con
+     * la base de datos.
+     */
     public void calcularSalarios() throws SQLException{
         try (PreparedStatement query=Herramientas.getConexion().prepareStatement("SELECT * FROM plantilla_nomina WHERE puesto_trabajo=?")){
             query.setString(1, this.getPuesto_de_trabajo());
@@ -198,6 +226,13 @@ public class Nomina {
         }
     }
     
+    /**
+     * Metodo usado para insertar los valores de la nomina sobre la que se instancia
+     * en la base de datos. 
+     * @param conexion Connection para interectuar con la base de datos
+     * @throws SQLException Puede lanzar una excepcion ya que se comunica con
+     * la base de datos.
+     */
     public void añadirNominaBBDD(Connection conexion) throws SQLException{ 
         try (PreparedStatement query = conexion.prepareStatement("INSERT INTO nomina VALUES (?,?,?,?,?,?,?,?,?,?)")) {
             query.setInt(1, this.getCodigo_nomina());
@@ -214,6 +249,13 @@ public class Nomina {
         }
      } 
     
+    /**
+     * Metodo al cual se le pasa un int que hace referencia a una nomina para 
+     * eliminar de la base de datos esa nomina.
+     * @param codigo_nomina int que identifica a una nomina
+     * @throws SQLException Puede lanzar una excepcion ya que se comunica con
+     * la base de datos.
+     */
     public static void eliminarNomina (int codigo_nomina)throws SQLException{
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("DELETE FROM Nomina WHERE codigo_nomina = ?")) {
             query.setInt(1, codigo_nomina);
@@ -221,7 +263,16 @@ public class Nomina {
         }
     }
     
-    
+    /**
+     * Metodo al cual se le pasa un int que hace referencia a un empleado para que
+     * el metodo busque en la base de datos todas las nominas de ese empleado.
+     * Estas nominas son guardadas en una ArrayList que luego es devuelta por el
+     * metodo.
+     * @param Id_empleado int que identifica al empleado
+     * @return ArrayList de nominas donde se han guardado las nominas de ese empleado
+     * @throws SQLException Puede lanzar una excepcion ya que se comunica con
+     * la base de datos.
+     */
     public static ArrayList recogerNomina(int Id_empleado)throws SQLException{
         ArrayList <Nomina> listaNomina;
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT * FROM Nomina WHERE Id_empleado=?")) {

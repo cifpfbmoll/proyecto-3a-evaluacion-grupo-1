@@ -28,7 +28,7 @@ import javax.swing.JComboBox;
 
 /**
  *
- * @author PC
+ * @author josep
  */
 public class EliminarProducto extends javax.swing.JFrame {
 
