@@ -25,9 +25,9 @@ public class Empleado extends Persona {
         super();
     }
 
-    /*
-    Constructor con parámetros de empleado
-    */
+    /**
+    *Constructor con parámetros de empleado
+    **/
     public Empleado(String nombre, String apellido1, String apellido2,int edad,String nif, String cAutonoma, String localidad, String cPostal, String direccion,
     String email, String contraseña, String telefono, int id, int codigoSupermercado, String puestoTrabajo, int privilegios) {
         super(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
@@ -100,28 +100,28 @@ public class Empleado extends Persona {
     }
      
     
-    /*
-        Añade un empleado a la base de datos recibiendo sus atributos por parámetro
-        @param nombre String
-        @param apellido1 String
-        @param apellido2 String
-        @param edad int
-        @param nif String
-        @param cAutonoma String
-        @param localidad String
-        @param cPostal String
-        @param direccion String
-        @param email String
-        @param contraseña String
-        @param rContraseña String
-        @param telefono String
-        @param codigosupermercado int
-        @param puestoTrabajo String
-        @param privilegios int
-        @param conexion Connection
-        @throws SQLException
-        @throws Excepciones
-        */
+    /**
+        *Añade un empleado a la base de datos recibiendo sus atributos por parámetro
+        *@param nombre String
+        *@param apellido1 String
+        *@param apellido2 String
+        *@param edad int
+        *@param nif String
+        *@param cAutonoma String
+        *@param localidad String
+        *@param cPostal String
+        *@param direccion String
+        *@param email String
+        *@param contraseña String
+        *@param rContraseña String
+        *@param telefono String
+        *@param codigosupermercado int
+        *@param puestoTrabajo String
+        *@param privilegios int
+        *@param conexion Connection
+        *@throws SQLException
+        *@throws Excepciones
+        **/
     public static int añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
     String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, 
     int codigoSupermercado, String puestoTrabajo, int privilegios, Connection conexion) throws Excepciones, SQLException{
@@ -159,12 +159,12 @@ public class Empleado extends Persona {
         return id;
     }
 
-    /*
-    Recoge un empleado de la base de datos y lo devuelve como empleado
-    @param conexion Connection
-    @param id int
-    @throws SQLException
-    */
+    /**
+    *Recoge un empleado de la base de datos y lo devuelve como empleado
+    *@param conexion Connection
+    *@param id int
+    *@throws SQLException
+    **/
     public static Empleado recogerEmpleado(Connection conexion, int id) throws SQLException {
         PreparedStatement sentencia = conexion.prepareStatement("SELECT * FROM empleado WHERE ID_EMPLEADO = ?");
         sentencia.setInt(1, id);
@@ -191,11 +191,11 @@ public class Empleado extends Persona {
         sentencia.close();
         return per;
     }
-    /*
-    Recoge todos los empleados y los devuelve en un ArrayList
-    @param conexion Connection
-    @throws SQLException
-    */
+    /**
+    *Recoge todos los empleados y los devuelve en un ArrayList
+    *@param conexion Connection
+    *@throws SQLException
+    **/
     public static ArrayList recogerTodosEmpleados(Connection conexion) throws SQLException {
         ArrayList <Empleado> listaEmpleados=new ArrayList();
         PreparedStatement sentencia = conexion.prepareStatement("SELECT * FROM empleado");
@@ -226,12 +226,12 @@ public class Empleado extends Persona {
         return listaEmpleados;
     }
 
-    /*
-    Borra un empleado de la base de datos
-    @param conexion Connection
-    @param id int
-    @throws SQLException
-    */
+    /**
+    *Borra un empleado de la base de datos
+    *@param conexion Connection
+    *@param id int
+    *@throws SQLException
+    **/
     
     public static void eliminarPersona(Connection conexion, int id) throws SQLException {
         PreparedStatement borrar = conexion.prepareStatement("DELETE FROM empleado WHERE ID_EMPLEADO = ?");
@@ -240,13 +240,13 @@ public class Empleado extends Persona {
         borrar.close();
     }
 
-    /*
-    Borra un empleado y todas sus nóminas asociadas
-    @param conexion Connection
-    @param id int
-    @param comittear boolean
-    @throws SQLException
-    */
+    /**
+    *Borra un empleado y todas sus nóminas asociadas
+    *@param conexion Connection
+    *@param id int
+    *@param comittear boolean
+    *@throws SQLException
+    **/
     
     public static void borrarEmpleadoYNominas(Connection conexion, int id, boolean comitear) throws SQLException {
         PreparedStatement borrar = null;
@@ -264,6 +264,8 @@ public class Empleado extends Persona {
 
         catch (SQLException e) {
             conexion.rollback();
+            Herramientas.aviso("Ha habido un error al eliminar de la base de datos");
+            Excepciones.pasarExcepcionLog("Ha habido un error al eliminar de la base de datos", e);
         }
 
         finally {
@@ -280,10 +282,10 @@ public class Empleado extends Persona {
     public void consultarNominas(int id) {
         // TODO Cuando BBDD
     }
-    /*
-    Permite a un empleado escribir una idea para que la tengan en cuenta sus superiores
-    @param texto String
-    */
+    /**
+    *Permite a un empleado escribir una idea para que la tengan en cuenta sus superiores
+    *@param texto String
+    **/
     public static void escribirIdea(String texto){
         LocalDate fecha=LocalDate.now();
         LocalTime hora=LocalTime.now();
@@ -323,10 +325,10 @@ public class Empleado extends Persona {
             Excepciones.pasarExcepcionLog("Ha ocurrido un error al mandar su idea de mejora", error);
         }   
     }
-    /*
-    Escribe una incidencia en el empleado activo
-    @param texto String
-    */
+    /**
+    *Escribe una incidencia en el empleado activo
+    *@param texto String
+    **/
     public static void escribirIncidencia(String texto){
         int idEmpleado = Main.getEmpleadoActivo().getId();
         LocalDate fecha=LocalDate.now();

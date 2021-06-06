@@ -25,9 +25,9 @@ public class Cliente extends Persona {
         super();
     }
 
-    /*
-    Constructor con parámetros de cliente
-    */
+    /**
+    *Constructor con parámetros de cliente
+    **/
     public Cliente(String nombre, String apellido1, String apellido2, int edad,String nif, String cAutonoma, String localidad, String cPostal, String direccion,
     String email, String contraseña, String telefono) {
         super(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
@@ -55,12 +55,12 @@ public class Cliente extends Persona {
         return super.toString()+"Cliente{" + "cestaCompra=" + cestaCompra + '}';
     }
     
-    /*
-    Borra una persona de la BBDD
-    @param conexion Connection
-    @param nif String
-    @throws SQLException
-    */
+    /**
+    *Borra una persona de la BBDD
+    *@param conexion Connection
+    *@param nif String
+    *@throws SQLException
+    **/
     public static void eliminarPersona(Connection conexion, String nif) {
         try  {
             PreparedStatement borrar = conexion.prepareStatement("DELETE FROM cliente WHERE DNI_Cliente = ?");
@@ -74,25 +74,25 @@ public class Cliente extends Persona {
     }
 
 
-    /*
-    Añade un cliente pasándole sus parámetros a la base de datos
-        @param nombre String
-        @param apellido1 String
-        @param apellido2 String
-        @param edad int
-        @param nif String
-        @param cAutonoma String
-        @param localidad String
-        @param cPostal String
-        @param direccion String
-        @param email String
-        @param contraseña String
-        @param rContraseña String
-        @param telefono String
-        @param conexion Connection
-        @throws SQLException
-        @throws Excepciones
-    */
+    /**
+    *Añade un cliente pasándole sus parámetros a la base de datos
+        *@param nombre String
+        *@param apellido1 String
+        *@param apellido2 String
+        *@param edad int
+        *@param nif String
+        *@param cAutonoma String
+        *@param localidad String
+        *@param cPostal String
+        *@param direccion String
+        *@param email String
+        *@param contraseña String
+        *@param rContraseña String
+        *@param telefono String
+        *@param conexion Connection
+        *@throws SQLException
+        *@throws Excepciones
+    **/
 
     public static void añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
     String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, Connection conexion) throws Excepciones, SQLException{
@@ -121,12 +121,12 @@ public class Cliente extends Persona {
     }
 
     
-    /*
-    Recoge un cliente de la base de datos y lo retorna como objeto cliente
-    @param conexion Connection
-    @param if String
-    @throws SQLException
-    */
+    /**
+    *Recoge un cliente de la base de datos y lo retorna como objeto cliente
+    *@param conexion Connection
+    *@param if String
+    *@throws SQLException
+    **/
     public static Cliente recogerCliente(Connection conexion, String nif) throws SQLException {
         PreparedStatement sentencia = conexion.prepareStatement("SELECT * FROM cliente WHERE DNI_Cliente = ?");
         sentencia.setString(1, nif);
@@ -151,10 +151,10 @@ public class Cliente extends Persona {
     }
     
     
-    /*
-    Recupera la cesta de un cliente de la base de datos
-    @throws SQLException
-    */
+    /**
+    *Recupera la cesta de un cliente de la base de datos
+    *@throws SQLException
+    **/
     public void recuperarCesta() throws SQLException{
         PreparedStatement query=Herramientas.getConexion().prepareStatement("SELECT * FROM linea_carrito WHERE dni_cliente=?");
         query.setString(1, this.getNif());
@@ -181,7 +181,7 @@ public class Cliente extends Persona {
     }
     /**
      * Metodo que añade una linea de compra al carrito.Es de instancia, por tanto
-    necesita un objeto de esta clase.
+    *necesita un objeto de esta clase.
      * @param codigo_producto
      * @param precio_producto
      * @param cantidad 
@@ -236,12 +236,12 @@ public class Cliente extends Persona {
     }
     
     
-    /*
-    Método que elimina un producto del carrito
-    @param codigo_producto int
-    @param cantidad int
-    @throws SQLException
-    */
+    /**
+    *Método que elimina un producto del carrito
+    *@param codigo_producto int
+    *@param cantidad int
+    *@throws SQLException
+    **/
     public void eliminarProductoCarrito(int codigo_producto, int cantidad) throws SQLException{
         try {
             Herramientas.getConexion().setAutoCommit(false);
@@ -266,10 +266,10 @@ public class Cliente extends Persona {
         }  
     }
     
-    /*
-    Método que confirma una compra de un carrito
-    @throws SQLException
-    */
+    /**
+    *Método que confirma una compra de un carrito
+    *@throws SQLException
+    **/
     public void confirmarCompra() throws SQLException{
         try {
             Herramientas.getConexion().setAutoCommit(false);
@@ -289,10 +289,10 @@ public class Cliente extends Persona {
     }
     
     
-    /*
-    Método para introducir una reclamación de un cliente
-    @param reclamacion String
-    */
+    /**
+    *Método para introducir una reclamación de un cliente
+    *@param reclamacion String
+    **/
     public void escribirReclamacion(String reclamacion){
         if (reclamacion.isBlank()){
             Herramientas.aviso("La reclamacion esta vacia");
@@ -337,12 +337,12 @@ public class Cliente extends Persona {
         }
     }
     
-    /*
-    Método para eliminar un cliente y su información de carrito, tarjeta, etc.
-    @param conexion Connection
-    @param nif String
-    @throws SQLException
-    */
+    /**
+    *Método para eliminar un cliente y su información de carrito, tarjeta, etc.
+    *@param conexion Connection
+    *@param nif String
+    *@throws SQLException
+    **/
     public static void eliminarClienteYInfo(Connection conexion, String nif) throws SQLException {
         try {
             conexion.setAutoCommit(false);
