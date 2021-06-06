@@ -15,8 +15,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Main.Classes.*;
+import Main.Classes.ProductoAlimento.Categoria;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -29,18 +31,43 @@ public class CrearProductoBebida extends javax.swing.JFrame {
      */
     
     public InterfazUsuario3 frameLlamando2;
-    
+
     public CrearProductoBebida() {
         initComponents();
-        this.setLocationRelativeTo(null);
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
     }
-    
-    public CrearProductoBebida(InterfazUsuario3 frame) {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-        this.setFrameLlamando2(frame);
+
+    public JTextArea getDescripcionBebida() {
+        return descripcionBebida;
+    }
+
+    public void setDescripcionBebida(JTextArea descripcionBebida) {
+        this.descripcionBebida = descripcionBebida;
+    }
+
+    public JTextField getNombreBebida() {
+        return nombreBebida;
+    }
+
+    public void setNombreBebida(JTextField nombreBebida) {
+        this.nombreBebida = nombreBebida;
+    }
+
+    public JTextField getPrecioBebida() {
+        return precioBebida;
+    }
+
+    public void setPrecioBebida(JTextField precioBebida) {
+        this.precioBebida = precioBebida;
+    }
+
+    public JComboBox getAlcoholica() {
+        return alcoholica;
+    }
+
+    public void setAlcoholica(JComboBox alcoholica) {
+        this.alcoholica = alcoholica;
     }
 
     public InterfazUsuario3 getFrameLlamando2() {
@@ -51,43 +78,17 @@ public class CrearProductoBebida extends javax.swing.JFrame {
         this.frameLlamando2 = frameLlamando2;
     }
     
-    
-    
-    public JTextField getFechaCaducidad() {
-        return fechaCaducidad;
-    }
-
-    public void setFechaCaducidad(JTextField fechaCaducidad) {
-        this.fechaCaducidad = fechaCaducidad;
-    }
-
-    public JTextField getNumeroTarjeta() {
-        return numeroTarjeta;
-    }
-
-    public void setNumeroTarjeta(JTextField numeroTarjeta) {
-        this.numeroTarjeta = numeroTarjeta;
-    }
-
-    public JComboBox getTipoTarjeta() {
-        return tipoTarjeta;
-    }
-
-    public void setTipoTarjeta(JComboBox tipoTarjeta) {
-        this.tipoTarjeta = tipoTarjeta;
-    }
-
-    public JTextField getTitularTarjeta() {
-        return titularTarjeta;
-    }
-
-    public void setTitularTarjeta(JTextField titularTarjeta) {
-        this.titularTarjeta = titularTarjeta;
-    }
-    
     public Image getIconImage(){
         Image miIcono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/logo1.png"));
         return miIcono;
+    }
+
+    public JTextField getDiasProducto() {
+        return diasProducto;
+    }
+
+    public void setDiasProducto(JTextField diasProducto) {
+        this.diasProducto = diasProducto;
     }
     
     /**
@@ -105,16 +106,20 @@ public class CrearProductoBebida extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         botonCancelar = new javax.swing.JButton();
-        numeroTarjeta = new javax.swing.JTextField();
-        fechaCaducidad = new javax.swing.JTextField();
-        titularTarjeta = new javax.swing.JTextField();
+        nombreBebida = new javax.swing.JTextField();
+        precioBebida = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        tipoTarjeta = new javax.swing.JComboBox();
+        alcoholica = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         botonGuardar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        diasProducto = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        descripcionBebida = new javax.swing.JTextArea();
         fondo1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -162,39 +167,36 @@ public class CrearProductoBebida extends javax.swing.JFrame {
                 botonCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, 110, 40));
-        getContentPane().add(numeroTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, -1));
-
-        fechaCaducidad.setText("MM/YY");
-        getContentPane().add(fechaCaducidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 70, -1));
-        getContentPane().add(titularTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 230, -1));
+        getContentPane().add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, 110, 40));
+        getContentPane().add(nombreBebida, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 200, -1));
+        getContentPane().add(precioBebida, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 230, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Número");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        jLabel1.setText("Nombre");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Fecha caducidad");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        jLabel2.setText("Dias en caducar");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Nombre titular");
+        jLabel3.setText("Precio");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Tipo tarjeta");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
+        jLabel4.setText("Alcoholica?");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
 
-        tipoTarjeta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Visa", "Mastercard", "American Express" }));
-        getContentPane().add(tipoTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 120, -1));
+        alcoholica.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "si", "no" }));
+        getContentPane().add(alcoholica, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 120, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Bebida");
+        jLabel6.setText("BEBIDA");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 300, 40));
 
         botonGuardar.setBackground(new java.awt.Color(102, 102, 102));
@@ -209,7 +211,24 @@ public class CrearProductoBebida extends javax.swing.JFrame {
                 botonGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 240, 110, 40));
+        getContentPane().add(botonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 110, 40));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Precio");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Descripción");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        getContentPane().add(diasProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 50, -1));
+
+        descripcionBebida.setColumns(20);
+        descripcionBebida.setRows(5);
+        jScrollPane3.setViewportView(descripcionBebida);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 230, 80));
 
         fondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green-Wallpaper-5.jpg"))); // NOI18N
         getContentPane().add(fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 330));
@@ -222,56 +241,31 @@ public class CrearProductoBebida extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-    if(numeroTarjeta.getText().isEmpty() || titularTarjeta.getText().isEmpty() || fechaCaducidad.getText().isEmpty()){
-        JOptionPane.showMessageDialog(this, "META SUS DATOS", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-        numeroTarjeta.setText("");
-        titularTarjeta.setText("");
-        fechaCaducidad.setText("");
-        numeroTarjeta.requestFocus();
-        titularTarjeta.requestFocus();
-        fechaCaducidad.requestFocus();
-        tipoTarjeta.requestFocus();
-    } else {
-            PreparedStatement query=null;
-            try {
-                query=Herramientas.getConexion().prepareStatement(
-                "Select COUNT(Numero_tarjeta) from TARJETA_CLIENTE where Numero_tarjeta=?");
-                query.setString(1, this.getNumeroTarjeta().getText());
-                ResultSet resultado=query.executeQuery();
-                resultado.next();
-                if(resultado.getInt(1) >= 1){
-                    JOptionPane.showMessageDialog(this, "ESTA TARJETA YA EXISTE" , "Informacion", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    Tarjeta.añadirTarjeta(this.getNumeroTarjeta().getText(), this.getTitularTarjeta().getText(), 
-                    this.getFechaCaducidad().getText(), this.getTipoTarjeta().getSelectedItem().toString());
-                    numeroTarjeta.setText("");
-                    titularTarjeta.setText("");
-                    fechaCaducidad.setText("");
-                    numeroTarjeta.requestFocus();
-                    titularTarjeta.requestFocus();
-                    fechaCaducidad.requestFocus();
-                    if (this.getFrameLlamando2()!=null){
-                        ElegirTarjeta elegir=new ElegirTarjeta(this.getFrameLlamando2());
-                    } else{
-                        JOptionPane.showMessageDialog(this, "LOS DATOS HAN SIGO GUARDADOS CORRECTAMENTE");
-                    }
-                    this.dispose();
-                }
-            }catch (SQLException ex){
-                Herramientas.aviso("Ha ocurrido un error al guardar su tarjeta");
-                Excepciones.pasarExcepcionLog("Ha ocurrido un error al guardar su tarjeta", ex);
-            }
-            finally{
-                try {
-                    query.close();
-                } catch (SQLException ex) {
-                    Herramientas.aviso("Ha ocurrido un error al guardar su tarjeta");
-                    Excepciones.pasarExcepcionLog("Ha ocurrido un error al guardar su tarjeta", ex);
-                }
-            }
-        }          
+        boolean alcohol;
+        if (this.getAlcoholica().toString().equals("si")){
+            alcohol = true;
+        } else {
+            alcohol = false;
+        }
+        try{
+            ProductoBebida pb = ProductoBebida.crearProductoBebida(Integer.parseInt((this.getDiasProducto().getText())), alcohol, this.getNombreBebida().getText(), Double.parseDouble(this.getPrecioBebida().getText()), this.getDescripcionBebida().getText());
+            ProductoBebida.añadirBebida(pb);
+            this.aviso("Se ha registrado correctamente");
+        } catch (Exception error) {
+            Herramientas.aviso("Ha habido algun error, porfavor inserta los datos correctos");
+            Excepciones.pasarExcepcionLog("Ha habido algun error, porfavor inserta los datos correctos", error);
+        }
+        
+        try {
+            Herramientas.cerrarConexion();
+        } catch (SQLException ex) {
+            Logger.getLogger(CrearProductoBebida.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonGuardarActionPerformed
-    
+
+    public void aviso (String mensaje){
+        JOptionPane.showMessageDialog(null,mensaje); 
+    }
     /**
      * @param args the command line arguments
      */
@@ -281,22 +275,7 @@ public class CrearProductoBebida extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CrearProductoBebida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CrearProductoBebida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CrearProductoBebida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CrearProductoBebida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        
         //</editor-fold>
         //</editor-fold>
 
@@ -305,19 +284,20 @@ public class CrearProductoBebida extends javax.swing.JFrame {
             public void run() {
                 try {
                     Herramientas.crearConexion();
-                    new CrearProductoBebida();
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    Logger.getLogger(CrearProductoBebida.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+                   new CrearProductoBebida();  
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox alcoholica;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonGuardar;
-    private javax.swing.JTextField fechaCaducidad;
+    private javax.swing.JTextArea descripcionBebida;
+    private javax.swing.JTextField diasProducto;
     private javax.swing.JLabel fondo1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -325,13 +305,15 @@ public class CrearProductoBebida extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField numeroTarjeta;
-    private javax.swing.JComboBox tipoTarjeta;
-    private javax.swing.JTextField titularTarjeta;
+    private javax.swing.JTextField nombreBebida;
+    private javax.swing.JTextField precioBebida;
     // End of variables declaration//GEN-END:variables
 
 

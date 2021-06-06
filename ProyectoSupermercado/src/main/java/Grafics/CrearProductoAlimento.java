@@ -18,6 +18,7 @@ import Main.Classes.*;
 import Main.Classes.ProductoAlimento.Categoria;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -61,11 +62,11 @@ public class CrearProductoAlimento extends javax.swing.JFrame {
         this.tipoAlimento = tipoAlimento;
     }
 
-    public JTextField getDescripcionAlimento() {
+    public JTextArea getDescripcionAlimento() {
         return descripcionAlimento;
     }
 
-    public void setDescripcionAlimento(JTextField descripcionAlimento) {
+    public void setDescripcionAlimento(JTextArea descripcionAlimento) {
         this.descripcionAlimento = descripcionAlimento;
     }
     
@@ -116,8 +117,9 @@ public class CrearProductoAlimento extends javax.swing.JFrame {
         botonGuardar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        descripcionAlimento = new javax.swing.JTextField();
         diasProducto = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        descripcionAlimento = new javax.swing.JTextArea();
         fondo1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -166,13 +168,13 @@ public class CrearProductoAlimento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, 110, 40));
-        getContentPane().add(nombreAlimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, -1));
-        getContentPane().add(precioAlimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 230, -1));
+        getContentPane().add(nombreAlimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 200, -1));
+        getContentPane().add(precioAlimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 230, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nombre");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -194,7 +196,7 @@ public class CrearProductoAlimento extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Alimento");
+        jLabel6.setText("ALIMENTO");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 300, 40));
 
         botonGuardar.setBackground(new java.awt.Color(102, 102, 102));
@@ -220,8 +222,13 @@ public class CrearProductoAlimento extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Descripción");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
-        getContentPane().add(descripcionAlimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 230, 60));
         getContentPane().add(diasProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 50, -1));
+
+        descripcionAlimento.setColumns(20);
+        descripcionAlimento.setRows(5);
+        jScrollPane3.setViewportView(descripcionAlimento);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 230, 80));
 
         fondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green-Wallpaper-5.jpg"))); // NOI18N
         getContentPane().add(fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 330));
@@ -273,7 +280,7 @@ public class CrearProductoAlimento extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonGuardar;
-    private javax.swing.JTextField descripcionAlimento;
+    private javax.swing.JTextArea descripcionAlimento;
     private javax.swing.JTextField diasProducto;
     private javax.swing.JLabel fondo1;
     private javax.swing.JLabel jLabel1;
@@ -286,6 +293,7 @@ public class CrearProductoAlimento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField nombreAlimento;
