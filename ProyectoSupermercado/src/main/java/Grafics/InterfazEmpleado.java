@@ -642,7 +642,6 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    //consultar nomina
     
     private void botonMejoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMejoraActionPerformed
         EscribirMejora frame=new EscribirMejora();
