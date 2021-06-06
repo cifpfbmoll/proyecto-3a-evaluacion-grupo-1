@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author jcanarte
+ * @author josep
  */
 public class CrearProductoAlimento extends javax.swing.JFrame {
 

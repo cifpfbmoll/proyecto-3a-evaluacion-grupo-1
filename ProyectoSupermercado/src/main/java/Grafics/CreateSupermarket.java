@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author jcanarte
+ * @author juanfran
  */
 public class CreateSupermarket extends javax.swing.JFrame {
 

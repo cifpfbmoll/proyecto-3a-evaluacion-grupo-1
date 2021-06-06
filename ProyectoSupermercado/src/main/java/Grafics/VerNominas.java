@@ -11,12 +11,13 @@ import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
  *
- * @author PC
+ * @author jaume
  */
 public class VerNominas extends javax.swing.JFrame {
 
@@ -103,6 +104,7 @@ public class VerNominas extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
+        botonIRPFAnual = new javax.swing.JButton();
 
         panelCabezeraNomina.setBackground(new java.awt.Color(255, 255, 255));
         panelCabezeraNomina.setMaximumSize(new java.awt.Dimension(600, 180));
@@ -655,65 +657,54 @@ public class VerNominas extends javax.swing.JFrame {
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane1.setViewportView(jPanel1);
 
+        botonIRPFAnual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        botonIRPFAnual.setText("IRPF ANUAL");
+        botonIRPFAnual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonIRPFAnualActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(110, 110, 110)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonIRPFAnual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonIRPFAnual, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void botonIRPFAnualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIRPFAnualActionPerformed
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VerNominas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VerNominas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VerNominas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VerNominas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            int year=Year.now().getValue();
+            double retencion=Nomina.certificadoIRPFanual(Main.getEmpleadoActivo(),Integer.toString(year), Herramientas.getConexion());
+            Herramientas.aviso("En este año "+year+" lleva retenidos "+retencion+"€");
+        } catch (SQLException ex) {
+            Herramientas.aviso("Algo ha fallado al consultar su retencion de IRPF");
+            Excepciones.pasarExcepcionLog("Algo ha fallado al consultar su retencion de IRPF", ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VerNominas().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_botonIRPFAnualActionPerformed
     
     public void añadirNomina(Nomina nomina, Supermercado supermercado, Empleado empleado) throws SQLException{
-        this.añadirCabezeraTicket(supermercado,empleado,nomina);
+        this.añadirCabezeraNomina(supermercado,empleado,nomina);
         this.añadirCuerpoNomina(nomina);
     }
     
-    public void añadirCabezeraTicket(Supermercado supermercado, Empleado empleado,
+    public void añadirCabezeraNomina(Supermercado supermercado, Empleado empleado,
     Nomina nomina){
         
         javax.swing.JPanel panelCabezeraNomina = new javax.swing.JPanel();
@@ -1177,7 +1168,7 @@ public class VerNominas extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setText("IMPORTE");
 
-        importeIRPF.setText(""+nomina.getIRPF()*nomina.getSalario_total()/(100-nomina.getIRPF()));
+        importeIRPF.setText(""+(nomina.getIRPF()*nomina.getSalario_total())/(100-nomina.getIRPF()));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -1318,6 +1309,7 @@ public class VerNominas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonIRPFAnual;
     private javax.swing.JLabel cantidadHorasExtras;
     private javax.swing.JLabel cantidadHorasNocturnas;
     private javax.swing.JLabel cantidadIRPFn;

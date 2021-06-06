@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author PC
+ * @author jaume
  */
 public class ElegirTarjeta extends javax.swing.JFrame {
 
@@ -119,11 +119,6 @@ public class ElegirTarjeta extends javax.swing.JFrame {
 
         nombreTarjeta.setEditable(false);
         nombreTarjeta.setBackground(new java.awt.Color(204, 204, 204));
-        nombreTarjeta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreTarjetaActionPerformed(evt);
-            }
-        });
         jPanel1.add(nombreTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 112, 242, 35));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -183,10 +178,6 @@ public class ElegirTarjeta extends javax.swing.JFrame {
     }
     
     
-
-    private void nombreTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTarjetaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreTarjetaActionPerformed
 
     private void realizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarCompraActionPerformed
         try {

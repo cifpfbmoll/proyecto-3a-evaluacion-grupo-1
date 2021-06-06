@@ -330,6 +330,7 @@ public class Cliente extends Persona {
                 while(!fin);
                 escritor.newLine();
                 escritor.newLine();
+                Herramientas.aviso("Su reclamacion ha sido enviada con exito");
             } catch (IOException ex) {
                 Excepciones.pasarExcepcionLog("Ha ocurrido un problema al insertar su reclamacion", ex);
                 Herramientas.aviso("Ha ocurrido un problema al insertar su reclamacion");

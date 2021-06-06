@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author jcanarte
+ * @author josep
  */
 public class CrearProductoHigiene extends javax.swing.JFrame {
 
