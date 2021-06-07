@@ -5,8 +5,6 @@
  */
 package Main.Classes;
 
-import static Main.Classes.ProductoHigiene.TipoHigiene.mascarilla;
-import static Main.Classes.ProductoLimpieza.Superficie.cristal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

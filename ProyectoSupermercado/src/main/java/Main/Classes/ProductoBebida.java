@@ -105,6 +105,9 @@ public final class ProductoBebida extends Producto {
             query= conexion.prepareStatement("DELETE FROM stock_supermercado WHERE Codigo_producto = ?");
             query.setInt(1, codigoProd);
             query.executeUpdate();
+            query= conexion.prepareStatement("DELETE FROM linea_carrito WHERE codigo_producto=?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
             conexion.commit();
             query.close();
             conexion.setAutoCommit(true);

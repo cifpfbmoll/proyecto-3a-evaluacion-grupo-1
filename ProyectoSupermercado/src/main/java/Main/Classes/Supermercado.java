@@ -303,7 +303,19 @@ public class Supermercado {
 
 
     }
-
+    
+    /**
+     * Metodo que sirve para restar del stock de un supermercado una cantidad de un
+     * producto concreto. Se le pasa por parametro una lineaCompra, que es una linea
+     * compra de un carrito de compra para que el metodo vea cual es el codigo del producto
+     * y la cantidad a restar del producto. Actualiza la cantidad tanto en el programa
+     * como en la base de datos.
+     * @param lc1 lineaCompra del carrito de la que se recoge la informacion
+     * @throws SQLException Puede lanzar una SQLException ya que se comunica con la
+     * base de datos
+     * @throws Excepciones lanza una excepcion si la cantidad que se quiere restar
+     * es mayor a la cantidad en stock, para que el stock no se quede en negativo
+     */
     public void restarStock(LineaCompra lc1) throws SQLException, Excepciones {
 
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("UPDATE stock_supermercado SET cantidad=? "
@@ -317,7 +329,7 @@ public class Supermercado {
                     } else {
                         query.setInt(1, this.getStockSupermercado().get(i).getCantidad() - lc1.getCantidad());
                         this.getStockSupermercado().get(i).setCantidad(
-                                this.getStockSupermercado().get(i).getCantidad() - lc1.getCantidad());
+                        this.getStockSupermercado().get(i).getCantidad() - lc1.getCantidad());
                     }
                     encontrado = true;
                 }
@@ -329,7 +341,16 @@ public class Supermercado {
         }
 
     }
-
+    /**
+     * Metodo que sirve para añadir al stock de un supermercado una cantidad de 
+     * un producto concreto. Se pasa por parametro el codigo del producto al cual
+     * se le quiere añadir y la cantidad a añadir. El metodo actualiza la cantidad
+     * tanto en el programa como en la base de datos.
+     * @param codigoProducto int que identifica el producto
+     * @param cantidad int cantidad que se sumara al stock de ese producto
+     * @throws SQLException Puede lanzar una SQLException ya que se comunica con la
+     * base de datos
+     */
     public void añadirStock(int codigoProducto, int cantidad) throws SQLException {
 
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("UPDATE stock_supermercado SET cantidad=? "
@@ -340,7 +361,7 @@ public class Supermercado {
                 if (this.getStockSupermercado().get(i).getCodigoProducto() == codigoProducto) {
                     query.setInt(1, this.getStockSupermercado().get(i).getCantidad() + cantidad);
                     this.getStockSupermercado().get(i).setCantidad(
-                            this.getStockSupermercado().get(i).getCantidad() + cantidad);
+                    this.getStockSupermercado().get(i).getCantidad() + cantidad);
                     encontrado = true;
                 }
                 i++;

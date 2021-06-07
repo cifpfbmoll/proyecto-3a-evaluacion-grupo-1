@@ -187,11 +187,18 @@ public class Ticket {
             query.setDouble(6, t1.getPrecioTotal());
             query.executeUpdate();
             for(int i=0;i<lineasTicket.size();i++){
-                try(PreparedStatement query2=Herramientas.getConexion().prepareStatement("INSERT INTO linea_ticket VALUES(?,?,?,?)")){
+                try(PreparedStatement query2=Herramientas.getConexion().prepareStatement("INSERT INTO linea_ticket VALUES(?,?,?,?,?)")){
                     query2.setInt(1, t1.getCodigo());
                     query2.setInt(2, lineasTicket.get(i).getCodigo_producto());
                     query2.setInt(3, lineasTicket.get(i).getCantidad());
                     query2.setDouble(4, lineasTicket.get(i).getPrecio_linea());
+                    try (PreparedStatement query3 = Herramientas.getConexion().prepareStatement("SELECT nombre_producto FROM producto WHERE codigo_producto=?")) {
+                        query3.setInt(1, lineasTicket.get(i).getCodigo_producto());
+                        try (ResultSet resultado = query3.executeQuery()) {
+                            resultado.next();
+                            query2.setString(5, resultado.getString(1));
+                        }
+                    }
                     query2.executeUpdate();
                 }
             }

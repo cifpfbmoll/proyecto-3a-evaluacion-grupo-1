@@ -383,10 +383,4 @@ public class Empleado extends Persona {
             Excepciones.pasarExcepcionLog("Ha ocurrido un error al mandar su incidencia", error);
         }   
     }
-    
-//    public static void main(String[] args) throws SQLException {
-//        Herramientas.crearConexion();
-//        Empleado.borrarEmpleadoYNominas(Herramientas.getConexion(), 2, true);
-//        Herramientas.cerrarConexion();
-//    }
 }

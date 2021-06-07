@@ -652,7 +652,7 @@ public class VerNominas extends javax.swing.JFrame {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(400, 458));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setMaximumSize(new java.awt.Dimension(600, 32767));
+        jPanel1.setMaximumSize(new java.awt.Dimension(600, 999932767));
         jPanel1.setMinimumSize(new java.awt.Dimension(600, 600));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane1.setViewportView(jPanel1);

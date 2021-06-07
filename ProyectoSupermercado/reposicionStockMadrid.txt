@@ -32,3 +32,10 @@ Producto:  Ensalada  cantidad: 3
 Fecha: Sun Jun 06 17:06:56 CEST 2021
 
 Producto:  Canelones Buitoni  cantidad: 50
+
+
+
+-------------------------ACTUALIZACION-----------------------
+Fecha: Mon Jun 07 17:05:53 CEST 2021
+
+Producto:  fdg  cantidad: 5
