@@ -41,12 +41,27 @@ public final class ProductoBebida extends Producto {
         this.alcoholica = alcoholica;
     } 
     
+    /**
+     * Método para instanciar un ProductoBebida usando el método ultimoNumero y así asignarle directamente el código correcto, retorna un ProductoBebida.
+     * @param caducidad
+     * @param alcoholica
+     * @param nombreProd
+     * @param precioProd
+     * @param descripcionProd
+     * @return
+     * @throws SQLException 
+     */
     public static ProductoBebida crearProductoBebida(int caducidad, Boolean alcoholica, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
         int ultimoCodigoProd = ProductoBebida.ultimoNumero();
         ProductoBebida pb1 = new ProductoBebida(caducidad, alcoholica, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
         return pb1;
     }
     
+    /**
+     * Método que nos añade el productoBebida a la base de datos.
+     * @param pb1
+     * @throws SQLException 
+     */
     public static void añadirBebida(ProductoBebida pb1) throws SQLException{
         Connection conexion = Herramientas.getConexion();
         try{
@@ -75,23 +90,14 @@ public final class ProductoBebida extends Producto {
             Excepciones.pasarExcepcionLog("Ha fallado la transacción de añadir Bebida", sqlException);
             conexion.rollback();
             conexion.setAutoCommit(true);
-        }
-        
-//        Antiguo metodo con la clase Herramienta        
-//        try{
-//            Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+pb1.getCodigoProd()+",'"+pb1.getNombreProd()+"',"+pb1.getPrecioProd()+",'"+pb1.getDescripcionProd()+"','Bebida')",false);
-//            Herramientas.modificarDatosTabla("INSERT INTO producto_bebida VALUES("+pb1.getCodigoProd()+","+pb1.getCaducidad()+","+pb1.getAlcoholica()+")",false);
-//            Herramientas.getConexion().commit();
-//            Herramientas.getConexion().setAutoCommit(true);
-//            Herramientas.cerrarStatementResult();
-//        } catch (SQLException error){
-//            Herramientas.getConexion().rollback();
-//            Herramientas.getConexion().setAutoCommit(true);
-//            Herramientas.aviso("Ha habido un error");
-//            //error.printStackTrace();
-//        }        
+        }   
     }
     
+    /**
+     * Método que nos permite eliminar de la base de datos el productoBebida con el código que le pasamos.
+     * @param codigoProd
+     * @throws SQLException 
+     */
     public static void eliminarBebida(int codigoProd) throws SQLException{
         Connection conexion = Herramientas.getConexion();
         try{
@@ -117,22 +123,14 @@ public final class ProductoBebida extends Producto {
             conexion.rollback();
             conexion.setAutoCommit(true);
         }
-
-//        Forma antigua de hacerlo con Herramientas
-//        try{
-//            Herramientas.modificarDatosTabla("DELETE FROM producto_bebida WHERE Codigo_producto = "+codigoProd,false);
-//            Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,false);
-//            Herramientas.getConexion().commit();
-//            Herramientas.getConexion().setAutoCommit(true);
-//            Herramientas.cerrarStatementResult();
-//        } catch (SQLException error){
-//            Herramientas.getConexion().rollback();
-//            Herramientas.getConexion().setAutoCommit(true);
-//            Herramientas.aviso("Ha habido un error");
-//            error.printStackTrace();
-//        }
     }
     
+    /**
+     * Método que nos permite recoger un productoBebida, nos retorna el objeto.
+     * @param buscar
+     * @return
+     * @throws SQLException 
+     */
     public static ProductoBebida recogerBebida(int buscar) throws SQLException{
         Connection conexion = Herramientas.getConexion();        
         try{

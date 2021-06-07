@@ -65,7 +65,11 @@ public class Producto {
     public String toString() {
         return "Producto{" + "codigoProd=" + codigoProd + ", nombreProd=" + nombreProd + ", precioProd=" + precioProd + ", descripcionProd=" + descripcionProd + '}';
     }
-    
+     /**
+      * Método que retorna el úlitmo valor del codigo producto disponible de la base de datos
+      * @return
+      * @throws SQLException 
+      */
     public static int ultimoNumero() throws SQLException{
         int ultimo;
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT MAX(Codigo_producto) FROM producto"); 
@@ -76,6 +80,10 @@ public class Producto {
         return ultimo;
     }
     
+    /**
+     * Método que te recoge todos los productos en una ArrayList y la retorna
+     * @return 
+     */
     public static ArrayList recogerProducto(){
         ArrayList <Producto> listaProductos = new ArrayList();
         try{
