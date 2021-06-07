@@ -220,8 +220,8 @@ INSERT INTO empleado VALUES(22,2,'22337788C','Catalina','Alonso','Iglesias',27,'
 INSERT INTO empleado VALUES(23,2,'32346788D','Jesus','Oliver','Almeida',36,'Comunidad de Madrid', 'Madrid', '01111','C/Pequeña, 12','655555001','jesuso@gmail.com','Recursos Humanos',3,'1234');
 
 INSERT INTO ticket VALUES(1,'55577788A',2,'29/04/2021','13:37',8.5);
-INSERT INTO linea_ticket VALUES(1,2,2,7);
-INSERT INTO linea_ticket VALUES(1,4,1,1.5);
+INSERT INTO linea_ticket VALUES(1,2,2,7,'Pizza 4 quesos');
+INSERT INTO linea_ticket VALUES(1,4,1,1.5,'Bollycao');
 
 INSERT INTO plantilla_nomina VALUES('Dependiente',1300,11,4.5);
 INSERT INTO plantilla_nomina VALUES('Supervisor',2000,18,7);

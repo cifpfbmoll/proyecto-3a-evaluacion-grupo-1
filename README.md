@@ -1,5 +1,7 @@
 # proyecto-3a-evaluacion-grupo-1
 
+# DIARIO DE TRABAJO:
+
 # 24/03/2021
 
 Empezamos el proyecto, empezamos el 1 Sprint. Recogemos los requisitos del programa que nos ha dado el product owner. A partir de estos requisitos empezamos a pensar como será el programa y a crear la base de datos. Creamos el diagrama entidad relación.
@@ -100,3 +102,15 @@ Corregimos el examen, así que no podremos hacer demasiado.
 
 Continuamos con el Sprint 7, el frame principal de empleados esta a punto de estar terminado. Ya hay bastantes clases comentadas y código repasado. Los frames de las opciones del frame principal de empleados están en proceso. Tendremos que trabajar este fin de semana pero creo que tendremos todo terminado y limpio para el día de la presentación.
 
+# 07/06/2021
+
+Sprint 7 terminado. Frames creados y clases comentadas. Se ha adjuntado toda la documentación.
+
+
+# DIAGRAMA BASE DE DATOS:
+
+![Diagrama Base de datos](Documentacion\Supermercados.png)
+
+# UML:
+
+![UML](Documentacion\UMLSupermercado.png)
