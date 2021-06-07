@@ -241,6 +241,7 @@ public class CreateSupermarket extends javax.swing.JFrame {
     private void botonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAñadirActionPerformed
         try {
             Supermercado.insertSupermarketIntoDB(getNifTextField(), getCcaaTextField(), getLocalidadTextField(), getZipCodeTextField(), getAddressTextField(), getPhoneNumTextField(), getEmailTextField(), getAreaTextField());
+            Supermercado.writeDataToFile(Supermercado.instantiateSupermarketFromDB(Supermercado.getLastCode()));
             Herramientas.aviso("El supermercado ha sido creado con exito");
         } catch (SQLException throwables) {
             Herramientas.aviso("Ha ocurrido un problema al insertar el supermercado");
