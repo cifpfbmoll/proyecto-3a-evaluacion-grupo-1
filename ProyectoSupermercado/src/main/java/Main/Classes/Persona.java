@@ -21,7 +21,21 @@ public abstract class Persona {
     public Persona() {
 
     }
-    
+    /**
+     * Método constructor con parámetros de la clase persona
+     * @param nombre
+     * @param apellido1
+     * @param apellido2
+     * @param edad
+     * @param nif
+     * @param cAutonoma
+     * @param localidad
+     * @param cPostal
+     * @param direccion
+     * @param email
+     * @param contraseña
+     * @param telefono 
+     */
     public Persona(String nombre, String apellido1, String apellido2, int edad,String nif, String cAutonoma, String localidad, String cPostal, String direccion,
     String email, String contraseña, String telefono) {
         setNombre(nombre);

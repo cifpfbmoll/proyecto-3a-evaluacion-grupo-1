@@ -26,7 +26,7 @@ public class Empleado extends Persona {
     }
 
     /**
-    *Constructor con parámetros de empleado
+    *Constructor con parámetros de clase empleado
     **/
     public Empleado(String nombre, String apellido1, String apellido2,int edad,String nif, String cAutonoma, String localidad, String cPostal, String direccion,
     String email, String contraseña, String telefono, int id, int codigoSupermercado, String puestoTrabajo, int privilegios) {
@@ -73,7 +73,12 @@ public class Empleado extends Persona {
         public String toString() {
             return super.toString() + "Empleado{" + "id=" + id + ", codigoSupermercado=" + codigoSupermercado + ", puestoTrabajo=" + puestoTrabajo + ", privilegios=" + privilegios + '}';
         }
-
+/**
+ * 
+ * @param puestoTrabajo
+ * @throws Excepciones 
+ * @return int
+ */
     public static int privilegiosPuestoTrabajo (String puestoTrabajo) throws Excepciones{
         int privilegios=0;
         switch (puestoTrabajo){
@@ -101,7 +106,8 @@ public class Empleado extends Persona {
      
     
     /**
-        *Añade un empleado a la base de datos recibiendo sus atributos por parámetro
+        *Añade un empleado a la base de datos.
+        *Recibe por parámetros una conexión, los atributos del mismo y la contraseña duplicada
         *@param nombre String
         *@param apellido1 String
         *@param apellido2 String
@@ -115,12 +121,13 @@ public class Empleado extends Persona {
         *@param contraseña String
         *@param rContraseña String
         *@param telefono String
-        *@param codigosupermercado int
+        *@param codigoSupermercado int
         *@param puestoTrabajo String
         *@param privilegios int
         *@param conexion Connection
         *@throws SQLException
         *@throws Excepciones
+        * @return int
         **/
     public static int añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
     String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, 
@@ -164,6 +171,7 @@ public class Empleado extends Persona {
     *@param conexion Connection
     *@param id int
     *@throws SQLException
+    * @return Empleado
     **/
     public static Empleado recogerEmpleado(Connection conexion, int id) throws SQLException {
         PreparedStatement sentencia = conexion.prepareStatement("SELECT * FROM empleado WHERE ID_EMPLEADO = ?");
@@ -192,9 +200,10 @@ public class Empleado extends Persona {
         return per;
     }
     /**
-    *Recoge todos los empleados y los devuelve en un ArrayList
+    *Recoge todos los empleados de la base de datos y los devuelve en un ArrayList
     *@param conexion Connection
     *@throws SQLException
+    *@return ArrayList
     **/
     public static ArrayList recogerTodosEmpleados(Connection conexion) throws SQLException {
         ArrayList <Empleado> listaEmpleados=new ArrayList();
@@ -227,7 +236,7 @@ public class Empleado extends Persona {
     }
 
     /**
-    *Borra un empleado de la base de datos
+    *Borra un empleado de la base de datos pasándole una conexion de y una id
     *@param conexion Connection
     *@param id int
     *@throws SQLException
@@ -241,10 +250,11 @@ public class Empleado extends Persona {
     }
 
     /**
-    *Borra un empleado y todas sus nóminas asociadas
+    *Borra un empleado de la base de datos y todas sus nóminas asociadas pasando
+    * su id por parámetro
     *@param conexion Connection
     *@param id int
-    *@param comittear boolean
+    *@param comitear boolean
     *@throws SQLException
     **/
     
@@ -284,6 +294,7 @@ public class Empleado extends Persona {
     }
     /**
     *Permite a un empleado escribir una idea para que la tengan en cuenta sus superiores
+    * y guardarlae n la base de datos
     *@param texto String
     **/
     public static void escribirIdea(String texto){
@@ -327,7 +338,8 @@ public class Empleado extends Persona {
         }   
     }
     /**
-    *Escribe una incidencia en el empleado activo
+    *Escribe una incidencia en el empleado activo y la guarda
+    * en la base datos
     *@param texto String
     **/
     public static void escribirIncidencia(String texto){
