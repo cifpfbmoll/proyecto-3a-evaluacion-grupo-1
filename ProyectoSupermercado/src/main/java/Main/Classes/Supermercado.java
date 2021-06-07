@@ -9,6 +9,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+
 public class Supermercado {
     private int code;
     private String NIF;
@@ -73,8 +74,7 @@ public class Supermercado {
                 " en " + address +
                 ". Con teléfono " + phoneNumber +
                 ", email " + email +
-                " y área " + area + '.' + '\'' +
-                " Su stock es " + stockSupermercado;
+                " y área " + area + '.'+"";
     }
 
     public static class Builder { //Builder Pattern
@@ -175,23 +175,104 @@ public class Supermercado {
 
     }
 
-    private void writeDataToFile() {
+
+    /**
+     * This method is used to write the data from a Supermercado Object into an external .txt file.
+     * @param supermercado A Supermercado Object from which to get data and execute toString, in order for the Writer to output its data.
+     */
+    public static void writeDataToFile(Supermercado supermercado) {
         LocalDateTime localDateTime = LocalDateTime.now();
         File file = new File("SupermarketInfo.txt");
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
             bufferedWriter.write(String.valueOf(localDateTime));
             bufferedWriter.newLine();
-            bufferedWriter.write(this.toString());
+            bufferedWriter.write(supermercado.toString());
 
         } catch (IOException ioException) {
-            ioException.printStackTrace();
-
+            Herramientas.aviso("Error inesperado al escribir información al archivo de texto de Supermercados!");
+            Excepciones.pasarExcepcionLog("Error inesperado al escribir información al archivo de texto de Supermercados!", ioException);
         }
 
     }
 
+    /**
+     * This method grabs all the data the user has manually added in the UI in order to then insert it to the database.
+     * @param NIFTextField TextField containing the NIF String.
+     * @param CCAATextField TextField containing the CCAA String.
+     * @param localitatTextField TextField containing the Localitat String.
+     * @param zipCodeTextField TextField containing the Zip Code String
+     * @param addressTextField TextField containing the Address String
+     * @param phoneNumberTextField TextField containing the Phone Number String.
+     * @param emailTextField TextField containing the Email String.
+     * @param areaTextField TextField containing the Area Integer.
+     * @throws SQLException SQLException from Database's possible errors.
+     */
+    public static void insertSupermarketIntoDB(JTextField NIFTextField, JTextField CCAATextField, JTextField localitatTextField, JTextField zipCodeTextField,
+            JTextField addressTextField, JTextField phoneNumberTextField, JTextField emailTextField, JTextField areaTextField ) throws SQLException {
 
+        
+            Supermercado supermercado = Builder.newInstance()
+                    .code(getLastCode() + 1)
+                    .NIF(NIFTextField.getText())
+                    .CCAA(CCAATextField.getText())
+                    .localitat(localitatTextField.getText())
+                    .zipCode(zipCodeTextField.getText())
+                    .address(addressTextField.getText())
+                    .phoneNumber(phoneNumberTextField.getText())
+                    .email(emailTextField.getText())
+                    .area(Integer.parseInt(areaTextField.getText()))
+                    .build();
+
+            Connection connection = Herramientas.getConexion();
+            PreparedStatement insertSupermarketPreparedStatement = connection.prepareStatement("INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            insertSupermarketPreparedStatement.setInt(1, supermercado.code);
+            insertSupermarketPreparedStatement.setString(2, supermercado.NIF);
+            insertSupermarketPreparedStatement.setString(3, supermercado.CCAA);
+            insertSupermarketPreparedStatement.setString(4, supermercado.localitat);
+            insertSupermarketPreparedStatement.setString(5, supermercado.zipCode);
+            insertSupermarketPreparedStatement.setString(6, supermercado.address);
+            insertSupermarketPreparedStatement.setString(7, supermercado.phoneNumber);
+            insertSupermarketPreparedStatement.setString(8, supermercado.email);
+            insertSupermarketPreparedStatement.setInt(9, supermercado.area);
+
+
+            insertSupermarketPreparedStatement.executeUpdate();
+            insertSupermarketPreparedStatement.close();
+            
+            StockProducto.inicializarStock(supermercado.code, connection);
+        }
+
+    /**
+     * This method selects the highest value for Codigo_supermercado in the database, and returns it as an int.
+     * @return Integer containing the highest value to be found in the Database's Codigo_supermercado field.
+     * @throws SQLException SQLException from Database's possible errors.
+     */
+    public static int getLastCode() throws SQLException {
+            Connection connection = Herramientas.getConexion();
+
+            PreparedStatement getCodePreparedStatement = connection.prepareStatement("SELECT MAX(Codigo_supermercado) FROM SUPERMERCADO");
+            ResultSet lastCodeValue = getCodePreparedStatement.executeQuery();
+
+            if (lastCodeValue.next()) {
+                int codeValue = lastCodeValue.getInt(1);
+                getCodePreparedStatement.close();
+                lastCodeValue.close();
+
+                return codeValue;
+            } else {
+                throw new SQLException("Query error, code not found.");
+            }
+
+        }
+
+    /**
+     * This method gets data from Database in order to instantiate a Supermercado Object with its specific data.
+     * @param supermarketCode int, used to identify the Supermercado in the database.
+     * @return A Supermercado Object, instantiaded with values from the database corresponding to its code.
+     * @throws SQLException SQLException from Database's possible errors.
+     */
     public static Supermercado instantiateSupermarketFromDB(int supermarketCode) throws SQLException {
         Connection connection = Herramientas.getConexion();
 
@@ -221,7 +302,19 @@ public class Supermercado {
 
 
     }
-
+    
+    /**
+     * Metodo que sirve para restar del stock de un supermercado una cantidad de un
+     * producto concreto. Se le pasa por parametro una lineaCompra, que es una linea
+     * compra de un carrito de compra para que el metodo vea cual es el codigo del producto
+     * y la cantidad a restar del producto. Actualiza la cantidad tanto en el programa
+     * como en la base de datos.
+     * @param lc1 lineaCompra del carrito de la que se recoge la informacion
+     * @throws SQLException Puede lanzar una SQLException ya que se comunica con la
+     * base de datos
+     * @throws Excepciones lanza una excepcion si la cantidad que se quiere restar
+     * es mayor a la cantidad en stock, para que el stock no se quede en negativo
+     */
     public void restarStock(LineaCompra lc1) throws SQLException, Excepciones {
 
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("UPDATE stock_supermercado SET cantidad=? "
@@ -235,7 +328,7 @@ public class Supermercado {
                     } else {
                         query.setInt(1, this.getStockSupermercado().get(i).getCantidad() - lc1.getCantidad());
                         this.getStockSupermercado().get(i).setCantidad(
-                                this.getStockSupermercado().get(i).getCantidad() - lc1.getCantidad());
+                        this.getStockSupermercado().get(i).getCantidad() - lc1.getCantidad());
                     }
                     encontrado = true;
                 }
@@ -247,8 +340,17 @@ public class Supermercado {
         }
 
     }
-
-    public void devolverStock(int codigoProducto, int cantidad) throws SQLException {
+    /**
+     * Metodo que sirve para añadir al stock de un supermercado una cantidad de 
+     * un producto concreto. Se pasa por parametro el codigo del producto al cual
+     * se le quiere añadir y la cantidad a añadir. El metodo actualiza la cantidad
+     * tanto en el programa como en la base de datos.
+     * @param codigoProducto int que identifica el producto
+     * @param cantidad int cantidad que se sumara al stock de ese producto
+     * @throws SQLException Puede lanzar una SQLException ya que se comunica con la
+     * base de datos
+     */
+    public void añadirStock(int codigoProducto, int cantidad) throws SQLException {
 
         try (PreparedStatement query = Herramientas.getConexion().prepareStatement("UPDATE stock_supermercado SET cantidad=? "
                 + "WHERE codigo_supermercado=? AND codigo_producto=?")) {
@@ -258,7 +360,7 @@ public class Supermercado {
                 if (this.getStockSupermercado().get(i).getCodigoProducto() == codigoProducto) {
                     query.setInt(1, this.getStockSupermercado().get(i).getCantidad() + cantidad);
                     this.getStockSupermercado().get(i).setCantidad(
-                            this.getStockSupermercado().get(i).getCantidad() + cantidad);
+                    this.getStockSupermercado().get(i).getCantidad() + cantidad);
                     encontrado = true;
                 }
                 i++;
@@ -270,167 +372,94 @@ public class Supermercado {
 
     }
 
-    public static class addSupermarket {
+    /**
+     * This method deletes the information related to the supermarketCode parameter in the database.
+     * It also deletes anything that depends on its existence, such as its employees, or their paysheets (Transaction).
+     * @param supermarketCode int, used to identify which Supermercado you want to delete.
+     */
+    public static void removeSupermarketFromDB(int supermarketCode) {
+        Connection connection = Herramientas.getConexion();
+        Boolean autoCommitValue = null;
+        Savepoint savepoint = null;
 
-        private static JTextField NIFTextField;
-        private static JTextField CCAATextField;
-        private static JTextField localitatTextField;
-        private static JTextField zipCodeTextField;
-        private static JTextField addressTextField;
-        private static JTextField phoneNumberTextField;
-        private static JTextField emailTextField;
+        try (PreparedStatement removeSupermarketPreparedStatement = connection.prepareStatement("DELETE FROM SUPERMERCADO WHERE Codigo_supermercado = ?");
+            PreparedStatement getEmployeesList = connection.prepareStatement("SELECT  ID_EMPLEADO FROM EMPLEADO WHERE Codigo_supermercado = ?")) {
+            autoCommitValue = connection.getAutoCommit();
+            connection.setAutoCommit(false);
+            savepoint = connection.setSavepoint("Start Removing");
 
-        private static JTextField areaTextField;
+            //Get Employees
+            getEmployeesList.setInt(1, supermarketCode);
+            ResultSet getEmployeesResultSet = getEmployeesList.executeQuery();
 
-        private JButton addSupermarketButton;
+            //Delete Empleado and Nominas
+            while (getEmployeesResultSet.next()) {
+                Empleado.borrarEmpleadoYNominas(connection, getEmployeesResultSet.getInt(1), false);
 
-
-        public static JTextField getNIFTextField() {
-            return NIFTextField;
-        }
-
-        public static JTextField getCCAATextField() {
-            return CCAATextField;
-        }
-
-        public static JTextField getLocalitatTextField() {
-            return localitatTextField;
-        }
-
-        public static JTextField getZipCodeTextField() {
-            return zipCodeTextField;
-        }
-
-        public static JTextField getAddressTextField() {
-            return addressTextField;
-        }
-
-        public static JTextField getPhoneNumberTextField() {
-            return phoneNumberTextField;
-        }
-
-        public static JTextField getEmailTextField() {
-            return emailTextField;
-        }
-
-        public static JTextField getAreaTextField() {
-            return areaTextField;
-        }
-
-        public addSupermarket() {
-            addSupermarketButton.addActionListener(e -> {
-                try {
-                    insertSupermarketIntoDB();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            });
-        }
-
-        private static void insertSupermarketIntoDB() throws SQLException {
-            Supermercado supermercado = Builder.newInstance()
-                    .code(getLastCode() + 1)
-                    .NIF(getNIFTextField().getText())
-                    .CCAA(getCCAATextField().getText())
-                    .localitat(getLocalitatTextField().getText())
-                    .zipCode(getZipCodeTextField().getText())
-                    .address(getAddressTextField().getText())
-                    .phoneNumber(getPhoneNumberTextField().getText())
-                    .email(getEmailTextField().getText())
-                    .area(Integer.parseInt(getAreaTextField().getText()))
-                    .build();
-
-            Connection connection = Herramientas.getConexion();
-            PreparedStatement insertSupermarketPreparedStatement = connection.prepareStatement("INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?, ?, ?. ?)");
-
-            insertSupermarketPreparedStatement.setInt(1, supermercado.code);
-            insertSupermarketPreparedStatement.setString(2, supermercado.NIF);
-            insertSupermarketPreparedStatement.setString(3, supermercado.CCAA);
-            insertSupermarketPreparedStatement.setString(4, supermercado.localitat);
-            insertSupermarketPreparedStatement.setString(5, supermercado.zipCode);
-            insertSupermarketPreparedStatement.setString(6, supermercado.address);
-            insertSupermarketPreparedStatement.setString(7, supermercado.phoneNumber);
-            insertSupermarketPreparedStatement.setString(8, supermercado.email);
-            insertSupermarketPreparedStatement.setInt(9, supermercado.area);
-
-
-            insertSupermarketPreparedStatement.executeUpdate();
-            insertSupermarketPreparedStatement.close();
-
-        }
-
-        private static int getLastCode() throws SQLException {
-            Connection connection = Herramientas.getConexion();
-
-            PreparedStatement getCodePreparedStatement = connection.prepareStatement("SELECT MAX(Codigo_supermercado) FROM SUPERMERCADO");
-            ResultSet lastCodeValue = getCodePreparedStatement.executeQuery();
-
-            if (lastCodeValue.next()) {
-                int codeValue = lastCodeValue.getInt(1);
-                getCodePreparedStatement.close();
-                lastCodeValue.close();
-
-                return codeValue;
-            } else {
-                throw new SQLException("Query error, code not found.");
             }
 
-        }
+            //Delete Stock
+            StockProducto.deleteStockSupermercado(supermarketCode);
 
-    }
+            //Delete Supermarket
+            removeSupermarketPreparedStatement.setInt(1, supermarketCode);
+            removeSupermarketPreparedStatement.executeUpdate();
 
-    public static class removeSupermarket {
+            connection.commit();
 
-        public static void removeSupermarketFromDB(int supermarketCode) {
-            Connection connection = Herramientas.getConexion();
-            Boolean autoCommitValue = null;
-            Savepoint savepoint = null;
+        } catch (SQLException sqlException) {
+            Herramientas.aviso("Se ha producido un error durante la transacción de Eliminar Supermercado!");
+            Excepciones.pasarExcepcionLog("Se ha producido un error durante la transacción de Eliminar Supermercado!", sqlException);
 
-            try (PreparedStatement removeSupermarketPreparedStatement = connection.prepareStatement("DELETE FROM SUPERMERCADO WHERE Codigo_supermercado = ?"); PreparedStatement getEmployeesList = connection.prepareStatement("SELECT  ID_EMPLEADO FROM EMPLEADO WHERE Codigo_supermercado = ?")) {
-                autoCommitValue = connection.getAutoCommit();
-                connection.setAutoCommit(false);
-                savepoint = connection.setSavepoint("Start Removing");
+            try {
+                connection.rollback(savepoint);
 
-                //Get Employees
-                getEmployeesList.setInt(1, supermarketCode);
-                ResultSet getEmployeesResultSet = getEmployeesList.executeQuery();
+            } catch (SQLException sqlException1) {
+                Herramientas.aviso("Error inesperado al intentar hacer rollback!");
+                Excepciones.pasarExcepcionLog("Error inesperado al intentar hacer rollback!", sqlException1);
+            }
 
-                //Delete Empleado and Nominas
-                while (getEmployeesResultSet.next()) {
-                    Empleado.borrarEmpleadoYNominas(connection, getEmployeesResultSet.getInt(1), false);
-
-                }
-
-                //Delete Stock
-                StockProducto.deleteStockSupermercado(supermarketCode);
-
-                //Delete Supermarket
-                removeSupermarketPreparedStatement.setInt(1, supermarketCode);
-                removeSupermarketPreparedStatement.executeUpdate();
-
-                connection.commit();
+        } finally {
+            try {
+                connection.setAutoCommit(autoCommitValue);
 
             } catch (SQLException sqlException) {
-                sqlException.printStackTrace();
-
-                try {
-                    connection.rollback(savepoint);
-
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-
-                }
-
-            } finally {
-                try {
-                    connection.setAutoCommit(autoCommitValue);
-
-                } catch (SQLException sqlException) {
-                    sqlException.printStackTrace();
-
-                }
+                Herramientas.aviso("Error inesperado durante la reactivación del AutoCommit!");
+                Excepciones.pasarExcepcionLog("Error inesperado durante la reactivación del AutoCommit!", sqlException);
 
             }
+
         }
     }
+
+    /**
+     * This method is intended to collect some data from the database, and make a String out of it, which then will be saved in the returned ArrayList.
+     * Its main function is to populate a JComboBox.
+     * @return An ArrayList containing a String for each different entry on the Supermercado Table in the database.
+     */
+   public static ArrayList<String> getSupermarketsFromDatabase() {
+    ArrayList<String> supermarketInfo = new ArrayList<>();
+
+    try (PreparedStatement getSupermarketsPs = Herramientas.getConexion().prepareStatement("SELECT Codigo_supermercado, localidad FROM SUPERMERCADO")) {
+        ResultSet getSupermarketsResultSet = getSupermarketsPs.executeQuery();
+
+        while(getSupermarketsResultSet.next()) {
+            String value = (getSupermarketsResultSet.getInt(1)) + "- " + getSupermarketsResultSet.getString(2);
+            supermarketInfo.add(value);
+
+        }
+
+        getSupermarketsResultSet.close();
+
+        } catch (SQLException sqlException) {
+            Herramientas.aviso("Error inesperado al recojer información de los supermercados!");
+            Excepciones.pasarExcepcionLog("Error inesperado al recojer información de los supermercados!", sqlException);
+
+        }
+
+    return supermarketInfo;
+
+    }
+    
+    
 }

@@ -325,9 +325,6 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comunidadAutonomaActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -523,7 +520,7 @@
           <StringArray count="4">
             <StringItem index="0" value="Dependiente"/>
             <StringItem index="1" value="Supervisor"/>
-            <StringItem index="2" value="RRHH"/>
+            <StringItem index="2" value="Recursos Humanos"/>
             <StringItem index="3" value="Director"/>
           </StringArray>
         </Property>

@@ -79,14 +79,16 @@ public class Ticket {
     /**
      * Setter que mira en la base de datos cual es el ultimo codigo de ticket
      * y le suma 1 para luego asignarselo al nuevo ticket.
-     * @throws SQLException 
+     * @throws SQLException Puede tirar una SQLEception ja que se comunica con 
+     * la base de datos
      */
     public void setCodigo() throws SQLException {
-        Herramientas.hacerSelect("SELECT MAX(codigo_ticket) FROM ticket",false);
-        ResultSet resultado=Herramientas.getResultado();
-        resultado.next();
-        this.codigo = (resultado.getInt(1))+1;
-        Herramientas.cerrarStatementResult();
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT MAX(codigo_ticket) FROM ticket"); 
+        ResultSet resultado = query.executeQuery()) {
+            resultado.next();
+            this.codigo = (resultado.getInt(1))+1;
+        }
+        
     }
 
     public void setCodigo(int codigo) {
@@ -155,7 +157,17 @@ public class Ticket {
     }
 
     
-    //no probado
+    /**
+     * Metodo usado para crear un ticket e insertarlo a la base de datos, recibe por parametro el codigo del supermercado
+     * en el cual se ha generado el tickets, una arraylist que es la cesta compra y son todos los productos del
+     * ticket y un nif para identificar al cliente que hace la compra. Se generan todos la fecha y hora del ticket
+     * automaticamente. Una vez generado el ticket se inserta en la base de datos. La transaccion se controla en el metodo
+     * llamante, ya que alli hay otra transaccion(ya que al crear un ticket se eliminan unas lineas cestas en al base de datos tambien).
+     * @param codigoSupermercado int que identifica el supermercado.
+     * @param lineasTicket ArrayList de LineaCompra que representan las lineas del ticket.
+     * @param nif String que identifica al cliente.
+     * @throws SQLException Puede tirar una SQLException si algo falla con la base de datos.
+     */
     public static void crearTicket(int codigoSupermercado, ArrayList <LineaCompra> lineasTicket, String nif ) throws SQLException{
         double precioTotal=0;
         for(int i=0;i<lineasTicket.size();i++){
@@ -175,18 +187,33 @@ public class Ticket {
             query.setDouble(6, t1.getPrecioTotal());
             query.executeUpdate();
             for(int i=0;i<lineasTicket.size();i++){
-                try(PreparedStatement query2=Herramientas.getConexion().prepareStatement("INSERT INTO linea_ticket VALUES(?,?,?,?)")){
+                try(PreparedStatement query2=Herramientas.getConexion().prepareStatement("INSERT INTO linea_ticket VALUES(?,?,?,?,?)")){
                     query2.setInt(1, t1.getCodigo());
                     query2.setInt(2, lineasTicket.get(i).getCodigo_producto());
                     query2.setInt(3, lineasTicket.get(i).getCantidad());
                     query2.setDouble(4, lineasTicket.get(i).getPrecio_linea());
+                    try (PreparedStatement query3 = Herramientas.getConexion().prepareStatement("SELECT nombre_producto FROM producto WHERE codigo_producto=?")) {
+                        query3.setInt(1, lineasTicket.get(i).getCodigo_producto());
+                        try (ResultSet resultado = query3.executeQuery()) {
+                            resultado.next();
+                            query2.setString(5, resultado.getString(1));
+                        }
+                    }
                     query2.executeUpdate();
                 }
             }
         }
     }
 
-    //probado
+    /**
+     * Metodo que hace un select de la base de datos y coge todos los tickets de un usuario y
+     * los inserta a cada uno en un objeto Ticket. Esos tickets son insertados en una ArrayList
+     * que luego es devuelta.
+     * @param DNICliente nif que identifica al cliente
+     * @return ArrayList de ticket donde se han guardado todos los tickets seleccionados
+     * @throws SQLException Aunque realmente la mayoria de excepciones se controlan en el metodo,
+     * puede tirar una SQLException cuando se cierran los PreparedStatement y los ResultSet.
+     */
     public static ArrayList verTicket (String DNICliente) throws SQLException{
         PreparedStatement query=null;
         ResultSet resultado=null;
@@ -206,27 +233,28 @@ public class Ticket {
                 listaTickets.add(t1);
             }
         } catch(SQLException ex){
-            Herramientas.aviso("Ha habido un error con al recuperar sus tickets");
-            Excepciones.pasarExcepcionLog("Ha habido un error con al recuperar sus tickets", ex);
+            Herramientas.aviso("Ha habido un error al recuperar sus tickets");
+            Excepciones.pasarExcepcionLog("Ha habido un error al recuperar sus tickets", ex);
         } finally{
             resultado.close();
             query.close();
         }
         return listaTickets;
     }
-    
+    /**
+     * Metodo de instancia que hace un select en la base de datos para recoger las
+     * lineas del ticket en el que se ha instanciado. 
+     * @throws SQLException Puede tirar una SQLException si algo falla con la base de datos.
+     */
     public void verLineaTicket() throws SQLException{
-        Herramientas.hacerSelect("SELECT * FROM linea_ticket WHERE codigo_ticket="+this.getCodigo()+";", true);
-        ResultSet resultado=Herramientas.getResultado();
-        while(resultado.next()){
-            LineaCompra lineaT1=new LineaCompra(resultado.getInt(2),resultado.getInt(3),resultado.getDouble(4));
-            this.getLineasTicket().add(lineaT1);
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT * FROM linea_ticket WHERE codigo_ticket=?")) {
+            query.setInt(1, this.getCodigo());
+            try (ResultSet resultado = query.executeQuery()) {
+                while(resultado.next()){
+                    LineaCompra lineaT1=new LineaCompra(resultado.getInt(2),resultado.getInt(3),resultado.getDouble(4));
+                    this.getLineasTicket().add(lineaT1);
+                }
+            }
         }
-    }
-    
-    public static void main(String[] args) throws SQLException {
-        Herramientas.crearConexion();
-        verTicket("'55577788A'");
-        Herramientas.cerrarConexion();
     }
 }

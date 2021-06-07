@@ -5,27 +5,28 @@
  */
 package Main.Classes;
 
-import static Main.Classes.ProductoHigiene.TipoHigiene.mascarilla;
-import static Main.Classes.ProductoLimpieza.Superficie.cristal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
 * @author josep
 */
 
-abstract class Producto {
+public class Producto {
     private int codigoProd;
     private String nombreProd;
     private double precioProd;   
     private String descripcionProd;
 
     public Producto(int codigoProd, String nombreProd, double precioProd, String descripcionProd) {
-        this.codigoProd = codigoProd;
-        this.nombreProd = nombreProd;
-        this.precioProd = precioProd;
-        this.descripcionProd = descripcionProd;
+        this.setCodigoProd(codigoProd);
+        this.setNombreProd(nombreProd);
+        this.setPrecioProd (precioProd);
+        this.setDescripcionProd(descripcionProd);
     }
 
     public int getCodigoProd() {
@@ -64,38 +65,50 @@ abstract class Producto {
     public String toString() {
         return "Producto{" + "codigoProd=" + codigoProd + ", nombreProd=" + nombreProd + ", precioProd=" + precioProd + ", descripcionProd=" + descripcionProd + '}';
     }
-    
-    public static int UltimoNumero() throws SQLException{
-        Herramientas.hacerSelect("SELECT MAX(Codigo_producto) FROM producto",true);
-        ResultSet result=Herramientas.getResultado();
-        result.next();
-        int ultimo = result.getInt(1)+1;
+     /**
+      * Método que retorna el úlitmo valor del codigo producto disponible de la base de datos
+      * @return
+      * @throws SQLException 
+      */
+    public static int ultimoNumero() throws SQLException{
+        int ultimo;
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT MAX(Codigo_producto) FROM producto"); 
+        ResultSet result = query.executeQuery()) {
+            result.next();
+            ultimo = result.getInt(1)+1;
+        }
         return ultimo;
     }
     
-    
-    //test que he realizado en el main
-    
-    //    String entrada = "07-03-2018";
-    //        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-    //        Date fecha;
-    //        fecha = formato.parse(entrada);
-    //        float myNum = 5.1f;
-    //        ProductoAlimento pipas = new ProductoAlimento(fecha, Categoria.vegano, 2, "pipas" , myNum ,  "pipas saladas");
-    //        System.out.println(pipas.getCaducidad());
-    //        System.out.println(pipas.UltimoNumero);
-    public static void main(String[] args) throws SQLException {
-        Herramientas.crearConexion();
-//        ProductoLimpieza.Superficie superficie = cristal;
-//        ProductoLimpieza pl1=ProductoLimpieza.CrearProductoLimpieza(superficie, "Lejia", 3.9, "Chupito de lejia");
-//        System.out.println(pl1.toString());
-//        ProductoLimpieza.AñadirLimpieza(pl1);
-        ProductoLimpieza.eliminarLimpieza(24);
-        Herramientas.cerrarConexion();
+    /**
+     * Método que te recoge todos los productos en una ArrayList y la retorna
+     * @return 
+     */
+    public static ArrayList recogerProducto(){
+        ArrayList <Producto> listaProductos = new ArrayList();
+        try{
+            Connection conexion = Herramientas.getConexion();
+            conexion.setAutoCommit(false);
+            PreparedStatement query = conexion.prepareStatement("SELECT * FROM producto");
+            ResultSet resultado = query.executeQuery();
+            resultado = query.executeQuery();
+            while(resultado.next()){
+                System.out.println(resultado.toString());
+                int codigo = resultado.getInt("Codigo_producto");
+                String nombre = resultado.getString("Nombre_producto");
+                Double precio = resultado.getDouble("Precio_producto");
+                String descri = resultado.getString("descripcionProd");
+                Producto producto = new Producto(codigo,nombre,precio,descri);
+                listaProductos.add(producto);
+            }
+            conexion.commit();
+            conexion.setAutoCommit(true);
+            query.close();
+        } catch (SQLException sqlException){
+            Herramientas.aviso("Ha fallado al intentar recoger los productos de la bbdd");
+            Excepciones.pasarExcepcionLog("Ha fallado al intentar recoger los productos de la bbdd", sqlException);
+        } 
+        return listaProductos;
     }
-    
-//        ProductoAlimento.Categoria categoria = vegano;
-//        ProductoAlimento pa1=ProductoAlimento.CrearProductoAlimento(5, categoria, "patatas", 5.4f, "Patatas recogidas en los campos de Mallorca");
-//        ProductoAlimento.AñadirAlimento(pa1);
 }
 

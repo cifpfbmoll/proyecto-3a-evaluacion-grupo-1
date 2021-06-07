@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author PC
+ * @author jaume
  */
 public class VerTickets extends javax.swing.JFrame {
 
@@ -34,7 +34,7 @@ public class VerTickets extends javax.swing.JFrame {
             }
         } 
         catch(SQLException ex){
-            System.out.println("Ha habido un error al recoger sus tickets de la base de datos");
+            Herramientas.aviso("Ha habido un error al recoger sus tickets de la base de datos");
             Excepciones.pasarExcepcionLog("Ha habido un error al recoger sus tickets de la base de datos", ex);
         }
     }
@@ -252,12 +252,12 @@ public class VerTickets extends javax.swing.JFrame {
         setResizable(false);
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setMaximumSize(new java.awt.Dimension(400, 458));
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(999999999, 999999999));
         jScrollPane1.setMinimumSize(new java.awt.Dimension(400, 458));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(400, 458));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setMaximumSize(new java.awt.Dimension(398, 32767));
+        jPanel1.setMaximumSize(new java.awt.Dimension(999932767, 999932767));
         jPanel1.setMinimumSize(new java.awt.Dimension(398, 456));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane1.setViewportView(jPanel1);
@@ -279,40 +279,6 @@ public class VerTickets extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VerTickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VerTickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VerTickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VerTickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VerTickets().setVisible(true);
-            }
-        });
-    }
     
     public void añadirTicket(Ticket ticket, Supermercado supermercado) throws SQLException{
         DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -322,15 +288,13 @@ public class VerTickets extends javax.swing.JFrame {
         supermercado.getNIF(), supermercado.getAddress(), supermercado.getPhoneNumber(),
         supermercado.getZipCode(), ticket.getFechaCompra().format(formatoFecha), ticket.getHoraCompra().format(formatoHora));
         for(int i=0;i<ticket.getLineasTicket().size();i++){
-            ResultSet resultado=null;
-            try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT nombre_producto FROM producto WHERE codigo_producto=?")) {
+            try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT nombre_producto FROM linea_ticket WHERE codigo_producto=?")) {
                 query.setInt(1, ticket.getLineasTicket().get(i).getCodigo_producto());
-                resultado = query.executeQuery();
-                resultado.next();
-                this.añadirLineaTicket(resultado.getString(1),
-                ticket.getLineasTicket().get(i).getCantidad(), ticket.getLineasTicket().get(i).getPrecio_linea());
-            }finally{
-                resultado.close();
+                try (ResultSet resultado = query.executeQuery()) {
+                    resultado.next();
+                    this.añadirLineaTicket(resultado.getString(1),
+                    ticket.getLineasTicket().get(i).getCantidad(), ticket.getLineasTicket().get(i).getPrecio_linea());
+                }
             }
         }
         this.añadirFinalTicket(ticket.getCodigo(), ticket.getPrecioTotal());

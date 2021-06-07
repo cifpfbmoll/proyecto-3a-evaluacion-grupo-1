@@ -20,8 +20,22 @@ import java.util.logging.Logger;
 
 public class Main {
     
+    /**
+     * Objeto Cliente estatico en el que se guarda toda la informacion del cliente
+     * que se ha logeado en la aplicacion.
+     */
     private static Cliente clienteActivo;
+    
+    /**
+     * Objeto Empleado estatico en el que se guarda toda la informacion del empleado
+     * que se ha logeado en la aplicacion.
+     */
     private static Empleado empleadoActivo;
+    
+    /**
+     * Objeto Supermercado estatico en el que se guarda toda la informacion del Supermercado
+     * que se ha elegido al logearse.
+     */
     private static Supermercado supermercadoActivo;
 
     public static Cliente getClienteActivo() {
@@ -78,13 +92,11 @@ public class Main {
                 try {
                     Herramientas.crearConexion();
                 } catch (SQLException ex) {
-                    Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+                    Herramientas.aviso("Error al conectar con la base de datos");
+                    Excepciones.pasarExcepcionLog("Error al conectar con la base de datos", ex);
                 }
                 InicioSesion login=new InicioSesion();
             }
         });
-//        Herramientas.crearConexion();
-//        
-//        Herramientas.cerrarConexion();
     }
 }

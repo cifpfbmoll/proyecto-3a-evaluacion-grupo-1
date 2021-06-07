@@ -11,6 +11,7 @@ import Main.Classes.*;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.RoundRectangle2D;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -175,46 +176,7 @@ public class InicioSesion extends javax.swing.JFrame {
         }
         System.exit(0);
     }   
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Registrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Registrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Registrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Registrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Herramientas.crearConexion();
-                } catch (SQLException ex) {
-                    Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                InicioSesion login=new InicioSesion();
-            }
-        });
-    }
-    //tengo que cambiar tipo columna contraseñas a string por ahora
+
     public void inicioSesion() throws SQLException{
         boolean clienteLogeado=this.inicioSesionCliente();
         boolean empleadoLogeado=false;
@@ -225,7 +187,8 @@ public class InicioSesion extends javax.swing.JFrame {
             Herramientas.aviso("El usuario o contraseña son incorrectos");
         }
         else if(empleadoLogeado){
-            //abrir frame principal empleados
+            InterfazEmpleado frame=new InterfazEmpleado();
+            this.dispose();
         }
         else if(clienteLogeado){
             if(Main.getClienteActivo().getCestaCompra().isEmpty()){
@@ -242,46 +205,49 @@ public class InicioSesion extends javax.swing.JFrame {
         }
     }
     
-    //comentar
     public boolean inicioSesionCliente() throws SQLException {        
         String usuario=this.getUsuario().getText();
         char[] aContrasena=this.getContraseña().getPassword();
         String contrasena=String.valueOf(aContrasena);
-        Herramientas.hacerSelect("SELECT * FROM cliente ", true); 
-        ResultSet resultadoClientes=Herramientas.getResultado();
-        boolean encontrado=false;
-        boolean coincide=false;
-        while(resultadoClientes.next() && !encontrado){
-            if(resultadoClientes.getString("DNI_cliente").equals(usuario)){
-                encontrado=true;
-                if(resultadoClientes.getString("contraseña").equals(contrasena)){
-                    coincide=true;
-                    Cliente c1=Cliente.recogerCliente(Herramientas.getConexion(), usuario);
-                    Main.setClienteActivo(c1); 
+        boolean coincide;
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT * FROM cliente "); 
+        ResultSet resultadoClientes = query.executeQuery()) {
+            boolean encontrado=false;
+            coincide = false;
+            while(resultadoClientes.next() && !encontrado){
+                if(resultadoClientes.getString("DNI_cliente").equals(usuario)){
+                    encontrado=true;
+                    if(resultadoClientes.getString("contraseña").equals(contrasena)){
+                        coincide=true;
+                        Cliente c1=Cliente.recogerCliente(Herramientas.getConexion(), usuario); 
+                        Main.setClienteActivo(c1);
+                    }
                 }
-            }
+            }          
         }
         return coincide;
     }
-    //comentar
+
     public boolean inicioSesionEmpleado() throws SQLException {        
         String usuario=this.getUsuario().getText();
         char[] aContrasena=this.getContraseña().getPassword();
         String contrasena=String.valueOf(aContrasena);
-        Herramientas.hacerSelect("SELECT * FROM empleado ", true); 
-        ResultSet resultadoEmpleados=Herramientas.getResultado();
-        boolean encontrado=false;
-        boolean coincide=false;
-        while(resultadoEmpleados.next() && !encontrado){
-            if(Integer.toString(resultadoEmpleados.getInt("ID_empleado")).equals(usuario)){
-                encontrado=true;
-                if(resultadoEmpleados.getString("contraseña").equals(contrasena)){
-                    coincide=true;
-                    Empleado e1=Empleado.recogerEmpleado(Herramientas.getConexion(), resultadoEmpleados.getInt("ID_empleado"));
-                    Main.setEmpleadoActivo(e1);
+        boolean coincide;
+        try (PreparedStatement query = Herramientas.getConexion().prepareStatement("SELECT * FROM empleado "); 
+        ResultSet resultadoEmpleados = query.executeQuery()) {
+            boolean encontrado=false;
+            coincide = false;
+            while(resultadoEmpleados.next() && !encontrado){
+                if(Integer.toString(resultadoEmpleados.getInt("ID_empleado")).equals(usuario)){
+                    encontrado=true;
+                    if(resultadoEmpleados.getString("contraseña").equals(contrasena)){
+                        coincide=true;
+                        Empleado e1=Empleado.recogerEmpleado(Herramientas.getConexion(), resultadoEmpleados.getInt("ID_empleado"));
+                        Main.setEmpleadoActivo(e1);
+                        Main.setSupermercadoActivo(Supermercado.instantiateSupermarketFromDB(e1.getCodigoSupermercado()));
+                    }
                 }
-            }
-        } 
+            }          }
         return coincide;
     }
 

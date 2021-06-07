@@ -1,5 +1,7 @@
 # proyecto-3a-evaluacion-grupo-1
 
+# DIARIO DE TRABAJO:
+
 # 24/03/2021
 
 Empezamos el proyecto, empezamos el 1 Sprint. Recogemos los requisitos del programa que nos ha dado el product owner. A partir de estos requisitos empezamos a pensar como será el programa y a crear la base de datos. Creamos el diagrama entidad relación.
@@ -75,3 +77,40 @@ Estamos en el Sprint 6. En este Sprint se trabajará con ficheros, como pidió e
 # 19/05/2021
 
 Continuamos con el Sprint 6. La gente ya ha empezado con los ficheros y por ahora no hay problemas. Vamos al día con los objetivos. La interfaz grafica de los clientes va en muy buen camino, se podría decir que ya estamos a punto de terminarla.
+
+# 24/05/2021
+
+Esta semana es la del examen, así que el objetivo es terminar los métodos de las transacciones cuando antes y dejar repasar lo necesario a los miembros del proyecto. Hay gente que ya tiene terminados los métodos y gente que aun va atrasada con los métodos de Sprints anteriores. En cuanto a la interfaz gráfica, la del cliente está a nada de estar terminada. Estos días no avanzaremos demasiado debido al examen, pero este fin de semana debería estar terminada al 100%. 
+
+# 25/05/2021
+
+Se da día libre para preparar repositorio de examen, conexiones a la base de datos,…. A comentar que hemos solucionado un problema que teníamos con la alineación de las diferentes filas tanto en la cesta de compra como en los tickets. Hoy termina el Sprint 6.
+
+# 26/05/2021
+
+Dia del examen.
+
+# 31/05/2021
+
+Este fin de semana he hecho los últimos retoques a la interfaz de usuario y en estos momentos se encuentra 100% funcional. Hoy empieza el Sprint 7, el ultimo, donde tendremos que crear la interfaz de empleado, que es bastante mas simple que la de cliente. Este Sprint se divide en hacer cada uno las interfaces graficas de añadir/eliminar objetos de alguna clase relacionada con esta interfaz y la de crear la interfaz principal. También se tiene que repasar el código hecho para dejarlo comentado correctamente y sin dejarnos ningún print innecesario por consola.
+
+# 01/06/2021
+
+Corregimos el examen, así que no podremos hacer demasiado.
+
+# 02/06/2021
+
+Continuamos con el Sprint 7, el frame principal de empleados esta a punto de estar terminado. Ya hay bastantes clases comentadas y código repasado. Los frames de las opciones del frame principal de empleados están en proceso. Tendremos que trabajar este fin de semana pero creo que tendremos todo terminado y limpio para el día de la presentación.
+
+# 07/06/2021
+
+Sprint 7 terminado. Frames creados y clases comentadas. Se ha adjuntado toda la documentación.
+
+
+# DIAGRAMA BASE DE DATOS:
+
+![Diagrama Base de datos](Documentacion\Supermercados.png)
+
+# UML:
+
+![UML](Documentacion\UMLSupermercado.png)

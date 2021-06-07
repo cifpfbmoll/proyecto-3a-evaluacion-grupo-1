@@ -25,6 +25,21 @@ public class Cliente extends Persona {
         super();
     }
 
+    /**
+     * Constructor con parámetros de cliente
+     * @param nombre
+     * @param apellido1
+     * @param apellido2
+     * @param edad
+     * @param nif
+     * @param cAutonoma
+     * @param localidad
+     * @param cPostal
+     * @param direccion
+     * @param email
+     * @param contraseña
+     * @param telefono 
+     */
     public Cliente(String nombre, String apellido1, String apellido2, int edad,String nif, String cAutonoma, String localidad, String cPostal, String direccion,
     String email, String contraseña, String telefono) {
         super(nombre, apellido1, apellido2, edad, nif, cAutonoma, localidad, cPostal, direccion, email, contraseña, telefono);
@@ -51,8 +66,15 @@ public class Cliente extends Persona {
     public String toString() {
         return super.toString()+"Cliente{" + "cestaCompra=" + cestaCompra + '}';
     }
+    
+    /**
+     * *Borra una persona de la BBDD
+     * @param conexion
+     * @param nif 
+     */
     public static void eliminarPersona(Connection conexion, String nif) {
-        try (PreparedStatement borrar = conexion.prepareStatement("DELETE FROM cliente WHERE DNI_Cliente = ?")) {
+        try  {
+            PreparedStatement borrar = conexion.prepareStatement("DELETE FROM cliente WHERE DNI_Cliente = ?");
             borrar.setString(1, nif);
             borrar.executeUpdate();
         }
@@ -62,10 +84,26 @@ public class Cliente extends Persona {
         }
     }
 
-    public Cliente buscarCliente(String nif) {
-        //TO DO and define
-        return null;
-    }
+
+    /**
+     * *Añade un cliente pasándole sus parámetros a la base de datos
+     * @param nombre
+     * @param apellido1
+     * @param apellido2
+     * @param edad
+     * @param nif
+     * @param cAutonoma
+     * @param localidad
+     * @param cPostal
+     * @param direccion
+     * @param email
+     * @param contraseña
+     * @param rContraseña
+     * @param telefono
+     * @param conexion
+     * @throws Excepciones
+     * @throws SQLException 
+     */
 
     public static void añadirPersona(String nombre, String apellido1, String apellido2, int edad, String nif, String cAutonoma, 
     String localidad, String cPostal, String direccion, String email, String contraseña, String rContraseña, String telefono, Connection conexion) throws Excepciones, SQLException{
@@ -93,6 +131,14 @@ public class Cliente extends Persona {
         sentencia.executeUpdate();
     }
 
+    
+    /**
+     * Recoge un cliente de la base de datos y lo retorna como objeto Cliente
+     * @param conexion
+     * @param nif
+     * @return
+     * @throws SQLException 
+     */
     public static Cliente recogerCliente(Connection conexion, String nif) throws SQLException {
         PreparedStatement sentencia = conexion.prepareStatement("SELECT * FROM cliente WHERE DNI_Cliente = ?");
         sentencia.setString(1, nif);
@@ -116,6 +162,11 @@ public class Cliente extends Persona {
         return per;
     }
     
+    
+    /**
+     * Recupera la cesta de un cliente de la base de datos
+     * @throws SQLException 
+     */
     public void recuperarCesta() throws SQLException{
         PreparedStatement query=Herramientas.getConexion().prepareStatement("SELECT * FROM linea_carrito WHERE dni_cliente=?");
         query.setString(1, this.getNif());
@@ -142,10 +193,11 @@ public class Cliente extends Persona {
     }
     /**
      * Metodo que añade una linea de compra al carrito.Es de instancia, por tanto
-    necesita un objeto de esta clase.
+     * necesita un objeto de esta clase.
      * @param codigo_producto
      * @param precio_producto
-     * @param cantidad 
+     * @param cantidad
+     * @throws SQLException 
      */
     public void añadirProductoCarrito(int codigo_producto, double precio_producto, int cantidad) throws SQLException{
         int i=0;
@@ -185,11 +237,9 @@ public class Cliente extends Persona {
                 Herramientas.getConexion().commit();
             } catch (SQLException ex) {
                 Herramientas.aviso("Ha habido algun error al añadir el producto en su carrito");
-                ex.printStackTrace();
                 Herramientas.getConexion().rollback();
             } catch (Excepciones ex1) {
                 Herramientas.aviso(ex1.getMessage());
-                ex1.printStackTrace();
                 Herramientas.getConexion().rollback();
             }
             finally{
@@ -198,10 +248,17 @@ public class Cliente extends Persona {
         }
     }
     
+    
+    /**
+     * Método que elimina un producto del carrito
+     * @param codigo_producto
+     * @param cantidad
+     * @throws SQLException 
+     */
     public void eliminarProductoCarrito(int codigo_producto, int cantidad) throws SQLException{
         try {
             Herramientas.getConexion().setAutoCommit(false);
-            Main.getSupermercadoActivo().devolverStock(codigo_producto,cantidad);
+            Main.getSupermercadoActivo().añadirStock(codigo_producto,cantidad);
             LineaCompra.borarLineaCarrito(codigo_producto);
             int i=0;
             boolean encontrado=false;
@@ -215,7 +272,6 @@ public class Cliente extends Persona {
             Herramientas.getConexion().commit();
         } catch (SQLException ex) {
             Herramientas.aviso("Ha habido algun error al eliminar el producto en su carrito");
-            ex.printStackTrace();
             Herramientas.getConexion().rollback();
         }
         finally{
@@ -223,6 +279,10 @@ public class Cliente extends Persona {
         }  
     }
     
+    /**
+     * Método que confirma una compra de un carrito
+     * @throws SQLException 
+     */
     public void confirmarCompra() throws SQLException{
         try {
             Herramientas.getConexion().setAutoCommit(false);
@@ -235,13 +295,17 @@ public class Cliente extends Persona {
         }catch(SQLException ex){
             Herramientas.aviso("Ha habido un error al procesar su compra");
             Excepciones.pasarExcepcionLog("Ha habido un error al procesar su compra", ex);
-            ex.printStackTrace();
             Herramientas.getConexion().rollback();
         }finally{
             Herramientas.getConexion().setAutoCommit(true);
         }
     }
     
+    
+    /**
+     * *Método para introducir una reclamación de un cliente
+     * @param reclamacion 
+     */
     public void escribirReclamacion(String reclamacion){
         if (reclamacion.isBlank()){
             Herramientas.aviso("La reclamacion esta vacia");
@@ -279,10 +343,36 @@ public class Cliente extends Persona {
                 while(!fin);
                 escritor.newLine();
                 escritor.newLine();
+                Herramientas.aviso("Su reclamacion ha sido enviada con exito");
             } catch (IOException ex) {
                 Excepciones.pasarExcepcionLog("Ha ocurrido un problema al insertar su reclamacion", ex);
                 Herramientas.aviso("Ha ocurrido un problema al insertar su reclamacion");
             }
+        }
+    }
+    
+    /**
+     * *Método para eliminar un cliente y su información de carrito, tarjeta, etc.
+     * @param conexion
+     * @param nif
+     * @throws SQLException 
+     */
+    public static void eliminarClienteYInfo(Connection conexion, String nif) throws SQLException {
+        try {
+            conexion.setAutoCommit(false);
+            Cliente.eliminarPersona(conexion, nif);
+            PreparedStatement borrar = conexion.prepareStatement("DELETE FROM linea_carrito WHERE DNI_cliente = ?");
+            borrar.setString(1, nif);
+            borrar.executeUpdate();
+            borrar = conexion.prepareStatement("DELETE FROM tarjeta_cliente WHERE DNI_cliente = ?");
+            borrar.setString(1, nif);
+            borrar.executeUpdate();
+            conexion.commit();
+        } catch (SQLException ex) {
+            conexion.rollback();
+        }
+        finally {
+            conexion.setAutoCommit(true);
         }
     }
     

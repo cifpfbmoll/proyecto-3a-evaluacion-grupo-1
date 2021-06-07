@@ -1,0 +1,16 @@
+ID Empleado: 1
+Fecha: 02/06/2021   Hora: 23:22
+
+-------------------IDEA DE MEJORA-------------------------
+Creo que vendria bien una maquina de cafe en la sala de es-
+tar ya que ahora mismo no hay
+
+
+ID Empleado: 23
+Fecha: 02/06/2021   Hora: 23:26
+
+-------------------IDEA DE MEJORA-------------------------
+En la oficina de recursos humanos, durante el verano, hace 
+mucho calor, estaria bien disponer de un aire acondicionado
+
+

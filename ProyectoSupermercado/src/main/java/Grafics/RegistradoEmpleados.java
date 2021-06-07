@@ -7,9 +7,13 @@ package Grafics;
 
 
 //import codigo.Excepciones;
+import Main.Classes.*;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -21,15 +25,13 @@ import javax.swing.JTextField;
 public class RegistradoEmpleados extends javax.swing.JFrame {
     
     
-    //private Biblioteca biblioteca;
     /**
      * Creates new form Registrador
      */
-    public RegistradoEmpleados(/*Biblioteca b*/) {
+    public RegistradoEmpleados() {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        //this.setBiblioteca(b);
     }
     
 
@@ -235,11 +237,6 @@ public class RegistradoEmpleados extends javax.swing.JFrame {
         comunidadAutonoma.setForeground(new java.awt.Color(255, 255, 255));
         comunidadAutonoma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Andalucía", "Aragón", "Canarias", "Cantabria", "Castilla-LM", "Castilla y León", "Cataluña", "Ceuta", "Madrid", "C.Valenciana", "Extremadura", "Galicia", "Baleares", "La Rioja", "Melilla", "Navarra", "País Vasco", "Asturias", "Murcia" }));
         comunidadAutonoma.setToolTipText("");
-        comunidadAutonoma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comunidadAutonomaActionPerformed(evt);
-            }
-        });
         getContentPane().add(comunidadAutonoma, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 130, 30));
 
         NIF.setBackground(new java.awt.Color(0, 51, 0));
@@ -299,7 +296,7 @@ public class RegistradoEmpleados extends javax.swing.JFrame {
         puestoTrabajo.setBackground(new java.awt.Color(0, 51, 0));
         puestoTrabajo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         puestoTrabajo.setForeground(new java.awt.Color(255, 255, 255));
-        puestoTrabajo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dependiente", "Supervisor", "RRHH", "Director" }));
+        puestoTrabajo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dependiente", "Supervisor", "Recursos Humanos", "Director" }));
         getContentPane().add(puestoTrabajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 130, 30));
 
         botonRegistro.setBackground(new java.awt.Color(102, 102, 102));
@@ -360,64 +357,26 @@ public class RegistradoEmpleados extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAtrasActionPerformed
 
     private void botonRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistroActionPerformed
-        /*try{
-            MainGrafic.crearBibliotecario(this.getBiblioteca(), this);
-            this.aviso("HAS SIDO REGISTRADO");
-            InicioSesion login=new InicioSesion(this.getBiblioteca());
-            this.dispose();
-        }
-        catch(Excepciones e){
-            this.aviso(e.getMessage());
-        }
-        catch(NumberFormatException excepcion){
-            this.aviso("La edad tiene que ser un numero");
-        }*/
-    }//GEN-LAST:event_botonRegistroActionPerformed
-
-    private void comunidadAutonomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comunidadAutonomaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comunidadAutonomaActionPerformed
-
-    public void aviso (String mensaje){
-        JOptionPane.showMessageDialog(null,mensaje); 
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistradoEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistradoEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistradoEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistradoEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            int id=Empleado.añadirPersona(this.getNombre().getText(), this.getApellido1().getText(),
+            this.getApellido2().getText(), Integer.parseInt(this.getEdad().getText()),
+            this.getNIF().getText(), this.getComunidadAutonoma().getSelectedItem().toString(),
+            this.getLocalidad().getText(), this.getCodigoPostal().getText(),
+            this.getDireccion().getText(), this.getEmail().getText(), this.getContrasena().getText(),
+            this.getRepetirContrasena().getText(), this.getTelefono().getText(),
+            Integer.parseInt(this.getCodigoSupermercado().getText()), this.getPuestoTrabajo().getSelectedItem().toString(),
+            Empleado.privilegiosPuestoTrabajo(this.getPuestoTrabajo().getSelectedItem().toString()),
+            Herramientas.getConexion());
+            Herramientas.aviso("Empleado registrado con exito\nSu ID es: "+id);
+        } catch(Excepciones ex){
+            Herramientas.aviso(ex.getMessage());
+            Excepciones.pasarExcepcionLog(ex.getMessage(), ex);
+        } catch (SQLException ex) {
+            Herramientas.aviso("Ha habido un error al registrar el empleado en la base de datos");
+            Excepciones.pasarExcepcionLog("Ha habido un error al registrar el empleado en la base de datos", ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistradoEmpleados().setVisible(true);
-            }
-        });
-    }
+        this.dispose();
+    }//GEN-LAST:event_botonRegistroActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CodigoPostal;

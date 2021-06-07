@@ -56,12 +56,26 @@ public class ProductoHigiene extends Producto {
         }
     }
     
+    /**
+     * Método para instanciar un ProductoHigiene usando el método ultimoNumero y así asignarle directamente el código correcto, retorna un ProductoHigiene.
+     * @param tipoHigiene
+     * @param nombreProd
+     * @param precioProd
+     * @param descripcionProd
+     * @return
+     * @throws SQLException 
+     */
     public static ProductoHigiene crearProductoHigiene(TipoHigiene tipoHigiene, String nombreProd, double precioProd, String descripcionProd) throws SQLException {
-        int ultimoCodigoProd = ProductoHigiene.UltimoNumero();
+        int ultimoCodigoProd = ProductoHigiene.ultimoNumero();
         ProductoHigiene ph1 = new ProductoHigiene(tipoHigiene, ultimoCodigoProd, nombreProd, precioProd, descripcionProd);
         return ph1;
     }
     
+    /**
+     * Método que nos añade el productoHigiene a la base de datos.
+     * @param ph1
+     * @throws SQLException 
+     */
     public static void añadirHigiene(ProductoHigiene ph1) throws SQLException{
         Connection conexion = Herramientas.getConexion();
         try{
@@ -73,35 +87,30 @@ public class ProductoHigiene extends Producto {
             query.setString(4, ph1.getDescripcionProd());
             query.setString(5, "Higiene");
             query.executeUpdate();
-            conexion.commit();
             query = conexion.prepareStatement("INSERT INTO producto_higiene VALUES(?,?)");
             query.setInt(1, ph1.getCodigoProd());
             query.setString(2, String.valueOf(ph1.getTipoHigiene()));
+            query.executeUpdate();
+            query=conexion.prepareStatement("INSERT INTO stock_supermercado "+
+            "SELECT DISTINCT(Codigo_supermercado),?,0 FROM stock_supermercado;");
+            query.setInt(1, ph1.getCodigoProd());
             query.executeUpdate();
             conexion.commit();
             conexion.setAutoCommit(true);
             query.close();
         }catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            Herramientas.aviso("Ha fallado la transacción de añadir Higiene");
+            Excepciones.pasarExcepcionLog("Ha fallado la transacción de añadir Higiene", sqlException);
             conexion.rollback();
             conexion.setAutoCommit(true);
         }
-        
-//        Metodo antiguo con la clase Herramientas
-//        try{
-//            Herramientas.modificarDatosTabla("INSERT INTO producto VALUES("+ph1.getCodigoProd()+",'"+ph1.getNombreProd()+"',"+ph1.getPrecioProd()+",'"+ph1.getDescripcionProd()+"','Higiene')",false);
-//            Herramientas.modificarDatosTabla("INSERT INTO producto_higiene VALUES("+ph1.getCodigoProd()+",'"+ph1.getTipoHigiene()+"')",false);
-//            Herramientas.getConexion().commit();
-//            Herramientas.getConexion().setAutoCommit(true);
-//            Herramientas.cerrarStatementResult();
-//        } catch (SQLException error){
-//            Herramientas.getConexion().rollback();
-//            Herramientas.getConexion().setAutoCommit(true);
-//            Herramientas.aviso("Ha habido un error");
-//            //error.printStackTrace();
-//        }
     }
     
+    /**
+     * Método que nos permite eliminar de la base de datos el productoHigiene con el código que le pasamos.
+     * @param codigoProd
+     * @throws SQLException 
+     */
     public static void eliminarHigiene(int codigoProd) throws SQLException{
         Connection conexion = Herramientas.getConexion();
         try{
@@ -109,34 +118,32 @@ public class ProductoHigiene extends Producto {
             PreparedStatement query = conexion.prepareStatement("DELETE FROM producto_higiene WHERE Codigo_producto = ?");
             query.setInt(1, codigoProd);
             query.executeUpdate();
-            conexion.commit();
-            query = conexion.prepareStatement("DELETE FROM producto WHERE Codigo_higiene = ?");
+            query = conexion.prepareStatement("DELETE FROM producto WHERE Codigo_producto = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            query= conexion.prepareStatement("DELETE FROM stock_supermercado WHERE Codigo_producto = ?");
+            query.setInt(1, codigoProd);
+            query.executeUpdate();
+            query= conexion.prepareStatement("DELETE FROM linea_carrito WHERE codigo_producto=?");
             query.setInt(1, codigoProd);
             query.executeUpdate();
             conexion.commit();
             query.close();
             conexion.setAutoCommit(true);
         } catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            Herramientas.aviso("Ha fallado la transacción de eliminar Higiene");
+            Excepciones.pasarExcepcionLog("Ha fallado la transacción de eliminar Higiene", sqlException);
             conexion.rollback();
             conexion.setAutoCommit(true);
         }
-
-//        Metodo Antiguo con clase Herramientas
-//        try{
-//            Herramientas.modificarDatosTabla("DELETE FROM producto_higiene WHERE Codigo_producto = "+codigoProd,false);
-//            Herramientas.modificarDatosTabla("DELETE FROM producto WHERE Codigo_producto = "+codigoProd,false);
-//            Herramientas.getConexion().commit();
-//            Herramientas.getConexion().setAutoCommit(true);
-//            Herramientas.cerrarStatementResult();
-//        } catch (SQLException error){
-//            Herramientas.getConexion().rollback();
-//            Herramientas.getConexion().setAutoCommit(true);
-//            Herramientas.aviso("Ha habido un error");
-//            //error.printStackTrace();
-//        }
     }
     
+    /**
+     * Método que nos permite recoger un productoHigiene, nos retorna el objeto.
+     * @param buscar
+     * @return
+     * @throws SQLException 
+     */
     public static ProductoHigiene recogerHigiene(int buscar) throws SQLException{
         Connection conexion = Herramientas.getConexion();
         try{
@@ -156,7 +163,8 @@ public class ProductoHigiene extends Producto {
             query.close();
             return ph1;
         }catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            Herramientas.aviso("Ha fallado al intentar recoger la Higiene de la bbdd");
+            Excepciones.pasarExcepcionLog("Ha fallado al intentar recoger la Higiene de la bbdd", sqlException);
             conexion.rollback();
             return null;
         }
