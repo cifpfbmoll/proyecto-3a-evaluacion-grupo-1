@@ -39,3 +39,12 @@ Producto:  Canelones Buitoni  cantidad: 50
 Fecha: Mon Jun 07 17:05:53 CEST 2021
 
 Producto:  fdg  cantidad: 5
+
+
+
+-------------------------ACTUALIZACION-----------------------
+Fecha: Mon Jun 07 17:16:54 CEST 2021
+
+Producto:  Almendras  cantidad: 25
+Producto:  Heiniken  cantidad: 250
+Producto:  Axe  cantidad: 50

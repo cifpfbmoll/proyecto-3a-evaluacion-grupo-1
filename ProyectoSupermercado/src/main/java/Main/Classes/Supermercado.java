@@ -74,8 +74,7 @@ public class Supermercado {
                 " en " + address +
                 ". Con teléfono " + phoneNumber +
                 ", email " + email +
-                " y área " + area + '.' + '\'' +
-                " Su stock es " + stockSupermercado;
+                " y área " + area + '.'+"";
     }
 
     public static class Builder { //Builder Pattern

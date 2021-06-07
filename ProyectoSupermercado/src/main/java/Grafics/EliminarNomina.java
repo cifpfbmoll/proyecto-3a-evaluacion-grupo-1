@@ -116,7 +116,7 @@ public class EliminarNomina extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ELIGE LA TARJETA A ELIMINAR");
+        jLabel2.setText("ELIGE LA NOMINA A ELIMINAR");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green-Wallpaper-5.jpg"))); // NOI18N
@@ -132,6 +132,7 @@ public class EliminarNomina extends javax.swing.JFrame {
             int cod = Integer.parseInt(parts[0]);
             System.out.println(String.valueOf(cod));
             Nomina.eliminarNomina(cod);
+            Herramientas.aviso("Nomina eliminada");
         } catch (SQLException ex) {
             Herramientas.aviso("Ha ocurrido un error al eliminar su nomina");
             Excepciones.pasarExcepcionLog("Ha ocurrido un error al eliminar su nomina", ex);
