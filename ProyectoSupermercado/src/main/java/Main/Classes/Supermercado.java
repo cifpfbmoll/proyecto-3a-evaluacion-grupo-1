@@ -179,7 +179,7 @@ public class Supermercado {
 
     /**
      * This method is used to write the data from a Supermercado Object into an external .txt file.
-     * @param supermercado A Supermercado Object from which to get data and execute toString, in order for the Writer to output it's data.
+     * @param supermercado A Supermercado Object from which to get data and execute toString, in order for the Writer to output its data.
      */
     public static void writeDataToFile(Supermercado supermercado) {
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -269,9 +269,9 @@ public class Supermercado {
         }
 
     /**
-     * This method gets data from Database in order to instantiate a Supermercado Object with it's specific data.
+     * This method gets data from Database in order to instantiate a Supermercado Object with its specific data.
      * @param supermarketCode int, used to identify the Supermercado in the database.
-     * @return A Supermercado Object, instantiaded with values from the database corresponding to it's code.
+     * @return A Supermercado Object, instantiaded with values from the database corresponding to its code.
      * @throws SQLException SQLException from Database's possible errors.
      */
     public static Supermercado instantiateSupermarketFromDB(int supermarketCode) throws SQLException {
@@ -354,7 +354,7 @@ public class Supermercado {
 
     /**
      * This method deletes the information related to the supermarketCode parameter in the database.
-     * It also deletes anything that depends on it's existence, such as it's employees, or their paysheets (Transaction).
+     * It also deletes anything that depends on its existence, such as its employees, or their paysheets (Transaction).
      * @param supermarketCode int, used to identify which Supermercado you want to delete.
      */
     public static void removeSupermarketFromDB(int supermarketCode) {
@@ -414,7 +414,7 @@ public class Supermercado {
 
     /**
      * This method is intended to collect some data from the database, and make a String out of it, which then will be saved in the returned ArrayList.
-     * It's main function is to populate a JComboBox.
+     * Its main function is to populate a JComboBox.
      * @return An ArrayList containing a String for each different entry on the Supermercado Table in the database.
      */
    public static ArrayList<String> getSupermarketsFromDatabase() {
