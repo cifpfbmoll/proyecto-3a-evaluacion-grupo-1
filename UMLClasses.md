@@ -1,1 +1,0 @@
-![UML](Documentacion\UMLSupermercado.png)

@@ -1,4 +1,8 @@
-# proyecto-3a-evaluacion-grupo-1
+# PROYECTO 3A EVALUACIÓN GRUPO 1
+
+# PRESENTACION:
+
+Este proyecto ha sido creado por alumnos de 1 de DAM del CIFP Borja Moll. Hemos creado un programa para una cadena de supermercados que quería permitir a sus clientes poder comprar sus productos por medio de una aplicación. Aprovechando esto, esa misma cadena nos pidió que esa misma aplicación sirviera para gestionar los supermercados y los empleados de esos supermercados. Siguiendo sus directrices hemos creado un programa que permita hacer todo eso a través de un mismo log in diferenciando si se inicia sesión con un DNI, y por lo tanto será un Cliente, o con una id de empleado, y por lo tanto será un empleado.
 
 # DIARIO DE TRABAJO:
 
@@ -109,8 +113,17 @@ Sprint 7 terminado. Frames creados y clases comentadas. Se ha adjuntado toda la 
 
 # DIAGRAMA BASE DE DATOS:
 
-![Diagrama Base de datos](Documentacion\Supermercados.png)
+![Diagrama Base de datos](Supermercados.png)
 
 # UML:
 
-![UML](Documentacion\UMLSupermercado.png)
+![UML](UMLSupermercado.png)
+
+# CREADORES:
+
+- Joan Francesc Caules
+- Josep Fayos
+- Aaron Fernandez
+- Tamara Fernandez
+- James Cañarte
+- Jaume Fullana
